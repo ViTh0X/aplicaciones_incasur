@@ -1,0 +1,129 @@
+:root{
+    --color1: #015C7B;
+    --color2: #D5DB00;
+    --blanco: #fff;
+    --oscuro: #000;
+    --gris: #D8DAD9;
+    --grisOscuro: #757575;
+    --ayuda:#c506c5;
+    --fuente: "Poppins", sans-serif;
+    
+}
+
+html{
+    box-sizing: border-box;
+    font-size: 62.5%; /*1rem = 10px*/
+    height: 100%;    
+}
+*,*::before,*::after{
+    box-sizing: inherit;
+}
+
+body{
+    font-family: var(--fuente);
+    font-size: 1.6rem;
+    line-height: 2;
+    margin: 0;
+    height: 100%;        
+}
+
+/*Globales*/
+.contenedor{
+    width: min(90% , 120rem);
+    margin: 0 auto;
+    padding: 2rem 2rem 2rem 2rem;        
+}
+
+ul {
+  list-style-type: none;  
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  font-size: 1.2rem;  
+}
+.contenedor__grande{
+    width: min(95% 140rem);
+    margin: 0 auto;
+    padding: 2rem 2rem 2rem 2rem;
+}
+h1{    
+    height: 5.5rem;
+}
+/*Utilidades*/
+.centra-texto{
+    text-align: center;
+}
+.no-margin{
+    margin: 0 0;
+}
+.no-subrayado{
+    text-decoration: none;
+}
+.bg-green{
+    background-color: green;
+}
+.bg-red{
+    background-color: red;
+}
+.marginb-04{
+    margin-bottom: 0.4rem;
+}
+.centrar-items{
+    margin: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+/*************/
+
+.header{
+    background-color: var(--color1);    
+    text-align: center;
+    color: var(--blanco);
+}
+
+.footer{
+    background-color: var(--color1);
+    padding: 2rem 1rem;
+    text-align: center;
+    color: var(--blanco);
+}
+.opciones__links{    
+    background-color: var(--color1);
+    text-transform: uppercase;
+    font-size: 2rem;
+    text-align: center;
+    margin-top: 1.5rem;
+    border-radius: 0.5rem;
+}
+.opciones__links a{
+    font-weight: bold;
+    color: var(--blanco);
+    text-decoration: none;
+}
+.opciones__links a:hover{
+    color: var(--color2);
+}
+.formulario{
+    text-decoration: none;
+    font-weight: bold;    
+}
+.formulario input{        
+}
+.formulario label{
+    display: grid;
+}
+.boton{
+    text-transform: uppercase;
+    background-color: var(--color2);
+    border: none;
+    height: 4rem;
+    width: 15rem;
+    font-weight: bold;
+    border-radius: 0.5rem;
+    font-size: 1.5rem;
+}
+.boton:hover{
+    cursor: pointer;
+}
