@@ -7,7 +7,7 @@ import zipfile
 from io import BytesIO
 
 # Create your views here.
-def generar_word_secban(request):
+def generar_word_secban_ahorros(request):
     if request.method == 'POST':
         formulario = formularioSubirExcel(request.POST, request.FILES)
         if formulario.is_valid():

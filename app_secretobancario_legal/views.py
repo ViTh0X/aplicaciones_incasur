@@ -6,7 +6,7 @@ from utilidades.secreto_bancario1 import Secretobancario1
 from .forms import formularioSubirExcel
 from datetime import datetime
 # Create your views here.
-def generar_word_secban(request):
+def generar_word_secban_legal(request):
     dia = datetime.now().day
     mes = datetime.now().month
     año = datetime.now().year
