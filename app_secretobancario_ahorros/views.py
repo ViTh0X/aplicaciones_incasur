@@ -17,7 +17,7 @@ def generar_word_secban_ahorros(request):
             zip_buffer = BytesIO()
             with zipfile.ZipFile(zip_buffer,"w") as zip_file:
                 for filename, buffer in secban.buffers:
-                    zip.file.writestr(filename,buffer.getvalue())
+                    zip_file.writestr(filename,buffer.getvalue())
             zip_buffer.seek(0)
             response = HttpResponse(zip_buffer.getvalue(), content_type='application/zip')
             response["Content-Disposition"] = 'attachment; filename="SecretoBancario_Ahorros.zip"'
