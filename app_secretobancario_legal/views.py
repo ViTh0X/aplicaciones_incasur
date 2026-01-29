@@ -28,7 +28,7 @@ def generar_word_secban_legal(request):
             correlativo = formulario.cleaned_data['numero_correlativo']
             secban = Secretobancario1(archivo_excel)
             secban.generar_word_2(dia,mes,año,correlativo)
-            response = HttpResponse(sb.buffer.read(), content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+            response = HttpResponse(secban.buffer.read(), content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
             response["Content-Disposition"] = f'attachment; filename="Levantamiento secreto bancario {dia_texto}-{mes_texto}.docx"'
             return response
     else:
