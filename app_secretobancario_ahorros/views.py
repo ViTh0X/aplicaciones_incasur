@@ -11,7 +11,7 @@ def generar_word_secban_ahorros(request):
     if request.method == 'POST':
         formulario = formularioSubirExcel(request.POST, request.FILES)
         if formulario.is_valid():
-            archivo_excel = request.cleaned_data['archivo_excel']
+            archivo_excel = formulario.cleaned_data['archivo_excel']
             secban = Secretobancario1(archivo_excel)        
             secban.generar_word_1()
             zip_buffer = BytesIO()
