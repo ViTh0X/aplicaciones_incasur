@@ -24,8 +24,8 @@ def generar_word_secban_legal(request):
     if request.method == 'POST':
         formulario = formularioSubirExcel(request.POST, request.FILES)
         if formulario.is_valid():
-            archivo_excel = request.GET['archivo_excel']
-            correlativo = request.GET['numero_correlativo']
+            archivo_excel = request.cleaned_data['archivo_excel']
+            correlativo = request.cleaned_data['numero_correlativo']
             secban = Secretobancario1(archivo_excel)
             secban.generar_word_2(dia,mes,año,correlativo)
             response = HttpResponse(sb.buffer.read(), content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
