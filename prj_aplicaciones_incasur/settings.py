@@ -118,7 +118,7 @@ USE_TZ = True
 FORCE_SCRIPT_NAME = '/aplicaciones-incasur'
 
 STATIC_URL = '/aplicaciones-incasur/static/'
-STATICFILES_DIR = (
+STATICFILES_DIRS = (
     os.path.join(BASE_DIR,'static'),
 )
 
