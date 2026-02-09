@@ -83,8 +83,9 @@ class TipoEstadoItems(models.Model):
 class Items(models.Model):
     id_item = models.AutoField(primary_key=True)
     nombre_item = models.CharField(max_length=100)
+    descripcion_item = models.CharField(max_length=200,blank=True,null=True)
     imagen_qr = models.ImageField(upload_to='imagenes_qr/',blank=True,null=True)
-    id_area = models.ForeignKey(AreasEmpresa,on_delete=models.CASCADE)
+    id_area = models.ForeignKey(AreasEmpresa,on_delete=models.CASCADE,null=True,blank=True)
     id_estado = models.ForeignKey(TipoEstadoItems,on_delete=models.CASCADE)
     id_almacen = models.ForeignKey(Almacenes,on_delete=models.CASCADE,null=True,blank=True)
     id_usuario = models.ForeignKey(Colaboradores,on_delete=models.CASCADE,null=True,blank=True)

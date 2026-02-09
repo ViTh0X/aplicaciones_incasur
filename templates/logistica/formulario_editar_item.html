@@ -1,0 +1,48 @@
+{% extends "../layout_logistica.html" %}
+{% block titulo %}Editando Articulo{% endblock %}
+{% block contenido %}
+<main>
+    <div class="formularios" >
+        <h1 class="no-margin">Editando Articulo: {{ form.nombre_item }}</h1>
+        <div>
+            <p class="mensaje_error">{{ form.nombre_item.errors }}</p>
+            <p class="mensaje_error">{{ form.descripcion_item.errors }}</p>
+            <p class="mensaje_error">{{ form.id_estado.errors }}</p>
+            <p class="mensaje_error">{{ form.id_almacen.errors }}</p>
+            <p class="mensaje_error">{{ form.id_usuario.errors }}</p>
+            <p class="mensaje_error">{{ form.id_area.errors }}</p>
+        </div>        
+        <form method="POST">
+            {% csrf_token %}
+            <div class="campos_textosimple">
+                <label for="">Nombre:</label>
+                {{ form.nombre_item }}
+            </div>
+            <div class="campos_textosimple">
+                <label for="">Informacion Extra:</label>
+                {{ form.descripcion_item }}
+            </div>            
+            <div class="campos_textosimple">
+                <label for="">Estado:</label>
+                {{ form.id_estado }}
+            </div>
+            <div class="campos_textosimple">
+                <label for="">Almacen:</label>
+                {{ form.id_almacen }}
+            </div>
+            <div class="campos_textosimple">
+                <label for="">Colaborador Asignado:</label>
+                {{ form.id_usuario }}
+            </div>
+            <div class="campos_textosimple">
+                <label for="">Area-Ubicacion:</label>
+                {{ form.id_area }}
+            </div>
+            <div class="botones_formularios">
+                <a class="boton_enlace a1" href="{% url 'logistica_items' %}">← Volver a Articulos</a>
+                <button class="boton_formulario" type="submit">Editar Articulo</button>
+            </div>
+        </form>
+    </div>    
+</main>
+{% endblock  %}
