@@ -46,9 +46,6 @@ span{
 ul{
     list-style-type: none;
 }
-h1{
-    font-family: var(--fuente);
-}
 /*Informacion Usuario*/
 .plantilla__menu{
     background-color: var(--colorPrincipal);
@@ -93,8 +90,7 @@ h1{
 }
 .usuario__informacion p,
 .usuario__informacion span{
-    text-transform: uppercase;
-    font-family: var(--fuente);
+    text-transform: uppercase;    
     font-size: 1.2rem;
     font-weight: normal;
 }
@@ -131,8 +127,7 @@ h1{
 .navegacion__titulo,
 .navegacion__enlace--texto{
     display: none;
-    text-transform: uppercase;
-    font-family: var(--fuente);
+    text-transform: uppercase;    
     font-size: 1.5rem;
     color: var(--colorSecundario);
     font-weight: bold;
@@ -189,8 +184,7 @@ h1{
     text-align: center;
     padding: 3rem;    
     border-radius: 1rem;
-    display: grid;
-    font-family: var(--fuente);
+    display: grid;    
     font-weight: bold;
     font-size: 1.5rem;
     width: 30rem;
@@ -283,8 +277,7 @@ h1{
     background-color: var(--colorSecundario);
     color: var(--blanco); 
     padding: 0.5rem;   
-    font-weight: bold;
-    font-family: var(--fuente);
+    font-weight: bold;    
     font-size: 1.8rem;
     border-radius: 0.4rem;
     border: none;    
@@ -311,8 +304,7 @@ h1{
 }
 .informacion_item{
     display: grid;
-    grid-template-columns: 39% 60%;        
-    font-family: var(--fuente);
+    grid-template-columns: 39% 60%;            
     font-size: 1.2rem;
     /*align-items: start;*/
     border-right: 0.2rem solid var(--colorSecundario);
@@ -403,10 +395,8 @@ h1{
     padding: 1rem 0.2rem 0.2rem 0.2rem;    
 }
 
-
 .informacion_almacen{
-    margin-left: 0.5rem;
-    font-family: var(--fuente);
+    margin-left: 0.5rem;    
     
 }
 .informacion_almacen p{
@@ -433,8 +423,7 @@ h1{
     
 }
 .informacion_almacen{
-    margin-left: 0.5rem;
-    font-family: var(--fuente);    
+    margin-left: 0.5rem;     
 }
 .opciones_almacen{
     display: grid;
@@ -497,8 +486,7 @@ h1{
     row-gap: 0.2rem;
     column-gap: 0.3rem;
 }
-.filtra_fechas label{
-    font-family: var(--fuente);
+.filtra_fechas label{    
     font-size: 1.5rem;
     
 }
@@ -540,13 +528,11 @@ h1{
 }
 .tabla_informacion thead{
     background-color: var(--colorSecundario);
-    color: var(--blanco);
-    font-family: var(--fuente);
+    color: var(--blanco);    
     font-size: 1.8rem;    
     font-weight: bold;
 }
-.tabla_informacion tbody{
-    font-family: var(--fuente);
+.tabla_informacion tbody{    
     font-size: 1.5rem;
         
 }
@@ -583,6 +569,16 @@ h1{
     margin-bottom: 1rem;
 }
 .campos_textosimple input{
+    font-size: 2rem;
+    height: 4rem;
+    width: 100%;
+}
+.campos_textoopciones{
+    display: grid;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+.campos_textoopciones select {
     font-size: 2rem;
     height: 4rem;
     width: 100%;
