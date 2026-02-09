@@ -11,6 +11,8 @@ from django.db.models import Count,Exists
 
 from datetime import datetime
 
+from utilidades.genera_qr import generar_qr
+
 # Create your views here.
 @login_required(login_url="login_logistica")
 def logistica_items(request):
@@ -23,12 +25,17 @@ def agregar_items(request):
         form = ItemsForm(request.POST)
         if form.is_valid():
             item = form.save(commit=False)
-            qr_link = f"http://192.168.0.8/aplicaciones-incasur/editar-item-celular/{item.pk}"
-            
+            qr_link = f"http://192.168.0.8/aplicaciones-incasur/logistica/editar-item-celular/{item.pk}"
+            nombre_archivo_qr = generar_qr(item.pk,qr_link)
+            item.imagen_qr.name = f"imagenes_qr/{nombre_archivo_qr}"
+            item.save()
+            return redirect ('logistica_items')        
     else:
         form = ItemsForm()
     return render(request,'logistica/formulario_agregar_items.html',{'form':form})
-        
+
+@login_required(login_url="login_logistica")
+def editar_item_celular(request):        
 
 @login_required(login_url="login_logistica")
 def logistica_almacenes(request):
@@ -40,7 +47,8 @@ def agregar_almacenes(request):
     if request.method == "POST":
         form = AlmacenesForm(request.POST)        
         if form.is_valid():
-            form.save()                    
+            form.save()
+            return redirect('logistica_almacenes')                    
     else:
         form = AlmacenesForm()
     return render(request,'logistica/formulario_agregar_almacenes.html',{'form':form})
@@ -62,7 +70,7 @@ def eliminar_almacen(request,pk):
     almacen = get_object_or_404(Almacenes,pk=pk)
     if request.method == 'POST':
         almacen.delete()
-        redirect('logistica_almacenes')        
+        return redirect('logistica_almacenes')        
     return render(request,'logistica/confirmar_eliminar_almacen.html',{'almacen':almacen})
         
 @login_required(login_url="login_logistica")        
