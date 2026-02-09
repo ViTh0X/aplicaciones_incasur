@@ -12,7 +12,11 @@ class AlmacenesForm(forms.ModelForm):
         model = Almacenes
         fields = ['nombre_almacen','descripcion_almacen','direccion_almacen']
     
-
+class ItemsForm(forms.ModelForm):
+    
+    class Meta:
+        model = Items
+        fields = ['nombre_item','id_area','id_estado','id_almacen','id_usuario']
 
 
     

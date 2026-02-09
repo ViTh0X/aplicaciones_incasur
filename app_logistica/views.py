@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 
 #Login
-from .forms import  Login_Formulario
+from .forms import  Login_Formulario,AlmacenesForm,ItemsForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -11,12 +11,23 @@ from django.db.models import Count,Exists
 
 from datetime import datetime
 
-from .forms import AlmacenesForm
 # Create your views here.
 @login_required(login_url="login_logistica")
 def logistica_items(request):
     items =  Items.objects.all()
     return render(request,'logistica/items.html')
+
+@login_required(login_url="login_logistica")
+def agregar_items(request):
+    if request.method == 'POST':
+        form = ItemsForm(request.POST)
+        if form.is_valid():
+            item = form.save(commit=False)
+            qr_link = f"http://192.168.0.8/aplicaciones-incasur/editar-qr/{objeto_instancia.pk}/"
+    else:
+        form = ItemsForm()
+    return render(request,'logistica/formulario_agregar_items.html',{'form':form})
+        
 
 @login_required(login_url="login_logistica")
 def logistica_almacenes(request):
@@ -60,9 +71,6 @@ def items_por_almacen(request,pk):
         
     items = Items.objects.filter(id_almacen = pk).annotate(inventario_anio_actual=Exists(inventario_anio_actual))
     return render(request,'logistica/items.html',{'items':items})
-
-        
-
 
 @login_required(login_url="login_logistica")
 def logistica_movimientos(request):
