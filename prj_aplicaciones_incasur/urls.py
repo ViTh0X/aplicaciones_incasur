@@ -25,7 +25,7 @@ urlpatterns = [
     path('',include('app_home_opciones.urls')),
     path('secretobancario-ahorros',include('app_secretobancario_ahorros.urls')),
     path('secretobancario-legal',include('app_secretobancario_legal.urls')),
-    path('logistica/',include('app_logistica.urls')),
+    path('logistica',include('app_logistica.urls')),
 ]
 
 if settings.DEBUG:
