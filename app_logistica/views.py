@@ -35,8 +35,30 @@ def agregar_items(request):
     return render(request,'logistica/formulario_agregar_items.html',{'form':form})
 
 @login_required(login_url="login_logistica")
-def editar_item_celular(request):        
+def editar_item_celular(request,pk):        
+    item = get_object_or_404(Items,pk=pk)
+    if request.method == 'POST':
+        form = ItemsForm(request.POST, instance=item)
+        if form.is_valid():
+            form.save()
+        return redirect('logistica_items')
+    else:
+        form = ItemsForm(instance=item)
+    return render(request,'logistica/formulario_editar_item_celular.html',{'item':item})
 
+
+@login_required(login_url="login_logistica")
+def editar_item(request,pk):        
+    item = get_object_or_404(Items,pk=pk)
+    if request.method == 'POST':
+        form = ItemsForm(request.POST, instance=item)
+        if form.is_valid():
+            form.save()
+        return redirect('logistica_items')
+    else:
+        form = ItemsForm(instance=item)
+    return render(request,'logistica/formulario_editar_item.html',{'item':item})
+    
 @login_required(login_url="login_logistica")
 def logistica_almacenes(request):
     almacenes = Almacenes.objects.annotate(total_articulos=Count('items'))         
