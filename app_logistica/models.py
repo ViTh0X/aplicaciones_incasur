@@ -20,6 +20,9 @@ class Colaboradores(models.Model):
     class Meta:
         managed = False
         db_table = 'colaboradores'
+        
+    def __str__(self):
+        return self.nombre_colaborador
 
 
 class CargoColaboradores(models.Model):
