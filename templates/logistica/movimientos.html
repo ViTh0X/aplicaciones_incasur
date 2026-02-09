@@ -1,0 +1,60 @@
+{% extends "../layout_logistica.html" %}
+{% block titulo %}Movimientos Articulos{% endblock  %}
+{% block contenido %}
+<main>
+    <div class="menu_opciones">
+        <h1 class="no-margin">Movimientos:</h1>
+        <a href="" class="boton_enlace a1">+ Realizar Movimiento</a>
+        <input type="text" placeholder="Buscar x Nombre">
+        <div class="filtra_fechas a2">
+            <label for="">Fecha Inicio:</label>
+            <input class="input1" type="date">
+            <label for="">Fecha Final:</label>
+            <input class="input2" type="date">
+            <a href="" class="boton_enlace">
+                <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#ffffff"
+                stroke-width="1"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                >
+                <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
+                <path d="M21 21l-6 -6" />
+                </svg>
+            </a>
+        </div>
+    </div>
+    <div class="mostrar_informacion_movimientos">
+        <table class="tabla_informacion">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Origen</th>
+                    <th>Destino</th>
+                    <th>Fecha</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Silla Gamer</td>
+                    <td>Leonard Samir Samir Quispe Quispe Cardenas</td>
+                    <td>Leonard Samir Samir Quispe Quispe Cardenas</td>
+                    <td class="texto_centrado">{% now "Y-m-d H:i:s" %}</td>
+                </tr>
+                <tr>
+                    <td>Silla Gamer</td>
+                    <td>Leonard Samir Samir Quispe Quispe Cardenas</td>
+                    <td>Leonard Samir Samir Quispe Quispe Cardenas</td>
+                    <td class="texto_centrado">{% now "Y-m-d H:i:s" %}</td>
+                </tr>
+                
+            </tbody>
+        </table>
+    </div>
+</main>
+{% endblock  %}

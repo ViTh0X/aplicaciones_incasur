@@ -1,0 +1,19 @@
+{% extends "../layout_logistica.html" %}
+{% block titulo %}Eliminar Almacen{% endblock %}
+{% block contenido %}
+<main>
+    <div class="formularios" >
+        <h1 class="no-margin">Eliminando Almacen:</h1>        
+        <p class="no-margin mensaje_grande_diferente">{{ almacen.nombre_almacen }}</p>
+        <h1 class="no-margin">¿Estas seguro de eliminar el Almacen?</h1>        
+        <h1></h1>        
+        <form method="POST">
+            {% csrf_token %}            
+            <div class="botones_formularios">
+                <a class="boton_enlace a1" href="{% url 'logistica_almacenes' %}">No</a>
+                <button class="boton_formulario" type="submit">Si</button>
+            </div>
+        </form>
+    </div>    
+</main>
+{% endblock  %}

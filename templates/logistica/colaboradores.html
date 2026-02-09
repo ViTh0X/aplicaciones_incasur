@@ -1,0 +1,40 @@
+{% extends "../layout_logistica.html" %}
+{% block titulo %}Colaboradores{% endblock  %}
+{% block contenido %}
+<main>
+    <div class="menu_opciones">
+        <h1 class="no-margin">Colaboradores:</h1>        
+        <input type="text" placeholder="Buscar x Nombre">        
+    </div>
+    <div class="mostrar_informacion_movimientos">
+        <table class="tabla_informacion">
+            <thead>
+                <tr>
+                    <th>Nombre Colaborador</th>
+                    <th>Articulos Asignados</th>                    
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Leonard Quispe</td>
+                    <td>
+                        <a href="">Silla gamer</a>
+                        <a href="">Silla gamer</a>
+                        <a href="">Silla gamer</a>
+                    </td>                    
+                </tr>
+                 <tr>
+                    <td>Jesus Rivero</td>
+                    <td>
+                        <a href="">Silla gamer</a>
+                        <a href="">Silla gamer</a>
+                        <a href="">Silla gamer</a>
+                    </td>                    
+                </tr>
+                
+                
+            </tbody>
+        </table>
+    </div>
+</main>
+{% endblock  %}

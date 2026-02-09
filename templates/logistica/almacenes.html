@@ -1,0 +1,111 @@
+{% extends "../layout_logistica.html" %}
+{% block titulo %}Almacenes{% endblock%}
+{% block contenido %}
+<main>
+    <div class="menu_opciones">
+        <h2 class="no-margin mensaje_advertencia">¡Solo se pueden eliminar Almacenes con 0 Articulos¡</h2>
+        <h1 class="no-margin">Almacenes:</h1>
+        <a href="{% url 'agregar_almacenes' %}" class="boton_enlace a1">+ Agregar Almacenes</a>
+    </div>
+    <div class="mostrar_informacion_almacenes">        
+        {% for almacen in almacenes %}
+        <div class="almacen">
+            <div class="informacion_almacen">
+                <p class="no-margin"><span>Nombre: </span>{{ almacen.nombre_almacen }}</p>
+                <p class="no-margin"><span>Referencia: </span>{{ almacen.descripcion_almacen }}</p>
+                <p class="no-margin"><span>Direccion: </span>{{ almacen.direccion_almacen }}</p>
+                <p class="no-margin"><span>N° Articulos: </span>{{ almacen.total_articulos }} Actualmente</p>
+            </div>
+            <div class="seccion2_almacen">
+                <div class="logo_almacen">
+                    <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="55"
+                    height="55"
+                    viewBox="0 0 22 22"
+                    fill="none"
+                    stroke="#004F6F"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    >
+                    <path d="M3 21l18 0" />
+                    <path d="M3 7v1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1h-18l2 -4h14l2 4" />
+                    <path d="M5 21l0 -10.15" />
+                    <path d="M19 21l0 -10.15" />
+                    <path d="M9 21v-4a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v4" />
+                    </svg> 
+                </div>                
+                <nav class="opciones_almacen">                    
+                    <a class="enlaces" title="EDITAR ALMACEN" href="{% url 'editar_almacen' pk=almacen.id_almacen %}">
+                    <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="28"
+                    height="28"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#000000"
+                    stroke-width="1.25"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    >
+                    <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+                    <path d="M13.5 6.5l4 4" />
+                    </svg>
+                    <p class="no-margin">Editar</p>
+                    </a>            
+                    {% if almacen.total_articulos == 0 %}
+                    <a class="enlaces" title="ELIMINAR ALMACEN" href="{% url 'eliminar_almacen' pk=almacen.id_almacen %}">
+                        <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="28"
+                        height="28"
+                        viewBox="0 0 24 24"
+                        fill="#004F6F"
+                        >
+                        <path d="M17 3.34a10 10 0 1 1 -14.995 8.984l-.005 -.324l.005 -.324a10 10 0 0 1 14.995 -8.336zm-6.489 5.8a1 1 0 0 0 -1.218 1.567l1.292 1.293l-1.292 1.293l-.083 .094a1 1 0 0 0 1.497 1.32l1.293 -1.292l1.293 1.292l.094 .083a1 1 0 0 0 1.32 -1.497l-1.292 -1.293l1.292 -1.293l.083 -.094a1 1 0 0 0 -1.497 -1.32l-1.293 1.292l-1.293 -1.292l-.094 -.083z" />
+                        </svg>
+                        <p class="no-margin">Eliminar</p>
+                    </a>
+                    {% endif %}        
+                    
+                    <a class="enlaces" title="MOSTRAR LOS ITEMS DEL ALMACEN" href="{% url 'items_por_almacen' pk=almacen.id_almacen %}">
+                        <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="28"
+                        height="28"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="#004F6F"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        >
+                        <path d="M5 10v-4a3 3 0 0 1 3 -3h8a3 3 0 0 1 3 3v4" />
+                        <path d="M16 15v-2a3 3 0 1 1 3 3v3h-14v-3a3 3 0 1 1 3 -3v2" />
+                        <path d="M8 12h8" />
+                        <path d="M7 19v2" />
+                        <path d="M17 19v2" />
+                        </svg>
+                        <p class="no-margin">Ver Articulos</p>
+                    </a>
+                </nav> 
+            </div>
+        </div>
+        {% empty %}
+        <p>
+            <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="52"
+            height="52"
+            viewBox="0 0 24 24"
+            fill="#FFCC00
+            "
+            >
+            <path d="M12 2c5.523 0 10 4.477 10 10a10 10 0 0 1 -19.995 .324l-.005 -.324l.004 -.28c.148 -5.393 4.566 -9.72 9.996 -9.72zm.01 13l-.127 .007a1 1 0 0 0 0 1.986l.117 .007l.127 -.007a1 1 0 0 0 0 -1.986l-.117 -.007zm-.01 -8a1 1 0 0 0 -.993 .883l-.007 .117v4l.007 .117a1 1 0 0 0 1.986 0l.007 -.117v-4l-.007 -.117a1 1 0 0 0 -.993 -.883z" />
+            </svg>
+            Atencion, No creaste ningun Almacen.</p>
+        {% endfor %}
+    </div>
+</main>
+{% endblock  %}

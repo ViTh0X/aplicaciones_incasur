@@ -12,7 +12,8 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 from pathlib import Path
 import os
-
+from dotenv import load_dotenv
+load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -26,7 +27,7 @@ SECRET_KEY = 'django-insecure-t-+*oxx(vuq18l!t#60bgosb7eg1ab-ivhq-3fstivi5rt0$k@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','192.168.1.8']
+ALLOWED_HOSTS = ['127.0.0.1','192.168.1.8','192.168.0.25']
 
 
 # Application definition
@@ -38,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'app_logistica',
 ]
 
 MIDDLEWARE = [
@@ -75,8 +77,12 @@ WSGI_APPLICATION = 'prj_aplicaciones_incasur.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'HOST': os.getenv('DATABASE_SERVER'),                                
+        'NAME': os.getenv('DATABASE_DB'),
+        'USER': os.getenv('DATABASE_USER'),
+        'PASSWORD': os.getenv('DATABASE_PASSWORD'),
+        'PORT': os.getenv('DATABASE_PORT'),
     }
 }
 
@@ -115,18 +121,19 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-FORCE_SCRIPT_NAME = '/aplicaciones-incasur'
+#FORCE_SCRIPT_NAME = '/aplicaciones-incasur'
 
-STATIC_URL = '/aplicaciones-incasur/static/'
+#STATIC_URL = '/aplicaciones-incasur/static/'
+STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR,'static'),
 )
 
 #STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
-STATIC_ROOT = '/var/www/aplicaciones_incasur/static/'
+#STATIC_ROOT = '/var/www/aplicaciones_incasur/static/'
 
-#MEDIA_URL = '/media/'
-MEDIA_URL = '/aplicaciones-incasur/media/'
-#MEDIA_ROOT = os.path.join(BASE_DIR,'media')
-MEDIA_ROOT = '/var/www/aplicaciones_incasur/media/'
+MEDIA_URL = '/media/'
+#MEDIA_URL = '/aplicaciones-incasur/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+#MEDIA_ROOT = '/var/www/aplicaciones_incasur/media/'
 

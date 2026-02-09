@@ -1,0 +1,33 @@
+{% extends "../layout_logistica.html" %}
+{% block titulo %}Creando Almacen{% endblock %}
+{% block contenido %}
+<main>
+    <div class="formularios" >
+        <h1 class="no-margin">Creando Almacen:</h1>
+        <div>
+            <p class="mensaje_error">{{ form.nombre_almacen.errors }}</p>
+            <p class="mensaje_error">{{ form.descripcion_almacen.errors }}</p>
+            <p class="mensaje_error">{{ form.direccion_almacen.errors }}</p>
+        </div>        
+        <form method="POST">
+            {% csrf_token %}
+            <div class="campos_textosimple">
+                <label for="">Nombre:</label>
+                {{ form.nombre_almacen }}
+            </div>            
+            <div class="campos_textosimple">
+                <label for="">Descripcion:</label>
+                {{ form.descripcion_almacen }}
+            </div>
+            <div class="campos_textosimple">
+                <label for="">Direccion:</label>
+                {{ form.direccion_almacen }}
+            </div>
+            <div class="botones_formularios">
+                <a class="boton_enlace a1" href="{% url 'logistica_almacenes' %}">← Volver a Almacenes</a>
+                <button class="boton_formulario" type="submit">Crear Almacen</button>
+            </div>
+        </form>
+    </div>    
+</main>
+{% endblock  %}
