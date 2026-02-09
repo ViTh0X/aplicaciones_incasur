@@ -23,7 +23,8 @@ def agregar_items(request):
         form = ItemsForm(request.POST)
         if form.is_valid():
             item = form.save(commit=False)
-            qr_link = f"http://192.168.0.8/aplicaciones-incasur/editar-qr/{objeto_instancia.pk}/"
+            qr_link = f"http://192.168.0.8/aplicaciones-incasur/editar-item-celular/{item.pk}"
+            
     else:
         form = ItemsForm()
     return render(request,'logistica/formulario_agregar_items.html',{'form':form})
