@@ -17,7 +17,7 @@ from utilidades.genera_qr import generar_qr
 @login_required(login_url="login_logistica")
 def logistica_items(request):
     items =  Items.objects.all()
-    return render(request,'logistica/items.html')
+    return render(request,'logistica/items.html',{'items':items})
 
 @login_required(login_url="login_logistica")
 def agregar_items(request):
