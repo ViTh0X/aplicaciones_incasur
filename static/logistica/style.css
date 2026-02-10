@@ -579,6 +579,12 @@ ul{
     font-size: 2rem;
     margin-bottom: 1rem;
 }
+@media (min-width:1024px){
+    .campos_textosimple,
+    .campos_textoopciones{
+        margin-bottom: 0.4rem;
+    }        
+}
 .campos_textoopciones select {
     font-size: 2rem;
     height: 4rem;
