@@ -564,7 +564,8 @@ ul{
 }
 /*Formularios*/
 .campos_textosimple{
-    display: grid;
+    display: flex;
+    column-gap: 1rem;
     font-size: 2rem;
     margin-bottom: 1rem;
 }
@@ -575,7 +576,8 @@ ul{
 }
 .campos_textoopciones{
     display: flex;
-    flex-direction: column;
+    /*flex-direction: column;*/
+    column-gap: 1rem;
     font-size: 2rem;
     margin-bottom: 1rem;
 }
