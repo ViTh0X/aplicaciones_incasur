@@ -127,7 +127,7 @@ class HistorialInventarios(models.Model):
         return self.id_historial
     
 #tenemos que eliminar esta tabla    
-class ItemsEliminados(models.Model):
+'''class ItemsEliminados(models.Model):
     id_eliminados = models.AutoField(primary_key=True)
     id_item = models.ForeignKey(Items,on_delete=models.CASCADE)
     nombre_area = models.CharField(max_length=40)
@@ -139,7 +139,7 @@ class ItemsEliminados(models.Model):
         db_table = 'items_eliminados'
         
     def __str__(self):
-        return self.id_historial
+        return self.id_historial'''
     
 class TiposMovimiento(models.Model):
     id_tipo = models.AutoField(primary_key=True)
