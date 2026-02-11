@@ -160,7 +160,7 @@ class ItemsMovimientos(models.Model):
     nombre_origen = models.CharField(max_length=150)
     nombre_destino = models.CharField(max_length=150)
     id_movimiento_referencia = models.ForeignKey('self',on_delete=models.CASCADE,null=True,blank=True)#
-    observaciones = models.CharField(max_length=200)    
+    observaciones = models.CharField(max_length=200,null=True,blank=True)    
     fecha_modificacion = models.DateTimeField(auto_now=True)
     
     class Meta:
