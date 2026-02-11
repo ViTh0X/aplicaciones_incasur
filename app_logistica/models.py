@@ -155,6 +155,7 @@ class TiposMovimiento(models.Model):
     
 class ItemsMovimientos(models.Model):
     id_movimiento = models.AutoField(primary_key=True)
+    tipo_movimiento = models.ForeignKey(TiposMovimiento,on_delete=models.CASCADE)
     id_item = models.ForeignKey(Items,on_delete=models.CASCADE)
     nombre_origen = models.CharField(max_length=150)
     nombre_destino = models.CharField(max_length=150)
