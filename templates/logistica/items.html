@@ -87,11 +87,7 @@
                         <path d="M12 8l0 4l2 2" />
                         <path d="M3.05 11a9 9 0 1 1 .5 4m-.5 5v-5h5" />
                         </svg>        
-                        {% if item.inventario_anio_actual %}
-                            {% now "Y" %}-Inventariado
-                        {% else %}
-                            {% now "Y" %}-No Inventariado
-                        {% endif %}
+                        Stock {{ item.cantidad_items }}
                         </p>
                     <p>                        
                         <a href="">
