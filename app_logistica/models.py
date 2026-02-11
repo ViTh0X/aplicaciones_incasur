@@ -98,7 +98,7 @@ class Items(models.Model):
     nombre_item = models.CharField(max_length=100)
     descripcion_item = models.CharField(max_length=200,blank=True,null=True)
     imagen_qr = models.ImageField(upload_to='imagenes_qr/',blank=True,null=True)
-    tipo_item = models.ForeignKey(TipoItems,on_delete=models.CASCADE,null=True,blank=True)
+    tipo_item = models.ForeignKey(TipoItems,on_delete=models.CASCADE)#,null=True,blank=True)
     cantidad_items = models.IntegerField(default=1)
     id_area = models.ForeignKey(AreasEmpresa,on_delete=models.CASCADE,null=True,blank=True)
     id_estado = models.ForeignKey(TipoEstadoItems,on_delete=models.CASCADE)
@@ -127,19 +127,6 @@ class HistorialInventarios(models.Model):
         return self.id_historial
     
 #tenemos que eliminar esta tabla    
-'''class ItemsEliminados(models.Model):
-    id_eliminados = models.AutoField(primary_key=True)
-    id_item = models.ForeignKey(Items,on_delete=models.CASCADE)
-    nombre_area = models.CharField(max_length=40)
-    nombre_almacen = models.CharField(max_length=60)
-    nombre_usuario = models.CharField(max_length=150)
-    fecha_modificacion = models.DateTimeField(auto_now=True)
-    
-    class Meta:
-        db_table = 'items_eliminados'
-        
-    def __str__(self):
-        return self.id_historial'''
     
 class TiposMovimiento(models.Model):
     id_tipo = models.AutoField(primary_key=True)
@@ -155,12 +142,12 @@ class TiposMovimiento(models.Model):
     
 class ItemsMovimientos(models.Model):
     id_movimiento = models.AutoField(primary_key=True)
-    tipo_movimiento = models.ForeignKey(TiposMovimiento,on_delete=models.CASCADE,null=True,blank=True)#
+    tipo_movimiento = models.ForeignKey(TiposMovimiento,on_delete=models.CASCADE)#,null=True,blank=True)#
     id_item = models.ForeignKey(Items,on_delete=models.CASCADE)
     nombre_origen = models.CharField(max_length=150)
     nombre_destino = models.CharField(max_length=150)
-    id_movimiento_referencia = models.ForeignKey('self',on_delete=models.CASCADE,null=True,blank=True)#
-    observaciones = models.CharField(max_length=200,null=True,blank=True)    
+    id_movimiento_referencia = models.ForeignKey('self',on_delete=models.CASCADE)#,null=True,blank=True)#
+    observaciones = models.CharField(max_length=200)#,null=True,blank=True)    
     fecha_modificacion = models.DateTimeField(auto_now=True)
     
     class Meta:
