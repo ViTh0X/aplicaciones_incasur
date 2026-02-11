@@ -565,7 +565,7 @@ ul{
 /*Formularios*/
 .campos_textosimple{
     display: grid;    
-    font-size: 0.8rem;
+    font-size: 1.5rem;
     margin-bottom: 1rem;
 }
 .campos_textosimple input{
@@ -576,7 +576,7 @@ ul{
 .campos_textoopciones{
     display: flex;
     flex-direction: column;    
-    font-size: 0.8rem;
+    font-size: 1.5rem;
     margin-bottom: 1rem;
 }
 @media (min-width:1024px){
