@@ -555,11 +555,11 @@ ul{
 .formularios{
     background-color: var(--blanco);
     margin: 3rem 1rem 0.5rem 1rem;
-    padding: 3rem;
+    padding: 1rem;
 }
 @media (min-width:1024px){
     .formularios{
-        margin: 1rem 35rem 10rem 35rem;
+        margin: 0.5rem 35rem 10rem 35rem;
     }
 }
 /*Formularios*/

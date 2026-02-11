@@ -16,7 +16,7 @@ class ItemsForm(forms.ModelForm):
     
     class Meta:
         model = Items
-        fields = ['nombre_item','descripcion_item','id_area','id_estado','id_almacen','id_usuario']
+        fields = ['nombre_item','tipo_item','cantidad_items','descripcion_item','id_area','id_estado','id_almacen','id_usuario']
         
 
 

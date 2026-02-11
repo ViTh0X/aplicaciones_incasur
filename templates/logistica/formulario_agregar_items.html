@@ -6,17 +6,26 @@
         <h1 class="no-margin">Creando Articulo:</h1>
         <div>
             <p class="mensaje_error">{{ form.nombre_item.errors }}</p>
+
             <p class="mensaje_error">{{ form.descripcion_item.errors }}</p>
             <p class="mensaje_error">{{ form.id_estado.errors }}</p>
             <p class="mensaje_error">{{ form.id_almacen.errors }}</p>
             <p class="mensaje_error">{{ form.id_usuario.errors }}</p>
-            <p class="mensaje_error">{{ form.id_area.errors }}</p>
+            <p class="mensaje_error">{{ form.id_area.errors }}</p>            
         </div>        
         <form method="POST">
             {% csrf_token %}
             <div class="campos_textosimple">
                 <label for="">Nombre:</label>
                 {{ form.nombre_item }}
+            </div>
+            <div class="campos_textoopciones">
+                <label for="">Tipo Articulo:</label>
+                {{ form.tipo_item }}
+            </div>
+            <div class="campos_textosimple">
+                <label for="">Cantidad:</label>
+                {{ form.cantidad_items }}
             </div>
             <div class="campos_textosimple">
                 <label for="">Informacion Extra:</label>
