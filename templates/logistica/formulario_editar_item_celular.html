@@ -43,7 +43,7 @@
                 {{ item.id_area }}
             </div>                                                            
             <div class="botones_formularios">
-                {% if inventario == None %}
+                {% if not inventario %}
                 <a class="boton_enlace a1" href="{% url 'logistica_items' %}">Inventariar Articulo</a>
                 {% endif %}
                 <a class="boton_enlace a1" href="{% url 'logistica_items' %}">← Volver a Articulos</a>
