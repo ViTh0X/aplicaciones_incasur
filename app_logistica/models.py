@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+import hashlib
 import os
 
 # Create your models here.
@@ -126,7 +127,21 @@ class HistorialInventarios(models.Model):
     def __str__(self):
         return self.id_historial
     
-#tenemos que eliminar esta tabla    
+class ItemMovimientosCabecera(models.Model):
+    id_cabezera = models.AutoField(primary_key=True)
+    colaborador_confirma = models.ForeignKey(Colaboradores,on_delete=models.CASCADE)
+    fecha = models.DateTimeField(auto_now=True)
+    firma_base64 = models.TextField()
+    hash_seguridad = models.CharField(max_length=64, editable=False)
+    
+    def save(self, *args, **kwargs):
+        if not self.hash_seguridad:
+            # Sello de seguridad
+            cadena = f"{self.nombre_trabajador}{self.fecha}{self.firma_base64}{settings.SECRET_KEY}"
+            self.hash_seguridad = hashlib.sha256(cadena.encode()).hexdigest()
+        super().save(*args, **kwargs)
+
+ 
     
 class TiposMovimiento(models.Model):
     id_tipo = models.AutoField(primary_key=True)
@@ -139,11 +154,13 @@ class TiposMovimiento(models.Model):
         
     def __str__(self):
         return self.nombre_movimiento
+ 
     
 class ItemsMovimientos(models.Model):
     id_movimiento = models.AutoField(primary_key=True)
-    tipo_movimiento = models.ForeignKey(TiposMovimiento,on_delete=models.CASCADE)#,null=True,blank=True)#
+    id_movimiento_cabezera = models.ForeignKey(ItemMovimientosCabecera,on_delete=models.CASCADE,null=True,blank=True)
     id_item = models.ForeignKey(Items,on_delete=models.CASCADE)
+    tipo_movimiento = models.ForeignKey(TiposMovimiento,on_delete=models.CASCADE)#,null=True,blank=True)#    
     nombre_origen = models.CharField(max_length=150)
     nombre_destino = models.CharField(max_length=150)
     id_movimiento_referencia = models.ForeignKey('self',on_delete=models.CASCADE,null=True,blank=True)#
