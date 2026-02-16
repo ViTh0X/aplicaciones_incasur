@@ -356,6 +356,7 @@ ul{
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+    margin-left: 5rem;
 }
 .seccion2_item img{
     margin-left: 1.5rem;
