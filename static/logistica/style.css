@@ -584,6 +584,10 @@ ul{
     font-size: 1.5rem;
     margin-bottom: 1rem;
 }
+.campos_textoopciones label{
+    font-weight: bold;
+    font-size: 1.7rem;
+}
 @media (min-width:1024px){
     .campos_textosimple,
     .campos_textoopciones{
