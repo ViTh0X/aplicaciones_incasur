@@ -44,7 +44,7 @@ def editar_item_celular(request,pk):
         return redirect('logistica_items')
     else:
         form = ItemsForm(instance=item)
-    return render(request,'logistica/formulario_editar_item_celular.html',{'form':form})
+    return render(request,'logistica/formulario_editar_item_celular.html',{'form':form},{'item':item})
 
 
 @login_required(login_url="login_logistica")
@@ -57,7 +57,7 @@ def editar_item(request,pk):
         return redirect('logistica_items')
     else:
         form = ItemsForm(instance=item)
-    return render(request,'logistica/formulario_editar_item.html',{'form':form})
+    return render(request,'logistica/formulario_editar_item.html',{'form':form},{'item':item})
     
 @login_required(login_url="login_logistica")
 def logistica_almacenes(request):

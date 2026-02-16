@@ -3,7 +3,7 @@
 {% block contenido %}
 <main>
     <div class="formularios" >
-        <h1 class="no-margin">Editando Articulo: {{ form.nombre_item }}</h1>
+        <h1 class="no-margin">Editando Articulo: {{ item.nombre_item }}</h1>
         <div>
             <p class="mensaje_error">{{ form.nombre_item.errors }}</p>
             <p class="mensaje_error">{{ form.descripcion_item.errors }}</p>                        
@@ -14,9 +14,33 @@
                 <label for="">Nombre:</label>
                 {{ form.nombre_item }}
             </div>
+            <div class="campos_textoopciones">
+                <label for="">Tipo Articulo:</label>
+                {{ item.tipo_item }}
+            </div>
+            <div class="campos_textosimple">
+                <label for="">Stock:</label>
+                {{ item.cantidad_items }}
+            </div>                        
             <div class="campos_textosimple">
                 <label for="">Informacion Extra:</label>
                 {{ form.descripcion_item }}
+            </div>
+            <div class="campos_textoopciones">
+                <label for="">Estado:</label>
+                {{ item.id_estado }}
+            </div>
+            <div class="campos_textoopciones">
+                <label for="">Almacen:</label>
+                {{ item.id_almacen }}
+            </div>
+            <div class="campos_textoopciones">
+                <label for="">Colaborador Asignado:</label>
+                {{ item.id_usuario }}
+            </div>
+            <div class="campos_textoopciones">
+                <label for="">Area-Ubicacion:</label>
+                {{ item.id_area }}
             </div>                                                            
             <div class="botones_formularios">
                 <a class="boton_enlace a1" href="{% url 'logistica_items' %}">Inventariar Articulo</a>
