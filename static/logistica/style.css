@@ -569,6 +569,10 @@ ul{
     font-size: 1.5rem;
     margin-bottom: 1rem;
 }
+.campos_textosimple label{
+    font-weight: bold;
+    font-size: 1.7rem;
+}
 .campos_textosimple input{
     font-size: 1.5rem;
     height: 3rem;
