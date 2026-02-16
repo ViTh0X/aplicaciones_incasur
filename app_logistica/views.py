@@ -35,8 +35,10 @@ def agregar_items(request):
     return render(request,'logistica/formulario_agregar_items.html',{'form':form})
 
 @login_required(login_url="login_logistica")
-def editar_item_celular(request,pk):        
+def editar_item_celular(request,pk):            
     item = get_object_or_404(Items,pk=pk)
+    año = datetime.now().year
+    inventario = get_object_or_404(HistorialInventarios,id_item=pk,fecha_modificacion__year=año)
     if request.method == 'POST':
         form = ItemsForm(request.POST, instance=item)
         if form.is_valid():
@@ -44,7 +46,7 @@ def editar_item_celular(request,pk):
         return redirect('logistica_items')
     else:
         form = ItemsForm(instance=item)
-    return render(request,'logistica/formulario_editar_item_celular.html',{'form':form,'item':item})
+    return render(request,'logistica/formulario_editar_item_celular.html',{'form':form,'item':item,'inventario':inventario})
 
 
 @login_required(login_url="login_logistica")
