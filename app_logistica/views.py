@@ -25,7 +25,7 @@ def agregar_items(request):
         form = ItemsForm(request.POST)
         if form.is_valid():
             item = form.save()
-            qr_link = f"http://192.168.0.8/aplicaciones-incasur/logistica/editar-item-celular/{item.pk}"
+            qr_link = f"http://192.168.1.8/aplicaciones-incasur/logistica/editar-item-celular/{item.pk}"
             nombre_archivo_qr = generar_qr(item.pk,qr_link)
             item.imagen_qr.name = f"imagenes_qr/{nombre_archivo_qr}"
             item.save()
