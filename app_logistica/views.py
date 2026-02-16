@@ -38,7 +38,8 @@ def agregar_items(request):
 def editar_item_celular(request,pk):            
     item = get_object_or_404(Items,pk=pk)
     año = datetime.now().year
-    inventario = get_object_or_404(HistorialInventarios,id_item=pk,fecha_modificacion__year=año)
+    inventario = HistorialInventarios.objects.filter(id_item=pk,fecha_modificacion__year=año)    
+    #inventario = get_object_or_404(HistorialInventarios,id_item=pk,fecha_modificacion__year=año)
     if request.method == 'POST':
         form = ItemsForm(request.POST, instance=item)
         if form.is_valid():
