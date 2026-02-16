@@ -6,27 +6,7 @@
         <h1 class="no-margin">Articulos:</h1>
         <a href="{% url 'agregar_items' %}" class="boton_enlace a1">+ Agregar Articulo</a>
         <input type="text" placeholder="Buscar X Nombre">
-        <a href="" class="boton_enlace a2">Todos los QR</a>
-        <!--<div class="filtro_fechas">
-            <input type="date" value="{% now 'Y-m-d' %}">            
-            <a href="#" title="FILTRAR">
-                <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="26"
-                height="26"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#000000"
-                stroke-width="1.25"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                >
-                <path d="M11.36 20.213l-2.36 .787v-8.5l-4.48 -4.928a2 2 0 0 1 -.52 -1.345v-2.227h16v2.172a2 2 0 0 1 -.586 1.414l-4.414 4.414" />
-                <path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
-                <path d="M20.2 20.2l1.8 1.8" />
-                </svg>         
-            </a>
-        </div>        -->
+        <a href="" class="boton_enlace a2">Todos los QR</a>        
     </div>
     <div class="mostrar_informacion">
         <div class="no-padding columnas_items">
@@ -133,7 +113,7 @@
                 <div class="seccion2_item">
                     <img src="{{ item.imagen_qr.url }}" alt="QR de {{ item.nombre_item }}" width="85" height="85">
                     <nav class="opciones_item">
-                        <a href="">
+                        <a class="enlaces" title="EDITAR ARTICULO" href="{% url 'editar-item' pk=item.id_item %}">
                             <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="25"
@@ -148,7 +128,7 @@
                             <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
                             <path d="M13.5 6.5l4 4" />
                             </svg></a>
-                        <a href="">
+                        <a class="enlaces" href="">
                             <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="25"
@@ -160,7 +140,7 @@
                             <path d="M14 2a2 2 0 0 1 2 2a1 1 0 0 1 -1.993 .117l-.007 -.117h-4l-.007 .117a1 1 0 0 1 -1.993 -.117a2 2 0 0 1 1.85 -1.995l.15 -.005h4z" />
                             </svg>
                         </a>
-                        <a href="">
+                        <a class="enlaces" href="">
                             <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="25"
@@ -176,7 +156,7 @@
                             <path d="M3.05 11a9 9 0 1 1 .5 4m-.5 5v-5h5" />
                             </svg>
                         </a>
-                        <a href="">
+                        <a class="enlaces" href="">
                             <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="25"
