@@ -62,6 +62,9 @@ def editar_item(request,pk):
         form = ItemsForm(instance=item)
     return render(request,'logistica/formulario_editar_item.html',{'form':form,'item':item})
     
+@login_required(login_url='login_logistica')    
+def confirmar_inventariar(request):
+    
 @login_required(login_url="login_logistica")
 def logistica_almacenes(request):
     almacenes = Almacenes.objects.annotate(total_articulos=Count('items'))         

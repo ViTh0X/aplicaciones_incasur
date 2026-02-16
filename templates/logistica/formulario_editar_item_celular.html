@@ -42,16 +42,18 @@
                 <label for="">Area-Ubicacion:</label>
                 {{ item.id_area }}
             </div>
-            <div class="historial_inventarios_mini">
+            <div class="campos_textoopciones">
                 <label for="">Historial de Inventarios:</label>
-                {% for inven in inventario %}
-                    <table>
+                <div class="tabla_mini_container">                    
+                    <table class="tabla_mini">
                         <tbody>
+                            {% for inven in inventario %}
                             <td> {{ inven.fecha_modificacion|date:"d/m/Y" }} </td>
                             <td> Inventariado </td>
+                            {% endfor %}
                         </tbody>                        
-                    </table>
-                {% endfor %}
+                    </table>                
+                </div>                
             </div>                                                                        
             <div class="botones_formularios">
                 {% if not inventario %}

@@ -555,13 +555,24 @@ ul{
 /*Formularios*/
 .formularios{
     background-color: var(--blanco);
-    margin: 3rem 1rem 0.5rem 1rem;
+    margin: 0.5rem 1rem 0.5rem 1rem;
     padding: 1rem;
 }
 @media (min-width:1024px){
     .formularios{
         margin: 0.5rem 35rem 10rem 35rem;
     }
+}
+/*Tabla Mini*/
+.tabla_mini_container{
+    overflow-y: auto;
+    overflow-x: hidden;
+    border: 1px solid var(--colorFondo);
+    height: 2rem;
+    padding: 0.5rem;
+}
+.tabla_mini{
+
 }
 /*Formularios*/
 .campos_textosimple{
