@@ -41,7 +41,18 @@
             <div class="campos_textoopciones">
                 <label for="">Area-Ubicacion:</label>
                 {{ item.id_area }}
-            </div>                                                            
+            </div>
+            <div class="historial_inventarios_mini">
+                <label for="">Historial de Inventarios:</label>
+                {% for inven in inventario %}
+                    <table>
+                        <tbody>
+                            <td> {{ inven.fecha_modificacion|date:"d/m/Y" }} </td>
+                            <td> Inventariado </td>
+                        </tbody>                        
+                    </table>
+                {% endfor %}
+            </div>                                                                        
             <div class="botones_formularios">
                 {% if not inventario %}
                 <a class="boton_enlace a1" href="{% url 'logistica_items' %}">Inventariar Articulo</a>
