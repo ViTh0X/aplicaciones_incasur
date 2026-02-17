@@ -10,6 +10,7 @@ from .models import Items,Almacenes,HistorialInventarios
 from django.db.models import Count,Exists
 
 from datetime import datetime
+from datetime import date
 
 from utilidades.genera_qr import generar_qr
 
@@ -67,9 +68,7 @@ def editar_item(request,pk):
 @login_required(login_url='login_logistica')    
 def inventariar_articulo(request,pk):
     articulo = get_object_or_404(Items,pk=pk)
-    año = datetime.now().year
-    mes = datetime.now().year
-    dia = datetime.now().year            
+    hoy = date.today()
     area_nombre = (lambda valor: valor.nombre_area if valor is not None else "No Asignado")(articulo.id_area)
     almacen_nombre = (lambda valor: valor.nombre_almacen if valor is not None else "No Asignado")(articulo.id_almacen)
     usuario_nombre = (lambda valor: valor.nombre_colaborador if valor is not None else "No Asignado")(articulo.id_usuario)        
@@ -79,7 +78,7 @@ def inventariar_articulo(request,pk):
         historial_inventario.nombre_area = area_nombre
         historial_inventario.nombre_almacen = almacen_nombre
         historial_inventario.nombre_usuario = usuario_nombre
-        historial_inventario_duplicado = HistorialInventarios.objects.filter(id_item=articulo,fecha_modificacion__year=año,fecha_modificacion__month=mes,fecha_modificacion__day=dia)
+        historial_inventario_duplicado = HistorialInventarios.objects.filter(id_item=pk,fecha_modificacion__date=hoy)
         historial_inventario_duplicado.delete()
         historial_inventario.save()
         return redirect('logistica_items')
