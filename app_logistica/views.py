@@ -165,9 +165,9 @@ def logistica_historial_inventario(request):
 
 @login_required(login_url="login_logistica")
 def logistica_colaboradores(request):
-    estado_colaborador_activo = EstadoColaboradores.objects.filter(pk=1)
-    colaboradores = get_list_or_404(Colaboradores,estado_colaboradores=estado_colaborador_activo)    
-    items_colaborador = get_list_or_404(Items,id_usuario=colaboradores)
+    estado_colaborador_activo = EstadoColaboradores.objects.get(pk=1)
+    colaboradores = Colaboradores.objects.filter(estado_colaboradores=estado_colaborador_activo)    
+    items_colaborador = Items.objects.filter(id_usuario__in=colaboradores)
     return render(request,'logistica/colaboradores.html',{'colaboradores':colaboradores,'items_colaborador':items_colaborador})
 
 
