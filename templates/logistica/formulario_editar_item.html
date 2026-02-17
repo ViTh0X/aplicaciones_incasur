@@ -41,7 +41,20 @@
             <div class="campos_textoopciones">
                 <label for="">Area-Ubicacion:</label>
                 {{ item.id_area }}
-            </div>                 
+            </div>
+            <div class="campos_textoopciones">
+                <label for="">Historial de Inventarios:</label>
+                <div class="tabla_mini_container">                    
+                    <table class="tabla_mini">
+                        <tbody>
+                            {% for inven in inventario %}
+                            <td> {{ inven.fecha_modificacion|date:"d/m/Y" }} </td>
+                            <td> Inventariado </td>
+                            {% endfor %}
+                        </tbody>                        
+                    </table>                
+                </div>                
+            </div>                      
             <div class="botones_formularios">
                 <a class="boton_enlace a1" href="{% url 'logistica_items' %}">← Volver a Articulos</a>
                 <button class="boton_formulario" type="submit">Editar Articulo</button>

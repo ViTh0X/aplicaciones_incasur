@@ -573,7 +573,7 @@ ul{
     overflow-y: auto;
     overflow-x: hidden;
     border: 1px solid var(--colorFondo);
-    height: 2rem;
+    height: 4rem;
     padding: 0.5rem;
 }
 .tabla_mini{
