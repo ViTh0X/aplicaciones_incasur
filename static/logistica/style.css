@@ -355,9 +355,9 @@ ul{
 .seccion2_item{
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;    
-    margin-left: 0.3rem;
+    justify-content: space-evenly;        
 }
+
 @media (min-width:1024px){
     .seccion2_item{
         margin-left: 5rem;
