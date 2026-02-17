@@ -79,7 +79,7 @@ def inventariar_articulo(request,pk):
         historial_inventario.nombre_area = area_nombre
         historial_inventario.nombre_almacen = almacen_nombre
         historial_inventario.nombre_usuario = usuario_nombre
-        historial_inventario_duplicado = HistorialInventarios.objects.filter(fecha_modificacion__year=año,fecha_modificacion__month=mes,fecha_modificacion__day=dia)
+        historial_inventario_duplicado = HistorialInventarios.objects.filter(id_item=articulo,fecha_modificacion__year=año,fecha_modificacion__month=mes,fecha_modificacion__day=dia)
         historial_inventario_duplicado.delete()
         historial_inventario.save()
         return redirect('logistica_items')
