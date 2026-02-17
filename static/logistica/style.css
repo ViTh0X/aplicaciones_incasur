@@ -572,7 +572,9 @@ ul{
 .tabla_mini_container{
     overflow-y: auto;
     overflow-x: hidden;
-    border: 1px solid var(--colorFondo);
+    border: 0.5rem solid var(--colorFondo);
+    background-color: var(--colorFondoClaro);
+    border-radius: 0.5rem;
     height: 4rem;
     padding: 0.5rem;
 }
