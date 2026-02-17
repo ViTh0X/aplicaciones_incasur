@@ -129,7 +129,7 @@
                             <path d="M13.5 6.5l4 4" />
                             </svg>
                         </a>                        
-                        <a class="enlaces" title="VER HISTORIAL DE INVENTARIO" href="">
+                        <a class="enlaces" title="VER HISTORIAL DE INVENTARIO" href="{% url 'historial_inventario_articulo' pk=item.id_item %}">
                             <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="25"
@@ -145,7 +145,7 @@
                             <path d="M3.05 11a9 9 0 1 1 .5 4m-.5 5v-5h5" />
                             </svg>
                         </a>
-                        <a class="enlaces" title="ELIMINAR ARTICULO" href="">
+                        <a class="enlaces" title="ELIMINAR ARTICULO" href="{% url 'eliminar_articulo' pk=item.id_item %}">
                             <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="25"
