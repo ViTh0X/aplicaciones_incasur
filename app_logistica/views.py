@@ -88,7 +88,7 @@ def inventariar_articulo(request,pk):
 @login_required(login_url="login_logistica")    
 def eliminar_articulo(request,pk):
     articulo = get_object_or_404(Items,pk=pk)                
-    if articulo.id_area.nombre_area == None and articulo.id_almacen.nombre_almacen == None and articulo.id_usuario.nombre_colaborador == None:
+    if articulo.id_area == None and articulo.id_almacen == None and articulo.id_usuario == None:
         return render(request,'logistica/no_es_posible_eliminar.html',{'articulo':articulo})
     else:
         if request.method == 'POST':
