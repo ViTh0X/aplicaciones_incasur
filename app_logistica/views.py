@@ -108,7 +108,7 @@ def movimientos_articulo(request,pk):
 def historial_inventario_articulo(request,pk):
     articulo = get_object_or_404(Items,pk=pk)
     inventarios = HistorialInventarios.objects.filter(id_item=articulo)
-    return render(request,'logistica/movimientos.html',{'inventarios':inventarios})
+    return render(request,'logistica/historial_inventario.html',{'inventarios':inventarios})
     
 @login_required(login_url="login_logistica")
 def logistica_almacenes(request):
