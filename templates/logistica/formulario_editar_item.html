@@ -48,8 +48,10 @@
                     <table class="tabla_mini">
                         <tbody>
                             {% for inven in inventario %}
-                            <td> {{ inven.fecha_modificacion|date:"d/m/Y" }} </td>
-                            <td> Inventariado </td>
+                            <tr>
+                                <td> {{ inven.fecha_modificacion|date:"d/m/Y" }} </td>
+                                <td> Inventariado </td>
+                            </tr>                            
                             {% endfor %}
                         </tbody>                        
                     </table>                
