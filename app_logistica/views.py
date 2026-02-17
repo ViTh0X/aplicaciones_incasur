@@ -53,6 +53,8 @@ def editar_item_celular(request,pk):
 @login_required(login_url="login_logistica")
 def editar_item(request,pk):        
     item = get_object_or_404(Items,pk=pk)
+    año = datetime.now().year
+    inventario = HistorialInventarios.objects.filter(id_item=pk,fecha_modificacion__year=año)    
     if request.method == 'POST':
         form = ItemsForm(request.POST, instance=item)
         if form.is_valid():
@@ -60,7 +62,7 @@ def editar_item(request,pk):
         return redirect('logistica_items')
     else:
         form = ItemsForm(instance=item)
-    return render(request,'logistica/formulario_editar_item.html',{'form':form,'item':item})
+    return render(request,'logistica/formulario_editar_item.html',{'form':form,'item':item,'inventario':inventario'})
     
 @login_required(login_url='login_logistica')    
 def inventariar_articulo(request,pk):
