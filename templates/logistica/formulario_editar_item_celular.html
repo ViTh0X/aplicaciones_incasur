@@ -57,7 +57,7 @@
             </div>                                                                        
             <div class="botones_formularios">
                 {% if not inventario %}
-                <a class="boton_enlace a1" href="{% url 'inventariar_articulo' %}">Inventariar Articulo</a>
+                <a class="boton_enlace a1" href="{% url 'inventariar_articulo' pk=item.nombre_item %}">Inventariar Articulo</a>
                 {% endif %}
                 <a class="boton_enlace a1" href="{% url 'logistica_items' %}">← Volver a Articulos</a>
                 <button class="boton_formulario" type="submit">Editar Articulo</button>                
