@@ -20,7 +20,7 @@
                     <td>{{ colaborador.nombre_colaborador }}</td>
                     <td>
                         {% for item in items_colaborador %}
-                        {% if item.id_usuario == colaborador.codigo_colaborador %}
+                        {% if item.id_usuario.codigo_colaborador == colaborador.codigo_colaborador %}
                         <a href="">{{ item.nombre_item }}</a>      
                         {% endif %}
                         {% endfor %}                  
