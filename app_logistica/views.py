@@ -64,6 +64,7 @@ def editar_item(request,pk):
     
 @login_required(login_url='login_logistica')    
 def confirmar_inventariar(request):
+    return render(request,'logistica/almacenes.html')
     
 @login_required(login_url="login_logistica")
 def logistica_almacenes(request):
