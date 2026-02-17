@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
-from .models import Items,Almacenes,HistorialInventarios, ItemsMovimientos
+from .models import Items,Almacenes,HistorialInventarios, ItemsMovimientos, Colaboradores,EstadoColaboradores
 from django.db.models import Count,Exists
 
 from datetime import datetime
@@ -165,10 +165,10 @@ def logistica_historial_inventario(request):
 
 @login_required(login_url="login_logistica")
 def logistica_colaboradores(request):
-    return render(request,'logistica/colaboradores.html')
-
-
-    
+    estado_colaborador_activo = EstadoColaboradores.objects.filter(pk=1)
+    colaboradores = Colaboradores.objects.filter(estado_colaboradores=estado_colaborador_activo)    
+    items_colaborador = Items.objects.filter(id_usuario=colaboradores)
+    return render(request,'logistica/colaboradores.html',{'colaboradores':colaboradores,'items_colaborador':items_colaborador})
 
 
 def login_logistica(request):

@@ -15,23 +15,18 @@
                 </tr>
             </thead>
             <tbody>
+                {% for colaborador in colaboradores %}
                 <tr>
-                    <td>Leonard Quispe</td>
+                    <td>{{ colaborador.nombre_colaborador }}</td>
                     <td>
-                        <a href="">Silla gamer</a>
-                        <a href="">Silla gamer</a>
-                        <a href="">Silla gamer</a>
+                        {% for item in items_colaborador %}
+                        {% if item.id_usuario == colaborador.codigo_colaborador %}
+                        <a href="">{{ item.nombre_item }}</a>      
+                        {% endif %}
+                        {% endfor %}                  
                     </td>                    
-                </tr>
-                 <tr>
-                    <td>Jesus Rivero</td>
-                    <td>
-                        <a href="">Silla gamer</a>
-                        <a href="">Silla gamer</a>
-                        <a href="">Silla gamer</a>
-                    </td>                    
-                </tr>
-                
+                </tr>                
+                {% endfor %}
                 
             </tbody>
         </table>
