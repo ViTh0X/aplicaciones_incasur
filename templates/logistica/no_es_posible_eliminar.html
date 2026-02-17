@@ -1,0 +1,11 @@
+{% extends "../layout_logistica.html" %}
+{% block titulo %}Eliminar Almacen{% endblock %}
+{% block contenido %}
+<main>
+    <div class="formularios" >
+        <h1 class="mensaje_error no-margin">NO es posible Eliminar Articulo</h1>        
+        <p class="no-margin mensaje_grande_diferente">{{ articulo.nombre_item }}</p>
+        <h1 class="mensaje_error no-margin">Articulo Esta Asignado</h1>                        
+    </div>    
+</main>
+{% endblock  %}

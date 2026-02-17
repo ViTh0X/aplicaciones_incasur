@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 
 #Login
 from .forms import  Login_Formulario,AlmacenesForm,ItemsForm
@@ -84,6 +84,23 @@ def inventariar_articulo(request,pk):
         return redirect('logistica_items')
         
     return render(request,'logistica/confirmar_inventariar_articulo.html',{'articulo':articulo})
+    
+@login_required(login_url="login_logistica")    
+def eliminar_articulo(request,pk):
+    articulo = get_object_or_404(Items,pk=pk)                
+    if articulo.id_area.nombre_area == None and articulo.id_almacen.nombre_almacen == None and articulo.id_usuario.nombre_colaborador == None:
+        return render(request,'logistica/no_es_posible_eliminar.html',{'articulo':articulo})
+    else:
+        if request.method == 'POST':
+            articulo.delete()
+            return redirect('logistica_items')
+        return render(request,'logistica/confirmar_eliminar_articulo.html',{'articulo':articulo})
+    
+@login_required(login_url='login_logistica')
+def historial_inventario_articulo(request,pk):
+    articulo = get_object_or_404(Items,pk=pk)
+    inventarios = HistorialInventarios.objects.filter(id_item=articulo)
+    return render(request,'logistica/historial_inventario.html',{'inventarios':inventarios})
     
 @login_required(login_url="login_logistica")
 def logistica_almacenes(request):

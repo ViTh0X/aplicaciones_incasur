@@ -41,22 +41,15 @@
                 </tr>
             </thead>
             <tbody>
+                {% for inventario in inventarios %}
                 <tr>
-                    <td>Silla Gamer</td>
-                    <td>Negocios</td>
-                    <td>Almacen Principal</td>
-                    <td>Leonard Leonard Leonard Quispe Quispe Quispe</td>
-                    <td class="texto_centrado">{% now "Y" %}</td>
+                    <td>inventario.id_item.nombre_item</td>
+                    <td>inventario.nombre_area|default:"sin asignar"</td>
+                    <td>inventario.nombre_almacen|default:"sin asignar"</td>
+                    <td>inventario.nombre_usuario|default:"sin asignar"</td>
+                    <td class="texto_centrado">inventario.fecha_modificacion|date:"d-m-Y"</td>
                 </tr>
-                 <tr>
-                    <td>Silla Gamer</td>
-                    <td>T.I.</td>
-                    <td>Fuera de Almacen</td>
-                    <td>Leonard Leonard Leonard Quispe Quispe Quispe</td>
-                    <td class="texto_centrado">{% now "Y" %}</td>
-                </tr>
-                
-                
+                {% endfor %}                                                 
             </tbody>
         </table>
     </div>
