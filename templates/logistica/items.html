@@ -128,7 +128,7 @@
                             <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
                             <path d="M13.5 6.5l4 4" />
                             </svg>
-                        </a>                        
+                        </a>                                            
                         <a class="enlaces" title="VER HISTORIAL DE INVENTARIO" href="{% url 'historial_inventario_articulo' pk=item.id_item %}">
                             <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -143,6 +143,25 @@
                             >
                             <path d="M12 8l0 4l2 2" />
                             <path d="M3.05 11a9 9 0 1 1 .5 4m-.5 5v-5h5" />
+                            </svg>
+                        </a>
+                        <a href="" title="VER TODOS SUS MOVIMIENTOS" href="{% url 'movimientos_articulo' pk=item.id_item %}">
+                            <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="25"
+                            height="25"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="#004F6F"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            >
+                            <path d="M4 12v-6a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v6" />
+                            <path d="M10 18h-7" />
+                            <path d="M21 18h-7" />
+                            <path d="M6 15l-3 3l3 3" />
+                            <path d="M18 15l3 3l-3 3" />
                             </svg>
                         </a>
                         <a class="enlaces" title="ELIMINAR ARTICULO" href="{% url 'eliminar_articulo' pk=item.id_item %}">

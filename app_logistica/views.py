@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
-from .models import Items,Almacenes,HistorialInventarios
+from .models import Items,Almacenes,HistorialInventarios, ItemsMovimientos
 from django.db.models import Count,Exists
 
 from datetime import datetime
@@ -95,13 +95,20 @@ def eliminar_articulo(request,pk):
         return render(request,'logistica/confirmar_eliminar_articulo.html',{'articulo':articulo})        
     else:
         return render(request,'logistica/no_es_posible_eliminar.html',{'articulo':articulo})
-        
+
+
+@login_required(login_url='login_logistica')
+def movimientos_articulo(request,pk):
+    articulo = get_object_or_404(Items,pk=pk)
+    movimientos = ItemsMovimientos.objects.filter(id_item=articulo)
+    return render(request,'logistica/historial_inventario.html',{'movimientos':movimientos})
     
+        
 @login_required(login_url='login_logistica')
 def historial_inventario_articulo(request,pk):
     articulo = get_object_or_404(Items,pk=pk)
     inventarios = HistorialInventarios.objects.filter(id_item=articulo)
-    return render(request,'logistica/historial_inventario.html',{'inventarios':inventarios})
+    return render(request,'logistica/movimientos.html',{'inventarios':inventarios})
     
 @login_required(login_url="login_logistica")
 def logistica_almacenes(request):
