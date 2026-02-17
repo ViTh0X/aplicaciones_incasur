@@ -62,7 +62,7 @@ def editar_item(request,pk):
         return redirect('logistica_items')
     else:
         form = ItemsForm(instance=item)
-    return render(request,'logistica/formulario_editar_item.html',{'form':form,'item':item,'inventario':inventario'})
+    return render(request,'logistica/formulario_editar_item.html',{'form':form,'item':item,'inventario':inventario})
     
 @login_required(login_url='login_logistica')    
 def inventariar_articulo(request,pk):
