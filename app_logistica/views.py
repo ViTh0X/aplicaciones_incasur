@@ -63,8 +63,21 @@ def editar_item(request,pk):
     return render(request,'logistica/formulario_editar_item.html',{'form':form,'item':item})
     
 @login_required(login_url='login_logistica')    
-def confirmar_inventariar(request):
-    return render(request,'logistica/almacenes.html')
+def inventariar_articulo(request,pk):
+    articulo = get_object_or_404(Items,pk=pk)        
+    area_nombre = (lambda valor: valor.nombre_area if valor is not None else "No Asignado")(articulo.id_area)
+    almacen_nombre = (lambda valor: valor.nombre_almacen if valor is not None else "No Asignado")(articulo.id_almacen)
+    usuario_nombre = (lambda valor: valor.nombre_colaborador if valor is not None else "No Asignado")(articulo.id_usuario)        
+    if request.method == 'POST':
+        historial_inventario = HistorialInventarios()
+        historial_inventario.id_item = articulo
+        historial_inventario.nombre_area = area_nombre
+        historial_inventario.nombre_almacen = almacen_nombre
+        historial_inventario.nombre_usuario = usuario_nombre
+        historial_inventario.save()
+        return redirect('logistica_items')
+        
+    return render(request,'logistica/confirmar_inventariar_articulo.html',{'articulo':articulo})
     
 @login_required(login_url="login_logistica")
 def logistica_almacenes(request):
