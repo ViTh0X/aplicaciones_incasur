@@ -4,7 +4,7 @@
     --blanco:#fff;
     --oscuro:#000;
     --colorFondo:#4D5156;
-    --colorFondoClaro:#f4f7f6;
+    --colorFondoClaro:hsl(160, 16%, 96%);
     --colorError:#FF2108;
     --colorAdvertencia:#EC742A;
 
@@ -35,6 +35,10 @@ html body{
 .plantilla{
     display: flex;
 }
+.texto_centrado{
+    text-align: center;
+}
+
 p{
     font-weight: bold;
     font-size: 2rem;
@@ -223,9 +227,24 @@ ul{
     color: var(--blanco);
     text-transform: uppercase;
     font-weight: bold;
-    border-radius: 0.5rem;
+    border-radius: 0.5rem;    
 }
-
+.boton_movimientos{    
+    width: 100%;
+    height: 3rem;
+    background-color: var(--colorSecundario);
+    border: none;
+    color: var(--blanco);
+    text-transform: uppercase;
+    font-weight: bold;
+    border-radius: 0.5rem;
+    margin-top: 1.5rem;
+    font-size: 1.5rem;
+}
+.boton,
+.boton_movimientos:hover{
+    cursor: pointer;
+}
 /*Contenido*/
 .plantilla__contenido{ 
     background-color: var(--colorFondoClaro);
@@ -293,13 +312,13 @@ ul{
     width: 100%;
 }
 .mostrar_informacion{    
-    padding: 0.2rem;
+    padding: 0.1rem;
 }
 .item{
     border: 0.2rem solid var(--colorSecundario);
     border-radius: 0.4rem;
     display: grid;
-    grid-template-columns: 64% 35%;
+    grid-template-columns: 62% 37%;
     margin-top: 1rem;        
 }
 .informacion_item{
@@ -523,7 +542,7 @@ ul{
 }
 @media (min-width:1024px){
     .mostrar_informacion_movimientos{
-        padding: 0.2rem 10rem 0.2rem 10rem;
+        padding: 0.2rem 0 0.2rem 0;
     }
 }
 
@@ -535,12 +554,19 @@ ul{
 .tabla_informacion thead{
     background-color: var(--colorSecundario);
     color: var(--blanco);    
-    font-size: 1.8rem;    
+    font-size: 1.1rem;    
     font-weight: bold;
 }
 .tabla_informacion tbody{    
-    font-size: 1.5rem;
-        
+    font-size: 1rem;        
+}
+@media (min-width:1024px){
+    .tabla_informacion thead{        
+        font-size: 1.8rem;            
+    }   
+    .tabla_informacion tbody{    
+        font-size: 1.5rem;        
+    }
 }
 .tabla_informacion td{
     border-bottom: 0.1rem solid var(--colorSecundario);
@@ -553,11 +579,99 @@ ul{
         font-size: 1.9rem;        
     }
 }
-.texto_centrado{
+.opciones_movimientos{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    
+}
+@media (min-width:1024px){
+    .opciones_movimientos{
+        width: 60rem;        
+        margin-left: 28%;
+    }       
+}
+.opciones_movimientos h2{
+    grid-column: 1/3;
+    grid-row: 1/2;
+}
+.movimientos_fila1{
+    grid-column: 1/3;
+    display: flex;
+    width: 100%;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    height: 3rem;    
+}
+.movimientos_fila1 select{
+    width: 90%;
+    font-size: 1.5rem;
+}
+.movimientos_fila1 input{
+    width: 10%;
+    font-size: 1.5rem;
+}
+.movimientos_fila2{
+    grid-column: 1/3;
+    display: flex;
+    width: 100%;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    height: 3rem;    
+}
+.movimientos_fila2 select{
+    width: 50%;
+    font-size: 1.5rem;
+}
+.movimientos_fila3{
+    grid-column: 1/3;
+    display: flex;
+    width: 100%;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    height: 3rem;    
+}
+.movimientos_fila3 select{
+    width: 65%;
+    font-size: 1.5rem;
+}
+.movimientos_fila3 button{
+    width: 35%;
+    font-size: 1.5rem;
+}
+.movimientos_fila4{
+    grid-column: 1/3;
+    display: flex;
+    width: 100%;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    height: 3rem;    
+}
+.movimientos_fila4 input{
+    width: 100%;
+    font-size: 1.5rem;
+}
+/*Formularios*/
+.formularios_movimiento{
+    background-color: var(--blanco);
+    margin: 0.1rem 0.1rem 0.1rem 0.1rem;
+    padding: 0.1rem;    
+
+}
+.seccion_cabecera select{
+    width: 100%;
     text-align: center;
+    margin-bottom: 0.5rem;
+    font-size: 1.8rem;
+    font-weight: bold;
+    height: 3rem;
 }
 
-/*Formularios*/
+.firma_container{
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5rem;
+    align-items: center;
+}
 .formularios{
     background-color: var(--blanco);
     margin: 0.5rem 1rem 0.5rem 1rem;
@@ -635,3 +749,74 @@ ul{
 .boton_formulario:hover{
     cursor: pointer;
 }
+
+/*Colaboradores*/
+.tabla_grande_container{
+    overflow-y: auto;
+    overflow-x: auto;
+    /* border: 0.2rem solid var(--colorFondo);
+    background-color: var(--colorFondoClaro);
+    border-radius: 0.5rem; */
+    height: 50rem;
+    padding: 0.1rem;    
+}
+
+.tabla_grande_container_movimientos{
+    overflow-y: auto;
+    overflow-x: auto;
+    /* border: 0.2rem solid var(--colorFondo);
+    background-color: var(--colorFondoClaro);
+    border-radius: 0.5rem; */
+    height: 10rem;
+    width: 32rem;
+    padding: 0.1rem;       
+}
+.tabla_grande_container_movimientos_vista{
+    overflow-y: auto;
+    overflow-x: auto;
+    /* border: 0.2rem solid var(--colorFondo);
+    background-color: var(--colorFondoClaro);
+    border-radius: 0.5rem; */
+    height: 50rem;
+    width: 32rem;
+    padding: 0.1rem;       
+}
+@media (min-width:1024px){
+    .tabla_grande_container_movimientos{
+        width: 100%;
+    }
+    .tabla_grande_container_movimientos_vista{
+        width: 100%;        
+    }
+}
+.columna1_fija_colaborador{
+    width: 15rem;
+    /* min-width: 20rem; */
+    /* max-width: 40rem; */
+}
+@media (min-width:1024px){
+    .columna1_fija_colaborador{
+        width: 40rem;
+        /* min-width: 20rem; */
+        /* max-width: 40rem; */
+    }    
+}
+.columna2_fija_colaborador{
+    width: auto;
+    overflow: hidden;
+    text-overflow: ellipsis;    
+}
+.columna2_fija_colaborador a{
+    text-decoration: none;
+    color: var(--colorSecundario);
+    text-transform:capitalize;
+    font-weight: bold;
+}
+@media (min-width:1024px){
+    .columna2_fija_colaborador{
+        width: auto;
+        overflow: hidden;
+        text-overflow: ellipsis;       
+    }    
+}
+

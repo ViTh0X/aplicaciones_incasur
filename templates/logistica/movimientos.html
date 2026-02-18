@@ -4,7 +4,7 @@
 <main>
     <div class="menu_opciones">
         <h1 class="no-margin">Movimientos:</h1>
-        <a href="" class="boton_enlace a1">+ Realizar Movimiento</a>
+        <a href="{% url 'agregar_movimientos' %}" class="boton_enlace a1">+ Realizar Movimiento</a>
         <input type="text" placeholder="Buscar x Nombre">
         <div class="filtra_fechas a2">
             <label for="">Fecha Inicio:</label>
@@ -29,30 +29,63 @@
             </a>
         </div>
     </div>
-    <div class="mostrar_informacion_movimientos">
+    <div class="mostrar_informacion_movimientos tabla_grande_container_movimientos_vista">
         <table class="tabla_informacion">
             <thead>
                 <tr>
-                    <th>Item</th>
+                    <th>Cabezera</th>
+                    <th>Id</th>
+                    <th>NombreArticulo</th>
+                    <th>TipoMovimiento</th>
                     <th>Origen</th>
                     <th>Destino</th>
+                    <th>Cantidad</th>
+                    <th>Referencia</th>
+                    <th>Observaciones</th>
+                    <th>PDF</th>
                     <th>Fecha</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Silla Gamer</td>
-                    <td>Leonard Samir Samir Quispe Quispe Cardenas</td>
-                    <td>Leonard Samir Samir Quispe Quispe Cardenas</td>
-                    <td class="texto_centrado">{% now "Y-m-d H:i:s" %}</td>
-                </tr>
-                <tr>
-                    <td>Silla Gamer</td>
-                    <td>Leonard Samir Samir Quispe Quispe Cardenas</td>
-                    <td>Leonard Samir Samir Quispe Quispe Cardenas</td>
-                    <td class="texto_centrado">{% now "Y-m-d H:i:s" %}</td>
-                </tr>
-                
+                {% for movimiento in movimientos%}
+                <tr>                    
+                    <td>{{ movimiento.id_movimiento_cabezera.id_cabezera }}</td>                    
+                    <td>{{ movimiento.id_movimiento }}</td>
+                    <td>{{ movimiento.id_item.nombre_item }}</td>
+                    <td>{{ movimiento.tipo_movimiento.nombre_movimiento }}</td>
+                    <td>{{ movimiento.nombre_origen }}</td>
+                    <td>{{ movimiento.nombre_destino }}</td>
+                    <td>{{ movimiento.cantidad_movimiento }}</td>
+                    <td>ID:{{ movimiento.id_movimiento_referencia.id_movimiento }}</td>
+                    <td>{{ movimiento.observaciones }}</td>                    
+                    <td>                        
+                        <a href="{% url 'imprimir_pdf_movimientos_firmado' pk=movimiento.id_movimiento_cabezera.id_cabezera %}" title="IMPRIMIR PDF FIRMADO">
+                            <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="#ff3b30"
+                            stroke-width="1.75"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            >
+                            <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+                            <path d="M5 12v-7a2 2 0 0 1 2 -2h7l5 5v4" />
+                            <path d="M5 18h1.5a1.5 1.5 0 0 0 0 -3h-1.5v6" />
+                            <path d="M17 18h2" />
+                            <path d="M20 15h-3v6" />
+                            <path d="M11 15v6h1a2 2 0 0 0 2 -2v-2a2 2 0 0 0 -2 -2h-1z" />
+                            </svg>
+                        </a>
+                        {{ cabecera.pdf_archivo }}
+                    </td>
+                    {% comment %} {% endif %}                     {% endcomment %}
+                    {% comment %} {% endfor %}    {% endcomment %}
+                    <td class="texto_centrado">{{ movimiento.fecha_modificacion|date:"d-m-Y H:i" }}</td>
+                </tr>                                
+                {% endfor %}
             </tbody>
         </table>
     </div>

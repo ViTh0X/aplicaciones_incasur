@@ -1,0 +1,45 @@
+<h2 class="no-margin" >Opciones Añadir Articulos</h2>
+<div class="movimientos_fila1">
+    <select name="articulo" id="articulo">
+        <option  value="" disabled selected>--Escoja un Articulo--</option>
+        {% for articulo in articulos %}
+            <option value="{{ articulo.id_item }}">ID:{{ articulo.id_item }}-{{ articulo.nombre_item }}-"(stock: {{ articulo.cantidad_items }})"-{{ articulo.id_almacen.nombre_almacen }}-{{ articulo.id_usuario.nombre_colaborador }}</option>
+        {% endfor %}    
+    </select>
+    <input type="number" name="cantidad" value="1" min="1" >
+</div>
+<div class="movimientos_fila2">
+    <select name="origen" id="origen">
+        <option  value="" disabled selected>--Escoja un Origen--</option>
+        {% for origen in origenes %}
+            <option value="{{ origen }}">{{ origen }}</option>
+        {% endfor %}    
+    </select>
+    <select name="destino" id="destino" >
+        <option  value="" disabled selected>--Escoja un Destino--</option>
+        {% for destino in destinos %}
+            <option value="{{ destino }}">{{ destino }}</option>
+        {% endfor %}    
+    </select>
+</div>
+<div class="movimientos_fila4">                        
+    <input name="observaciones" id="observaciones" type="text" placeholder="Añadir Observaciones">
+</div>    
+<div class="movimientos_fila3">
+    <select name="mov_ref" id="mov_ref">
+    <option  value="" disabled selected>--Escoja un MovimientoReferencia--</option>
+        {% for mov_ref in mov_refs %}
+            <option value="{{ mov_ref.id_movimiento }}">ID:{{ mov_ref.id_movimiento }}-{{ mov_ref.id_item.nombre_item }}</option>
+        {% endfor %}    
+    </select>
+    <button class="boton" type="button" 
+        hx-post="{% url 'agregar_fila_item' %}" 
+        hx-target="#cuerpoTabla" 
+        hx-swap="beforeend"
+        hx-include="#selector_articulos, #id_tipo_movimiento">
+    + Añadir
+    </button>
+</div>
+
+
+

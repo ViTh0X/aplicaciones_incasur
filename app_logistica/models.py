@@ -99,7 +99,8 @@ class Items(models.Model):
     nombre_item = models.CharField(max_length=100)
     descripcion_item = models.CharField(max_length=200,blank=True,null=True)
     imagen_qr = models.ImageField(upload_to='imagenes_qr/',blank=True,null=True)
-    tipo_item = models.ForeignKey(TipoItems,on_delete=models.CASCADE)#,null=True,blank=True)
+    tipo_item = models.ForeignKey(TipoItems,on_delete=models.CASCADE,null=True,blank=True)#desarrollo
+    #tipo_item = models.ForeignKey(TipoItems,on_delete=models.CASCADE)#,null=True,blank=True)produccion
     cantidad_items = models.IntegerField(default=1)
     id_area = models.ForeignKey(AreasEmpresa,on_delete=models.CASCADE,null=True,blank=True)
     id_estado = models.ForeignKey(TipoEstadoItems,on_delete=models.CASCADE)
@@ -127,21 +128,6 @@ class HistorialInventarios(models.Model):
     def __str__(self):
         return self.id_historial
     
-class ItemMovimientosCabecera(models.Model):
-    id_cabezera = models.AutoField(primary_key=True)
-    colaborador_confirma = models.ForeignKey(Colaboradores,on_delete=models.CASCADE)
-    fecha = models.DateTimeField(auto_now=True)
-    firma_base64 = models.TextField()
-    hash_seguridad = models.CharField(max_length=64, editable=False)
-    
-    def save(self, *args, **kwargs):
-        if not self.hash_seguridad:
-            # Sello de seguridad
-            cadena = f"{self.nombre_trabajador}{self.fecha}{self.firma_base64}{settings.SECRET_KEY}"
-            self.hash_seguridad = hashlib.sha256(cadena.encode()).hexdigest()
-        super().save(*args, **kwargs)
-
- 
     
 class TiposMovimiento(models.Model):
     id_tipo = models.AutoField(primary_key=True)
@@ -154,16 +140,36 @@ class TiposMovimiento(models.Model):
         
     def __str__(self):
         return self.nombre_movimiento
+    
+        
+class ItemMovimientosCabecera(models.Model):
+    id_cabezera = models.AutoField(primary_key=True)
+    colaborador_confirma = models.ForeignKey(Colaboradores,on_delete=models.CASCADE)
+    fecha = models.DateTimeField(auto_now=True)
+    firma_base64 = models.TextField()
+    hash_seguridad = models.CharField(max_length=64, editable=False)
+    pdf_archivo = models.FileField(upload_to='pdfs_movimientos/', null=True, blank=True)
+    def save(self, *args, **kwargs):
+        if not self.hash_seguridad:
+            # Sello de seguridad
+            cadena = f"{self.colaborador_confirma}{self.fecha}{self.firma_base64}{settings.SECRET_KEY}"
+            self.hash_seguridad = hashlib.sha256(cadena.encode()).hexdigest()
+        super().save(*args, **kwargs)
+    
+    #class Meta:
+        #db_table = 'items_movimientos_cabezera'
  
     
 class ItemsMovimientos(models.Model):
     id_movimiento = models.AutoField(primary_key=True)
     id_movimiento_cabezera = models.ForeignKey(ItemMovimientosCabecera,on_delete=models.CASCADE,null=True,blank=True)
     id_item = models.ForeignKey(Items,on_delete=models.CASCADE)
-    tipo_movimiento = models.ForeignKey(TiposMovimiento,on_delete=models.CASCADE)#,null=True,blank=True)#    
+    #tipo_movimiento = models.ForeignKey(TiposMovimiento,on_delete=models.CASCADE)#,null=True,blank=True)#produccion    
+    tipo_movimiento = models.ForeignKey(TiposMovimiento,on_delete=models.CASCADE,null=True,blank=True)#desarrollo    
     nombre_origen = models.CharField(max_length=150)
     nombre_destino = models.CharField(max_length=150)
-    id_movimiento_referencia = models.ForeignKey('self',on_delete=models.CASCADE,null=True,blank=True)#
+    cantidad_movimiento = models.CharField(max_length=10,default=0)
+    id_movimiento_referencia = models.ForeignKey('self',on_delete=models.CASCADE,null=True,blank=True)
     observaciones = models.CharField(max_length=200,default="Sin Observaciones")#,null=True,blank=True)    
     fecha_modificacion = models.DateTimeField(auto_now=True)
     
@@ -171,7 +177,7 @@ class ItemsMovimientos(models.Model):
         db_table = 'items_movimientos'
         
     def __str__(self):
-        return f"Movimiento {self.id_movimiento} - {self.id_item.nombre}"
+        return f"Movimiento {self.id_movimiento} - {self.id_item.nombre_item}"
     
     
         

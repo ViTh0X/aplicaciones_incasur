@@ -1,0 +1,137 @@
+{% extends "../layout_logistica.html" %}
+{% block titulo %}Creando Almacen{% endblock %}
+{% block contenido %}
+<main>
+    <div class="formularios_movimiento" >        
+        <form id="formMovimiento" method="POST" action="{% url 'agregar_movimientos' %}">
+            {% csrf_token %}
+            <div class="seccion_cabecera">
+                <div>                    
+                    <select name="colaborador_id" required>
+                            <option value="" disabled selected>--Seleccione a una Persona Encargada--</option>
+                        {% for colaborador in colaboradores %}
+                            <option value="{{ colaborador.codigo_colaborador }}">{{ colaborador.nombre_colaborador }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div id="id_tipo_movimiento">                    
+                    <select name="tipo_movimiento" id="tipo_movimiento" 
+                            hx-post={% url 'filtrar_campos_movimientos' %}
+                            hx-target="#contenedor-movimientos"
+                            hx-trigger="change">
+                            <option value="" disabled selected>--Escoja un tipo de Movimiento--</option>
+                        {% for tipo_movimiento in tipos_movimiento %}
+                            <option value="{{ tipo_movimiento.id_tipo }}">{{ tipo_movimiento.nombre_movimiento }}</option>
+                        {% endfor %}
+                    </select>
+                </div>            
+            </div>            
+            <hr>
+            <div class="opciones_movimientos" id="contenedor-movimientos">
+                <h2 class="no-margin">Opciones Añadir Articulos</h2>
+                <div class="movimientos_fila1">
+                    <select name="articulo" >
+                        <option  value="" disabled selected>--Escoja un Articulo--</option>                     
+                    </select>
+                    <input type="number" name="cantidad" value="1" min="1" >
+                </div>
+                <div class="movimientos_fila2">
+                    <select name="origen" >
+                        <option  value="" disabled selected>--Escoja un Origen--</option>                    
+                    </select>
+                    <select name="destino" >
+                        <option  value="" disabled selected>--Escoja un Destino--</option>                    
+                    </select>
+                </div>
+                <div class="movimientos_fila4">                                        
+                    <input type="text" placeholder="Añadir Observaciones">
+                </div>     
+                <div class="movimientos_fila3">
+                    <select name="mov_ref" >
+                        <option  value="" disabled selected>--Escoja un MovimientoReferencia--</option>                    
+                    </select>
+                    <button class="boton" type="button" 
+                        hx-post="{% url 'agregar_fila_item' %}" 
+                        hx-target="#cuerpoTabla" 
+                        hx-swap="beforeend"
+                        hx-include="#contenedor-movimientos, #id_tipo_movimiento">
+                    + Añadir
+                    </button>
+                </div>                                                           
+            </div>            
+            <div class="tabla_grande_container_movimientos">
+                <table class="tabla_informacion">
+                    <thead>
+                        <tr>                                                        
+                            <th>NombreArticulo</th>                            
+                            <th>TipoMovimiento</th>
+                            <th>Origen</th>
+                            <th>Destino</th>
+                            <th>Cantidad</th>
+                            <th>Referencia</th>
+                            <th>Observaciones</th>                         
+                            <th>T</th>                        
+                        </tr>
+                    </thead>
+                    <tbody id="cuerpoTabla">
+                    </tbody>
+                </table>
+            </div>
+            
+            <hr>
+
+            <div class="firma_container">
+                <label>Firma del Colaborador (Dedo o lápiz):</label>
+                <canvas id="canvasFirma" style="border: 2px dashed #ccc; background: #fff; width: 31rem; height: 200px; touch-action: none;"></canvas>
+                <input type="hidden" name="firma_base64" id="id_firma_base64">
+                <button class="boton_formulario" type="button" onclick="signaturePad.clear()">Limpiar Firma</button>
+            </div>
+
+            <button class="boton_movimientos" type="submit" hx-boost="true" class="boton_enlace a1" onclick="enviarFormulario(event)">
+                FINALIZAR Y GUARDAR MOVIMIENTO
+            </button>
+        </form>
+
+        <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+        <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+
+        <script>
+            // Configuración del Canvas
+            const canvas = document.getElementById('canvasFirma');
+            const signaturePad = new SignaturePad(canvas, {
+                backgroundColor: 'rgb(255, 255, 255)'
+            });
+
+            // Ajustar resolución del canvas
+            function resizeCanvas() {
+                const ratio = Math.max(window.devicePixelRatio || 1, 1);
+                canvas.width = canvas.offsetWidth * ratio;
+                canvas.height = canvas.offsetHeight * ratio;
+                canvas.getContext("2d").scale(ratio, ratio);
+                signaturePad.clear();
+            }
+            window.addEventListener("resize", resizeCanvas);
+            resizeCanvas();
+
+            // Validación y Envío
+            function enviarFormulario(event) {
+                if (signaturePad.isEmpty()) {
+                    alert("El colaborador debe firmar para continuar.");
+                    event.preventDefault();
+                    return;
+                }
+
+                const filas = document.querySelectorAll('#cuerpoTabla tr');
+                if (filas.length === 0) {
+                    alert("Debe agregar al menos un artículo a la lista.");
+                    event.preventDefault();
+                    return;
+                }
+
+                // Pasar firma a Base64 antes de enviar
+                document.getElementById('id_firma_base64').value = signaturePad.toDataURL();
+            }
+        </script>
+    </div>    
+</main>
+{% endblock  %}

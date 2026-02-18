@@ -1,0 +1,35 @@
+<tr>
+    <td>
+        {{ articulo.nombre_item }}
+        <input type="hidden" name="items_ids[]" value="{{ articulo.id_item }}">
+    </td>
+    <td>
+        {{ tipo_movimiento }}
+        <input type="hidden" name="items_tipo_movimiento[]" value="{{ tipo_movimiento.id_tipo }}">
+    </td>
+    <td>
+        {{ origen }}
+        <input type="hidden" name="items_origen[]" value="{{ origen }}">
+    </td>
+    <td>
+        {{ destino }}
+        <input type="hidden" name="items_destino[]" value="{{ destino }}">
+    </td>
+    <td class="texto_centrado">
+        {{ cantidad }}
+        <input type="hidden" name="cantidades[]" value="{{ cantidad }}">
+    </td>
+    <td>
+        {{ mov_ref }}
+        <input type="hidden" name="items_mov_ref[]" value="{{ mov_ref }}">
+    </td>
+    <td>
+        {{ observaciones }}
+        <input type="hidden" name="items_observaciones[]" value="{{ observaciones }}">
+    </td>
+    <td>
+        <button type="button" class="boton_eliminar" onclick="this.closest('tr').remove()">
+            Eliminar
+        </button>
+    </td>
+</tr>

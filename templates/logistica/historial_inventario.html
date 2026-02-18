@@ -40,18 +40,22 @@
                     <th>Año</th>
                 </tr>
             </thead>
-            <tbody>
-                {% for inventario in inventarios %}
-                <tr>
-                    <td>{{ inventario.id_item.nombre_item }}</td>
-                    <td>{{ inventario.nombre_area|default:"sin asignar" }}</td>
-                    <td>{{ inventario.nombre_almacen|default:"sin asignar" }}</td>
-                    <td>{{ inventario.nombre_usuario|default:"sin asignar" }}</td>
-                    <td class="texto_centrado">{{ inventario.fecha_modificacion|date:"d-m-Y" }}</td>
-                </tr>
-                {% endfor %}                                                 
-            </tbody>
         </table>
+        <div class="tabla_grande_container">
+            <table class="tabla_informacion">                
+                <tbody>
+                    {% for inventario in inventarios %}
+                    <tr>
+                        <td>{{ inventario.id_item.nombre_item }}</td>
+                        <td>{{ inventario.nombre_area|default:"Sin Asignar" }}</td>
+                        <td>{{ inventario.nombre_almacen|default:"Sin Asignar" }}</td>
+                        <td>{{ inventario.nombre_usuario|default:"Sin Asignar" }}</td>
+                        <td class="texto_centrado">{{ inventario.fecha_modificacion|date:"d-m-Y" }}</td>
+                    </tr>
+                    {% endfor %}                                                 
+                </tbody>
+            </table>
+        </div>
     </div>
 </main>
 {% endblock  %}
