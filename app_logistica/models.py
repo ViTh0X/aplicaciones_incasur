@@ -99,8 +99,8 @@ class Items(models.Model):
     nombre_item = models.CharField(max_length=100)
     descripcion_item = models.CharField(max_length=200,blank=True,null=True)
     imagen_qr = models.ImageField(upload_to='imagenes_qr/',blank=True,null=True)
-    tipo_item = models.ForeignKey(TipoItems,on_delete=models.CASCADE,null=True,blank=True)#desarrollo
-    #tipo_item = models.ForeignKey(TipoItems,on_delete=models.CASCADE)#,null=True,blank=True)produccion
+    #tipo_item = models.ForeignKey(TipoItems,on_delete=models.CASCADE,null=True,blank=True)#desarrollo
+    tipo_item = models.ForeignKey(TipoItems,on_delete=models.CASCADE)#,null=True,blank=True)produccion
     cantidad_items = models.IntegerField(default=1)
     id_area = models.ForeignKey(AreasEmpresa,on_delete=models.CASCADE,null=True,blank=True)
     id_estado = models.ForeignKey(TipoEstadoItems,on_delete=models.CASCADE)
@@ -156,8 +156,8 @@ class ItemMovimientosCabecera(models.Model):
             self.hash_seguridad = hashlib.sha256(cadena.encode()).hexdigest()
         super().save(*args, **kwargs)
     
-    #class Meta:
-        #db_table = 'items_movimientos_cabezera'
+    class Meta:
+        db_table = 'items_movimientos_cabezera'
  
     
 class ItemsMovimientos(models.Model):

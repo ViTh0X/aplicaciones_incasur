@@ -310,7 +310,7 @@ def agregar_movimientos(request):
                     cantidad_movimiento=cant,
                     observaciones=obs
                 )
-                id_almacen = almacen               
+                articulo.id_almacen = almacen               
                 articulo.cantidad_items += cant
                 articulo.save()                                    
             elif i_tip_mov == "2":
@@ -348,7 +348,10 @@ def agregar_movimientos(request):
                 )
                 articulo.id_usuario = None
                 articulo.id_almacen = almacen
-                articulo.cantidad_items += cant
+                if articulo.tipo_item.nombre_tipo.lower() == 'stock':                        
+                    articulo.cantidad_items += cant
+                else:
+                    articulo.cantidad_items = 1
                 articulo.save()                
             elif i_tip_mov == "4":
                 if articulo.cantidad_items >= cant:
