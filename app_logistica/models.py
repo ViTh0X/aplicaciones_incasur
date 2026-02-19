@@ -158,7 +158,9 @@ class ItemMovimientosCabecera(models.Model):
     
     class Meta:
         db_table = 'items_movimientos_cabezera'
- 
+    
+    def __str__(self):
+        return f"Cabezera {self.id_cabezera} - {self.colaborador_confirma}"
     
 class ItemsMovimientos(models.Model):
     id_movimiento = models.AutoField(primary_key=True)
