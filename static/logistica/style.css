@@ -794,6 +794,12 @@ ul{
     /* min-width: 20rem; */
     /* max-width: 40rem; */
 }
+.columna1_fija_colaborador a{
+    text-decoration: none;
+    color: var(--colorPrincipal);
+    text-transform:capitalize;
+    font-weight: bold;
+}
 @media (min-width:1024px){
     .columna1_fija_colaborador{
         width: 40rem;

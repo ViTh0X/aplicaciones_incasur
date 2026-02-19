@@ -21,6 +21,7 @@ class CreadorWord():
     
     def crearContenido(self):
         self.contenido = self.documento.add_paragraph("")
+            
     
     def agregarTitulo(self,titulo,tipo=0):        
         if tipo == 1:
@@ -34,8 +35,8 @@ class CreadorWord():
             self.runTitulo.bold = True
             self.runTitulo.font.name = "Segoe UI"
             self.runTitulo.underline = True
-            self.runTitulo.font.size = Pt(14)
-            
+            self.runTitulo.font.size = Pt(14)    
+                
     def guardarDocumento(self,nombreDocumento):
         nombre_archivo =f"{nombreDocumento}.docx"                     
         ruta_documento = os.path.join(settings.MEDIA_ROOT,nombre_archivo)
@@ -108,7 +109,7 @@ class CreadorWord():
         ruta_imagen_cabezera = os.path.join(settings.MEDIA_ROOT,"incasur.png")
         run.add_picture(ruta_imagen_cabezera, width=Inches(1))
         cabezera.add_paragraph() 
-        # Ajusta el tamaño a tu necesidad
+        # Ajusta el tamaño a tu necesidad                
     
     def crear_piepagina(self):    
         # Acceder a la primera sección
@@ -165,6 +166,19 @@ class CreadorWord():
             run4 = self.parrafo_principal.add_run(texto2)
             run4.font.name = "Arial Narrow"
             run4.font.size = Pt(11)
+    
+    def añadir_campo(self,qr_ruta,nombre_articulo):
+        parrafo = self.documento.add_paragraph()
+        nombre_arti = nombre_articulo
+        ruta_imagen_qr = os.path.join(settings.MEDIA_ROOT,qr_ruta)
+        run1 = parrafo.add_run()
+        run1.add_picture(ruta_imagen_qr, width=Inches(1.5))
+        
+        run2 = parrafo.add_run(nombre_arti)        
+        run2.font.name = "Arial Narrow"
+        run2.font.size = Pt(11) 
+        run2.bold = True        
+        
 
     def escrito_final1(self):
         parrafo = self.documento.add_paragraph()

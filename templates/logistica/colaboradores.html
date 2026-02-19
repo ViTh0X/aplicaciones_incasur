@@ -20,7 +20,9 @@
                 <tbody>
                     {% for colaborador in colaboradores %}
                     <tr>
-                        <td class="columna1_fija_colaborador">{{ colaborador.nombre_colaborador }}</td>
+                        <td class="columna1_fija_colaborador">
+                            <a href="{% url 'movimientos_por_colaborador' pk=colaborador.codigo_colaborador %}">{{ colaborador.nombre_colaborador }}</a>
+                        </td>
                         <td class="columna2_fija_colaborador">
                             {% for item in items_colaborador %}
                             {% if item.id_usuario.codigo_colaborador == colaborador.codigo_colaborador %}

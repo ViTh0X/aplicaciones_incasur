@@ -6,7 +6,7 @@
         <h1 class="no-margin">Articulos:</h1>
         <a href="{% url 'agregar_items' %}" class="boton_enlace a1">+ Agregar Articulo</a>
         <input type="text" placeholder="Buscar X Nombre">
-        <a href="" class="boton_enlace a2">Todos los QR</a>        
+        <a href="{% url 'imprimir_pdf_qrs' %}" class="boton_enlace a2">Todos los QR</a>        
     </div>
     <div class="mostrar_informacion tabla_grande_container">
         <div class="no-padding columnas_items">

@@ -2,44 +2,46 @@
 <html>
 <head>
     <style>
-        /* ESTA ES LA REGLA PARA GIRAR LA HOJA */
         @page {
             size: A4 landscape;
-            margin: 1cm;
+            margin: 1cm; /* Un margen un poco más amplio es mejor para impresión */
         }
 
         body { 
             font-family: Helvetica, sans-serif; 
             font-size: 10px; 
             margin: 0;
-            padding: 0;
         }
 
         .titulo { text-align: center; font-size: 16px; font-weight: bold; margin-bottom: 15px; }
         
         table { 
-            width: 100%; 
+            width: 100%; /* ESTE ES EL CAMBIO CLAVE */
             border-collapse: collapse; 
-            /* Quitamos table-layout: fixed para que las columnas se adapten al contenido */
+            table-layout: fixed; /* Recomendado para PDF para controlar anchos */
         }
         
         th, td { 
             border: 0.5px solid #000; 
-            padding: 4px 2px; /* Un poco más de aire ahora que hay espacio */
+            padding: 5px; 
             text-align: left; 
             font-size: 9px; 
+            word-wrap: break-word; /* Evita que textos largos rompan la tabla */
         }
 
         th { background-color: #f2f2f2; }
 
-        /* Definimos anchos sugeridos para que se vea ordenado */
-        .col-articulo { width: 20%; }
+        /* Definimos porcentajes que sumen 100% para cubrir todo el ancho */
+        .col-art { width: 15%; }
         .col-tipo { width: 10%; }
-        .col-cantidad { width: 5%; text-align: center; }
+        .col-orig { width: 17%; }
+        .col-dest { width: 17%; }
+        .col-cant { width: 7%; }
+        .col-ref { width: 13%; }
+        .col-obs { width: 20%; } /* Ahora sí cabrá en la hoja */
 
         .firma-box { margin-top: 30px; text-align: center; width: 250px; }
         .firma-img { width: 200px; height: auto; border-bottom: 1px solid #000; }
-        .firma-box p { margin: 2px 0; font-size: 9px; }
     </style>
 </head>
 <body>
@@ -51,13 +53,13 @@
     <table>
         <thead>
             <tr>
-                <th>Articulo</th>
-                <th>TipMovimiento</th>
-                <th>Origen</th>
-                <th>Destino</th>
-                <th>Cantidad</th>
-                <th>MovReferencia</th>
-                <th>Observaciones</th>
+                <th class="col-art">Articulo</th>
+                <th class="col-tipo">TipMovimiento</th>
+                <th class="col-orig">Origen</th>
+                <th class="col-dest">Destino</th>
+                <th class="col-cant">Cantidad</th>
+                <th class="col-ref">MovReferencia</th>
+                <th class="col-obs">Observaciones</th>
             </tr>
         </thead>
         <tbody>
@@ -68,8 +70,8 @@
                 <td>{{ movimiento.nombre_origen }}</td>
                 <td>{{ movimiento.nombre_destino }}</td>
                 <td>{{ movimiento.cantidad_movimiento }}</td>
-                <td>{{ movimiento.id_movimiento_referencia }}</td>                
-                <td>{{ movimiento.observaciones }}</td>
+                <td>{{ movimiento.id_movimiento_referencia|default:"Sin Referencia" }}</td>                
+                <td>{{ movimiento.observaciones|default:"Sin Observaciones" }}</td>
             </tr>
             {% endfor %}
         </tbody>

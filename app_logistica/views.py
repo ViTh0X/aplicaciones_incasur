@@ -8,7 +8,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
 from .models import Items,Almacenes,HistorialInventarios, ItemsMovimientos, ItemMovimientosCabecera, Colaboradores,EstadoColaboradores,TiposMovimiento,TipoItems,TipoEstadoItems
-from django.db.models import Count,Exists
+from django.db.models import Count,Exists,Q
 from django.db import transaction
 
 from datetime import datetime
@@ -207,8 +207,15 @@ def movimientos_por_item(request,pk):
         'tipo_movimiento'
     ).filter(id_item=pk).order_by('-fecha_modificacion')
     return render(request,'logistica/movimientos.html',{'movimientos':movimientos})
-    
 
+
+@login_required(login_url="login_logistica")    
+def movimientos_por_colaborador(request,pk):
+    colaborador = Colaboradores.objects.get(pk=pk)
+    movimientos = ItemsMovimientos.objects.filter(Q(nombre_origen=colaborador.nombre_colaborador) | 
+        Q(nombre_destino=colaborador.nombre_colaborador)
+    )
+    return render(request,'logistica/movimientos.html',{'movimientos':movimientos})
 
 @login_required(login_url="login_logistica")
 def imprimir_pdf_movimientos_firmado(request,pk):
@@ -223,8 +230,38 @@ def imprimir_pdf_movimientos_firmado(request,pk):
     
     return response
 
+@login_required(login_url="login_logistica")
+def imprimir_pdf_qrs(request):
+    articulo_tipo_no_baja = TipoEstadoItems.objects.exclude(id_estado=2)
+    tipo_articulo_serial = TipoItems.objects.get(id_tipo=2)    
+    articulos = Items.objects.filter(tipo_item=tipo_articulo_serial,id_estado__in=articulo_tipo_no_baja)
+        
+    html_string = render_to_string('logistica/pdf_imprimir_qrs.html', {'articulos': articulos})
     
+    # 2. Preparar el buffer
+    result = BytesIO()
     
+    # 3. Generar PDF con manejo de errores estricto
+    pisa_status = pisa.CreatePDF(
+        src=html_string,  # Pasamos el string directamente
+        dest=result,
+        encoding='utf-8'
+    )
+    
+    # Si hay error en la generación, mostramos el error en texto en lugar de un PDF corrupto
+    if pisa_status.err:
+        return HttpResponse(f"Error técnico al generar PDF: {pisa_status.err}", status=500)
+
+    # 4. Preparar respuesta
+    pdf_final = result.getvalue() # Obtenemos los bytes directamente
+    result.close() # Cerramos el buffer
+
+    response = HttpResponse(pdf_final, content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="TODOS_LOS_QR.pdf"'
+    
+    return response
+
+
 @login_required(login_url="login_logistica")
 @transaction.atomic
 def agregar_movimientos(request):

@@ -1,0 +1,31 @@
+<style>
+    @page { size: A4; margin: 1cm; }
+    table { width: 100%; border-collapse: collapse; }
+    td { 
+        width: 25%; 
+        padding: 10px; 
+        text-align: center; 
+        border: 0.5px solid #eeeeee; 
+        vertical-align: top;
+    }
+    .qr-img { width: 30rem; height: 30rem; }
+    .nombre { font-family: Helvetica; font-size: 3rem; font-weight: bold; margin-top: 5px; }
+</style>
+
+<table>
+    <tr>
+    {% for articulo in articulos %}
+        <td>
+            {% if articulo.imagen_qr %}
+                <img src="{{ articulo.imagen_qr.path }}" class="qr-img">
+            {% endif %}
+            <div class="nombre">{{ articulo.nombre_item }}</div>
+        </td>
+        
+        {# Crea una nueva fila cada 4 elementos #}
+        {% if forloop.counter|divisibleby:4 and not forloop.last %}
+            </tr><tr>
+        {% endif %}
+    {% endfor %}
+    </tr>
+</table>

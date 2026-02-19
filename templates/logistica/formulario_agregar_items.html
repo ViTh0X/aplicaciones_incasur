@@ -36,18 +36,18 @@
                 <label for="">Estado:</label>
                 {{ form.id_estado }}
             </div>
-            <div class="campos_textoopciones">
+            {% comment %} <div class="campos_textoopciones">
                 <label for="">Almacen:</label>
                 {{ form.id_almacen }}
-            </div>
-            <div class="campos_textoopciones">
+            </div> {% endcomment %}
+            {% comment %} <div class="campos_textoopciones">
                 <label for="">Colaborador Asignado:</label>
                 {{ form.id_usuario }}
-            </div>
-            <div class="campos_textoopciones">
+            </div> {% endcomment %}
+            {% comment %} <div class="campos_textoopciones">
                 <label for="">Area-Ubicacion:</label>
                 {{ form.id_area }}
-            </div>
+            </div>  {% endcomment %}
             <div class="botones_formularios">
                 <a class="boton_enlace a1" href="{% url 'logistica_items' %}">← Volver a Articulos</a>
                 <button class="boton_formulario" type="submit">Crear Articulo</button>
