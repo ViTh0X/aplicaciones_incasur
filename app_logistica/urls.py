@@ -24,6 +24,7 @@ urlpatterns = [
     path('imprimir-pdf-qrs',views.imprimir_pdf_qrs,name='imprimir_pdf_qrs'),
     path('agregar-fila-item',views.agregar_fila_item,name='agregar_fila_item'),
     path('historial-inventario',views.logistica_historial_inventario,name='logistica_historial_inventario'),
+    path('articulos-no-inventariados',views.articulos_no_inventariados,name='articulos_no_inventariados'),
     path('colaboradores',views.logistica_colaboradores,name='logistica_colaboradores'),    
     path('movimientos-por-item/<int:pk>/',views.movimientos_por_item,name='movimientos_por_item'),
     path('movimientos-por-colaborador/<int:pk>/',views.movimientos_por_colaborador,name='movimientos_por_colaborador'),

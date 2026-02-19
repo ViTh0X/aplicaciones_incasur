@@ -1,30 +1,34 @@
 {% extends "../layout_logistica.html" %}
-{% block titulo %}Colaboradores{% endblock  %}
+{% block titulo %}No Inventariados{% endblock  %}
 {% block contenido %}
 <main>
     <div class="menu_opciones">
-        <h1 class="no-margin">Colaboradores:</h1>        
+        <h1 class="no-margin">No inventariados del año : {{ año }}</h1>        
         <input type="text" placeholder="Buscar x Nombre">        
     </div>
     <div class="mostrar_informacion_movimientos">
         <table class="tabla_informacion">
             <thead>
                 <tr>
-                    <th class="columna1_fija_colaborador">Id Articulo</th>
-                    <th class="columna2_fija_colaborador">Nombre Articulo</th>                    
+                    <th class="columna1_fija_colaborador">Nombre Colaborador</th>
+                    <th class="columna2_fija_colaborador">Articulos Asignados</th>                    
                 </tr>
             </thead>            
         </table>
         <div class="tabla_grande_container"> 
             <table class="tabla_informacion">                
                 <tbody>
-                    {% for articulo in articulos %}
+                    {% for colaborador in colaboradores %}
                     <tr>
                         <td class="columna1_fija_colaborador">
-                            {{ articulo.id_item }}
+                            <a href="{% url 'movimientos_por_colaborador' pk=colaborador.codigo_colaborador %}">{{ colaborador.nombre_colaborador }}</a>
                         </td>
                         <td class="columna2_fija_colaborador">
-                            {{ articulo.nombre_item }}                                       
+                            {% for item in items_colaborador %}
+                            {% if item.id_usuario.codigo_colaborador == colaborador.codigo_colaborador %}
+                            <a  href="{% url 'movimientos_por_item' pk=item.id_item %}">{{ item.nombre_item }}</a>      
+                            {% endif %}
+                            {% endfor %}                  
                         </td>                    
                     </tr>                
                     {% endfor %}                

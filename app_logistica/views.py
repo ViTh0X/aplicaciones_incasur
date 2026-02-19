@@ -73,9 +73,8 @@ def agregar_items(request):
 
 @login_required(login_url="login_logistica")
 def editar_item_celular(request,pk):            
-    item = get_object_or_404(Items,pk=pk)
-    año = datetime.now().year
-    inventario = HistorialInventarios.objects.filter(id_item=pk,fecha_modificacion__year=año)    
+    item = get_object_or_404(Items,pk=pk)    
+    inventario = HistorialInventarios.objects.filter(id_item=pk)    
     #inventario = get_object_or_404(HistorialInventarios,id_item=pk,fecha_modificacion__year=año)
     if request.method == 'POST':
         form = ItemsForm(request.POST, instance=item)
@@ -232,7 +231,7 @@ def imprimir_pdf_movimientos_firmado(request,pk):
 
 @login_required(login_url="login_logistica")
 def imprimir_pdf_qrs(request):
-    articulo_tipo_no_baja = TipoEstadoItems.objects.exclude(id_estado=2)
+    articulo_tipo_no_baja = TipoEstadoItems.objects.exclude(id_estado=1)
     tipo_articulo_serial = TipoItems.objects.get(id_tipo=2)    
     articulos = Items.objects.filter(tipo_item=tipo_articulo_serial,id_estado__in=articulo_tipo_no_baja)
         
@@ -552,6 +551,14 @@ def filtrar_campos_movimientos(request):
 def logistica_historial_inventario(request):
     inventarios = HistorialInventarios.objects.all()
     return render(request,'logistica/historial_inventario.html',{'inventarios':inventarios})
+
+@login_required(login_url="login_logistica")
+def articulos_no_inventariados(request):
+    articulo_tipo_no_baja = TipoEstadoItems.objects.exclude(id_estado=1)        
+    año = datetime.now().year
+    inventarios_id = HistorialInventarios.objects.filter(fecha_modificacion__year=año).values_list('id_item',flat=True)    
+    articulos = Items.objects.filter(id_estado__in=articulo_tipo_no_baja).exclude(id_item__in=inventarios_id)
+    return render(request,'logistica/no_inventariados.html',{'articulos':articulos,'año':año})
 
 @login_required(login_url="login_logistica")
 def logistica_colaboradores(request):
