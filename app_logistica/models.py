@@ -143,7 +143,7 @@ class TiposMovimiento(models.Model):
     
         
 class ItemMovimientosCabecera(models.Model):
-    id_cabezera = models.AutoField(primary_key=True)
+    id_cabecera = models.AutoField(primary_key=True)
     colaborador_confirma = models.ForeignKey(Colaboradores,on_delete=models.CASCADE)
     fecha = models.DateTimeField(auto_now=True)
     firma_base64 = models.TextField()
