@@ -137,3 +137,4 @@ MEDIA_URL = '/aplicaciones-incasur/media/'
 #MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 MEDIA_ROOT = '/var/www/aplicaciones_incasur/media/'
 
+SESSION_COOKIE_NAME = 'aplicaciones_incasur'
