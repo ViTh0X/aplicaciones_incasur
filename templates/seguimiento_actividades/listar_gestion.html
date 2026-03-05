@@ -28,8 +28,7 @@
                 <td>{{ gestion.id_subtarea.detalle_subtarea }}</td>
                 <td>{{ gestion.detalle_gestion }}</td>
                 <td>{{ gestion.fecha_modificacion|date:'d-m-Y' }}</td>
-                <td><a href="">
-                </a>Imprimir</td>
+                <td><a href="{% url  'imprimir_gestion' pk=gestion.id %}">Imprimir</a></td>
             </tr>                                                                 
             {% empty %}
             <p>

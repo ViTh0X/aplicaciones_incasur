@@ -109,7 +109,7 @@ def listar_gestion(request,pk):
 
 
 def imprimir_gestion(request,pk):
-    gestion = GestionSubtareas.objects.get(id_subtarea=pk)
+    gestion = GestionSubtareas.objects.get(pk=pk)
     plantilla_ruta = os.path.join(settings.MEDIA_ROOT,'formatos_excel','BITACORA_GESTION_PROYECTOS.xlsx')
     try:
         libro = openpyxl.load_workbook(plantilla_ruta)
