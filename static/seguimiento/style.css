@@ -1,0 +1,12 @@
+:root{
+    --colorPrincipal:#C2CE45;
+    --colorSecundario:#004F6F;
+    --blanco:#fff;
+    --oscuro:#000;
+    --colorFondo:#4D5156;
+    --colorFondoClaro:hsl(160, 16%, 96%);
+    --colorError:#FF2108;
+    --colorAdvertencia:#EC742A;
+
+    --fuente: "Open Sans", sans-serif;
+}
