@@ -14,14 +14,14 @@ def main_seguimiento_actividades(request):
         proyecto_id =  request.POST.get('proyecto_seleccionado')        
         if proyecto_id:
             return redirect('ver_tareas',pk=proyecto_id)
-    return render(request,'seguimientos_actividades/main.html',{'proyectos':proyectos})
+    return render(request,'seguimiento_actividades/main.html',{'proyectos':proyectos})
 
 
 def ver_tareas(request,pk):
     proyecto = Proyectos.objects.filter(pk=pk)
     tareas = Tareas.objects.filter(id_proyecto=pk)
     subtareas = SubTareas.objects.filter(id_proyecto=pk)    
-    return render(request,'seguimientos_actividades/tareas.html',{'tareas':tareas,'subtareas':subtareas,'proyecto':proyecto})
+    return render(request,'seguimiento_actividades/tareas.html',{'tareas':tareas,'subtareas':subtareas,'proyecto':proyecto})
 
 
 def agregar_proyecto(request):
@@ -32,7 +32,7 @@ def agregar_proyecto(request):
             return redirect('agregar_tarea',pk=proyecto.id)
     else:
         formulario_proyecto = ProyectosForm()
-    return render(request,'seguimientos_actividades/formulario_agregar_proyecto.html',{'formulario_proyecto':formulario_proyecto})
+    return render(request,'seguimiento_actividades/formulario_agregar_proyecto.html',{'formulario_proyecto':formulario_proyecto})
 
 
 def agregar_tarea(request,pk):
@@ -47,7 +47,7 @@ def agregar_tarea(request,pk):
             return redirect('agregar_subtarea',pk=tarea.id)
     else:
         formulario_tarea = TareasForm()
-    return render(request,'seguimientos_actividades/formulario_agregar_tarea.html',{'proyecto':proyecto,'formulario_tarea':formulario_tarea})
+    return render(request,'seguimiento_actividades/formulario_agregar_tarea.html',{'proyecto':proyecto,'formulario_tarea':formulario_tarea})
 
 def agregar_subtarea(request,pk):
     tarea = Tareas.objects.filter(pk=pk)    
@@ -62,7 +62,7 @@ def agregar_subtarea(request,pk):
             return redirect(ver_tareas,pk=tarea.id_proyecto)
     else:
         formulario_subtarea = SubtareaForm()
-    return render(request,'seguimientos_actividades/formulario_agregar_subtarea.html',{'tarea':tarea,'formulario_subtarea':formulario_subtarea})
+    return render(request,'seguimiento_actividades/formulario_agregar_subtarea.html',{'tarea':tarea,'formulario_subtarea':formulario_subtarea})
 
 
 def agregar_subtarea_seleccionada(request,pk):
@@ -72,7 +72,7 @@ def agregar_subtarea_seleccionada(request,pk):
         if tarea_id:
             return redirect('agregar_subtarea',pk=tarea_id)
         
-    return render(request,'seguimientos_actividades/listado_tareas_x_proyecto.html',{'tareas_proyecto':tareas_proyecto})
+    return render(request,'seguimiento_actividades/listado_tareas_x_proyecto.html',{'tareas_proyecto':tareas_proyecto})
 
 
 def editar_subtarea(request,pk):
@@ -84,7 +84,7 @@ def editar_subtarea(request,pk):
             return redirect('ver_tareas',pk=sub_tarea.id_proyecto)
     else:
         formulario_subtarea = SubtareaEditForm(instance=sub_tarea)
-    return render(request,'seguimientos_actividades/formulario_editar_subtarea.html',{'formulario_subtarea':formulario_subtarea,'sub_tarea':sub_tarea})
+    return render(request,'seguimiento_actividades/formulario_editar_subtarea.html',{'formulario_subtarea':formulario_subtarea,'sub_tarea':sub_tarea})
             
 
 
@@ -100,12 +100,12 @@ def agregar_gestion(request,pk):
     else:
         formulario_gestion = GestionSubtareaForm()
         
-    return render(request,'seguimientos_actividades/formulario_agregar_gestion.html',{'formulario_gestion':formulario_gestion,'subtarea':subtarea})
+    return render(request,'seguimiento_actividades/formulario_agregar_gestion.html',{'formulario_gestion':formulario_gestion,'subtarea':subtarea})
         
         
 def listar_gestion(request,pk):
     gestiones = GestionSubtareas.objects.filter(id_subtarea=pk)
-    return render(request,'seguimientos_actividades/listar_gestion.html',{'gestiones':gestiones})
+    return render(request,'seguimiento_actividades/listar_gestion.html',{'gestiones':gestiones})
 
 
 def imprimir_gestion(request,pk):
