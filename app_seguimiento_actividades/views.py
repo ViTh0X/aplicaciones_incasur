@@ -36,7 +36,7 @@ def agregar_proyecto(request):
 
 
 def agregar_tarea(request,pk):
-    proyecto = Proyectos.objects.filter(pk=pk)    
+    proyecto = Proyectos.objects.get(pk=pk)    
     if request.method == 'POST':
         formulario_tarea = TareasForm(request.POST)    
         if formulario_tarea.is_valid():
@@ -50,7 +50,7 @@ def agregar_tarea(request,pk):
     return render(request,'seguimiento_actividades/formulario_agregar_tarea.html',{'proyecto':proyecto,'formulario_tarea':formulario_tarea})
 
 def agregar_subtarea(request,pk):
-    tarea = Tareas.objects.filter(pk=pk)    
+    tarea = Tareas.objects.get(pk=pk)    
     if request.method == 'POST':
         formulario_subtarea = SubtareaForm(request.POST)
         if formulario_subtarea.is_valid():
@@ -76,7 +76,7 @@ def agregar_subtarea_seleccionada(request,pk):
 
 
 def editar_subtarea(request,pk):
-    sub_tarea = SubTareas.objects.filter(pk=pk)
+    sub_tarea = SubTareas.objects.get(pk=pk)
     if request.method == 'POST':
         formulario_subtarea = SubtareaEditForm(request.POST, instance=sub_tarea)
         if formulario_subtarea.is_valid():
@@ -89,7 +89,7 @@ def editar_subtarea(request,pk):
 
 
 def agregar_gestion(request,pk):
-    subtarea = SubTareas.objects.filter(pk=pk)
+    subtarea = SubTareas.objects.get(pk=pk)
     if request.method == 'POST':
         formulario_gestion = GestionSubtareaForm(request.POST)
         if formulario_gestion.is_valid():
@@ -109,7 +109,7 @@ def listar_gestion(request,pk):
 
 
 def imprimir_gestion(request,pk):
-    gestion = GestionSubtareas.objects.filter(id_subtarea=pk)
+    gestion = GestionSubtareas.objects.get(id_subtarea=pk)
     plantilla_ruta = os.path.join(settings.MEDIA_ROOT,'formatos_excel','BITACORA_GESTION_PROYECTOS.xlsx')
     try:
         libro = openpyxl.load_workbook(plantilla_ruta)
