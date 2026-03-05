@@ -34,11 +34,11 @@ class SubtareaEditForm(forms.ModelForm):
         fields = ['detalle_subtarea','inicio_actividad','fin_actividad','responsable_asignado','estado_tareas']
         widgets = {
             'inicio_actividad': forms.DateInput( 
-                format='%d-%m-%Y', #Para que al momento de editar me muestre en ese formato mis datos              
+                format='%Y-%m-%d', #Para que al momento de editar me muestre en ese formato mis datos              
                 attrs={'type':'date'}
             ),
             'fin_actividad': forms.DateInput(                
-                format='%d-%m-%Y', 
+                format='%Y-%m-%d', 
                 attrs={'type':'date'}
             ),
         }
