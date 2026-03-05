@@ -123,7 +123,7 @@ def imprimir_gestion(request,pk):
     hoja['D10'] = str(gestion.id_subtarea.responsable_asignado.nombre)
     hoja['C11'] = str(gestion.id_subtarea.inicio_actividad)
     hoja['G11'] = str(gestion.id_subtarea.fin_actividad)
-    hoja['B12'] = str(gestion.detalle_gestion)
+    hoja['B13'] = str(gestion.detalle_gestion)
     response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
     response['Content-Disposition'] = f'attachment; filename=bitacora_numero_{str(gestion.id)}.xlsx'
     libro.save(response)
