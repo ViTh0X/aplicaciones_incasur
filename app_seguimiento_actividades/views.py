@@ -58,7 +58,7 @@ def agregar_subtarea(request,pk):
             subtarea.id_tarea = tarea
             subtarea.save()
             
-            return redirect(ver_tareas,pk=tarea.id_proyecto)
+            return redirect(ver_tareas,pk=tarea.id_proyecto.id)
     else:
         formulario_subtarea = SubtareaForm()
     return render(request,'seguimiento_actividades/formulario_agregar_subtarea.html',{'tarea':tarea,'formulario_subtarea':formulario_subtarea})
