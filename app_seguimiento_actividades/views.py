@@ -96,7 +96,7 @@ def agregar_gestion(request,pk):
             gestion = formulario_gestion.save(commit=False)
             gestion.id_subtarea = subtarea
             gestion.save()
-            return redirect('ver_listado_gestion',pk=subtarea.id)
+            return redirect('listar_gestion',pk=subtarea.id)
     else:
         formulario_gestion = GestionSubtareaForm()
         
