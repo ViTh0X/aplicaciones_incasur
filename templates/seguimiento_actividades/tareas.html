@@ -40,9 +40,9 @@
                             <td>{{ subtarea.fin_actividad|date:'d-m-Y' }}</td>
                             <td>{{ subtarea.responsable_asignados }}</td>
                             <td>
-                                <a href="{% url 'agregar_gestion' pk=subtarea.id_tarea.id %}">Agregar Gestion</a>
-                                <a href="{% url 'listar_gestion' pk=subtarea.id_tarea.id %}">Ver Todas las Gestiones</a>
-                                <a href="{% url 'editar_subtarea' pk=subtarea.id_tarea.id %}">Editar Tarea</a>
+                                <a href="{% url 'agregar_gestion' pk=subtarea.id %}">Agregar Gestion</a>
+                                <a href="{% url 'listar_gestion' pk=subtarea.id %}">Ver Todas las Gestiones</a>
+                                <a href="{% url 'editar_subtarea' pk=subtarea.id %}">Editar Tarea</a>
                             </td>
                         </tr>
                     {% endif %}
