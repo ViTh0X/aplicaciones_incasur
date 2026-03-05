@@ -120,9 +120,9 @@ def imprimir_gestion(request,pk):
     hoja['D6'] = str(gestion.id_subtarea.id_proyecto.nombre_proyecto)
     hoja['D7'] = str(gestion.id_subtarea.id_tarea.detalle_tarea)
     hoja['D8'] = str(gestion.id_subtarea.detalle_subtarea)
-    hoja['D9'] = str(gestion.id_subtarea.responsable_asignado.nombre)
-    hoja['C10'] = str(gestion.id_subtarea.inicio_actividad)
-    hoja['G10'] = str(gestion.id_subtarea.fin_actividad)
+    hoja['D10'] = str(gestion.id_subtarea.responsable_asignado.nombre)
+    hoja['C11'] = str(gestion.id_subtarea.inicio_actividad)
+    hoja['G11'] = str(gestion.id_subtarea.fin_actividad)
     hoja['B12'] = str(gestion.detalle_gestion)
     response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
     response['Content-Disposition'] = f'attachment; filename=bitacora_numero_{str(gestion.id)}.xlsx'
