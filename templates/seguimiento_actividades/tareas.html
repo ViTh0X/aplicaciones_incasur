@@ -41,11 +41,12 @@
                             <a href="{% url 'editar_subtarea' pk=subtarea.id_tarea %}">Editar Tarea</a>
                         </td>
                     </tr>
-                {% endif %}                    
+                {% endif %}
+            <a href="{% url 'agregar_tarea' pk=proyecto.id %}">Agregar Nueva Tarea</a>
+            <a href="{% url 'agregar_subtarea_seleccionada' pk=proyecto.id %}">Agregar SubTareas</a>                    
                 {% endfor %}           
         </tbody>
-        <a href="{% url 'agregar_tarea' pk=proyecto.id %}">Agregar Nueva Tarea</a>
-        <a href="{% url 'agregar_subtarea_seleccionada' pk=proyecto.id %}">Agregar SubTareas</a>
+        
     </table>    
             {% empty %}
             <p>
