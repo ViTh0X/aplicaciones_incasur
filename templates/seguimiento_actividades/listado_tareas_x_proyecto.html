@@ -11,8 +11,8 @@
     <title>Tareas</title>
 </head>
 <body>
-    <h1>Tareas:</h1>
-    {% if proyectos %}    
+    <h1>Tareas de proyecto:</h1>
+    {% if tareas_proyecto %}    
     <form method="POST">
         {% csrf_token %}
         <h2>Seleccione una Tarea:</h2>
