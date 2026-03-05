@@ -32,7 +32,7 @@
             {{ formulario_subtarea.responsable_asignado.nombre }}
         </div>        
         <button type="submit">Agregar</button>
-        <a href="{% url 'ver_tareas' pk=tarea.id_proyecto  %}">Ir a Tareas</a>
+        <a href="{% url 'ver_tareas' pk=tarea.id_proyecto.id  %}">Ir a Tareas</a>
     </form>
 </body>
 </html>

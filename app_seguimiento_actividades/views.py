@@ -42,8 +42,7 @@ def agregar_tarea(request,pk):
         if formulario_tarea.is_valid():
             tarea =  formulario_tarea.save(commit=False)
             tarea.id_proyecto = proyecto
-            tarea.save()
-            
+            tarea.save()            
             return redirect('agregar_subtarea',pk=tarea.id)
     else:
         formulario_tarea = TareasForm()
