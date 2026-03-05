@@ -19,7 +19,9 @@ def main_seguimiento_actividades(request):
 
 def ver_tareas(request,pk):
     proyecto = Proyectos.objects.filter(pk=pk)
+    print(proyecto)
     tareas = Tareas.objects.filter(id_proyecto=pk)
+    print(tareas)
     subtareas = SubTareas.objects.filter(id_proyecto=pk)    
     return render(request,'seguimiento_actividades/tareas.html',{'tareas':tareas,'subtareas':subtareas,'proyecto':proyecto})
 
