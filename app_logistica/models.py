@@ -94,19 +94,55 @@ class TipoItems(models.Model):
     def __str__(self):
         return self.nombre_tipo
 
+class Proveedores(models.Model):
+    id_proveedor = models.AutoField(primary_key=True)
+    ruc = models.CharField(max_length=12)
+    nombre = models.CharField(max_length=120)
+    fecha_modificacion = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        db_table = 'proveedores'
+        
+    def __str__(self):
+        return self.nombre
+    
+class TipoMoneda(models.Model):
+    ip_tipo_moneda = models.AutoField(primary_key=True)
+    nombre = models.CharField(max_length=10)
+    logo = models.CharField(max_length=1)
+    fecha_modificacion =  models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        db_table = 'tipo_moneda'
+        
+    def __str__(self):
+        return self.nombre
+    
+class DepreciacionItem(models.Model):
+    id_item_editado = models.AutoField(primary_key=True)
+    nombre_item = models.AutoField()
+
+    
+
 class Items(models.Model):
     id_item = models.AutoField(primary_key=True)
-    nombre_item = models.CharField(max_length=100)
-    descripcion_item = models.CharField(max_length=200,blank=True,null=True)
-    imagen_qr = models.ImageField(upload_to='imagenes_qr/',blank=True,null=True)
     tipo_item = models.ForeignKey(TipoItems,on_delete=models.CASCADE,null=True,blank=True)#desarrollo
     #tipo_item = models.ForeignKey(TipoItems,on_delete=models.CASCADE)#,null=True,blank=True)produccion
+    nombre_item = models.CharField(max_length=100)
+    marca_item = models.CharField(max_length=20, blank=True, null=True)    
+    modelo_item = models.CharField(max_length=20, blank=True, null=True)
+    serie_item = models.CharField(max_length=20, blank=True,null=True)
+    imagen_qr = models.ImageField(upload_to='imagenes_qr/',blank=True,null=True)    
     cantidad_items = models.IntegerField(default=1)
+    tipo_moneda = models.ForeignKey(TipoMoneda,on_delete=models.CASCADE)    
+    precio_unitario = models.DecimalField(max_digits=10,decimal_places=2)
+    proveedor = models.ForeignKey(Proveedores,on_delete=models.CASCADE,null=True,blank=True)
     id_area = models.ForeignKey(AreasEmpresa,on_delete=models.CASCADE,null=True,blank=True)
     id_estado = models.ForeignKey(TipoEstadoItems,on_delete=models.CASCADE)
     id_almacen = models.ForeignKey(Almacenes,on_delete=models.CASCADE,null=True,blank=True)
     id_usuario = models.ForeignKey(Colaboradores,on_delete=models.CASCADE,null=True,blank=True)
     fecha_modificacion = models.DateTimeField(auto_now=True)
+    
     class Meta:
         db_table = 'items'
     
