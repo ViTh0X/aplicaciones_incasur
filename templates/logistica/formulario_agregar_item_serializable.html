@@ -1,0 +1,52 @@
+{% extends "../layout_logistica.html" %}
+{% block titulo %}Creando Articulo{% endblock %}
+{% block contenido %}
+<main>
+    <div class="formularios" >
+        <h1 class="no-margin">Creando Articulo Serializable:</h1>
+        <div>
+            <p class="mensaje_error">{{ form.nombre_item.errors }}</p>
+            <p class="mensaje_error">{{ form.marca_item.errors }}</p>
+            <p class="mensaje_error">{{ form.modelo_item.errors }}</p>
+            <p class="mensaje_error">{{ form.serie_item.errors }}</p>
+            <p class="mensaje_error">{{ form.tipo_moneda.errors }}</p>
+            <p class="mensaje_error">{{ form.precio_unitario.errors }}</p>                 
+        </div>        
+        <form method="POST">
+            {% csrf_token %}
+            <div class="campos_textosimple">
+                <label for="">Nombre:</label>
+                {{ form.nombre_item }}
+            </div>
+             <div class="campos_textosimple">
+                <label for="">Marca:</label>
+                {{ form.marca_item }}
+            </div>
+            <div class="campos_textosimple">
+                <label for="">Modelo:</label>
+                {{ form.modelo_item }}
+            </div>
+            <div class="campos_textosimple">
+                <label for="">N° Serie:</label>
+                {{ form.serie_item }}
+            </div>
+            <div class="campos_textoopciones">
+                <label for="">Estado:</label>
+                {{ form.id_estado }}
+            </div>
+            <div class="campos_textoopciones">
+                <label for="">Moneda:</label>
+                {{ form.tipo_moneda }}
+            </div>
+            <div class="campos_textosimple">
+                <label for="">Precio Unitario:</label>
+                {{ form.precio_unitario }}
+            </div>            
+            <div class="botones_formularios">
+                <a class="boton_enlace a1" href="{% url 'seleccionar_proveedor' %}">← Volver a Proovedores</a>
+                <button class="boton_formulario" type="submit">Crear Articulo</button>
+            </div>
+        </form>
+    </div>    
+</main>
+{% endblock  %}

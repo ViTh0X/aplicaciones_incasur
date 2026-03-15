@@ -1,13 +1,13 @@
 {% extends "../layout_logistica.html" %}
-{% block titulo %}Creando Articulo{% endblock %}
+{% block titulo %}Editando Articulo{% endblock %}
 {% block contenido %}
 <main>
     <div class="formularios" >
-        <h1 class="no-margin">Creando Articulo Stock:</h1>
+        <h1 class="no-margin">Editando Articulo: ID: #{{ item.id_item }}</h1>
         <div>
             <p class="mensaje_error">{{ form.nombre_item.errors }}</p>            
             <p class="mensaje_error">{{ form.tipo_moneda.errors }}</p>
-            <p class="mensaje_error">{{ form.precio_unitario.errors }}</p>                 
+            <p class="mensaje_error">{{ form.precio_unitario.errors }}</p>  
         </div>        
         <form method="POST">
             {% csrf_token %}
@@ -22,10 +22,10 @@
             <div class="campos_textosimple">
                 <label for="">Precio Unitario:</label>
                 {{ form.precio_unitario }}
-            </div>            
+            </div>          
             <div class="botones_formularios">
                 <a class="boton_enlace a1" href="{% url 'logistica_items' %}">← Volver a Articulos</a>
-                <button class="boton_formulario" type="submit">Crear Articulo</button>
+                <button class="boton_formulario" type="submit">Editar Articulo</button>
             </div>
         </form>
     </div>    

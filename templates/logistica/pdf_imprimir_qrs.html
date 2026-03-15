@@ -19,7 +19,7 @@
             {% if articulo.imagen_qr %}
                 <img src="{{ articulo.imagen_qr.path }}" class="qr-img">
             {% endif %}
-            <div class="nombre">{{ articulo.nombre_item }}</div>
+            <div class="nombre">{{ articulo.id_item }}-{{ articulo.nombre_item }}</div>
         </td>
         
         {# Crea una nueva fila cada 4 elementos #}

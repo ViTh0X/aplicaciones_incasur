@@ -2,12 +2,12 @@ from django.shortcuts import render, redirect, get_object_or_404, get_list_or_40
 from django.http import HttpResponse, FileResponse, Http404
 
 #Login
-from .forms import  Login_Formulario,AlmacenesForm,ItemsFormStock,ItemsFormSerializable,TipoItemForm
+from .forms import *
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
-from .models import Items,Almacenes,HistorialInventarios, ItemsMovimientos, ItemMovimientosCabecera, Colaboradores,EstadoColaboradores,TiposMovimiento,TipoItems,TipoEstadoItems,Proveedores
+from .models import *
 from django.db.models import Count,Exists,Q
 from django.db import transaction
 
@@ -47,8 +47,6 @@ def generar_pdf_movimiento(cabecera_id):
         return True
     return False
 
-
-
 # Create your views here.
 @login_required(login_url="login_logistica")
 def logistica_items(request):
@@ -65,8 +63,7 @@ def agregar_item_tipo_item(request):
         if tipo_item.id_tipo == 1:                
             return redirect('agregar_item_stock',pk=tipo_item.id_tipo)
         else:
-            return redirect('seleccionar_proveedor')
-    formulario_tipo_item = TipoItemForm()
+            return redirect('seleccionar_proveedor')    
     return render(request,'logistica/seleccionar_tipo_item.html',{'tipos_item':tipos_item})
     
 @login_required(login_url="login_logistica")
@@ -75,50 +72,116 @@ def agregar_item_stock(request,pk):
     if request.method == 'POST':
         form = ItemsFormStock(request.POST)
         if form.is_valid():
-            form_item_stock = ItemsFormStock(commit=False)
+            form_item_stock = form.save(commit=False)
             form_item_stock.cantidad_items = 0
             form_item_stock.tipo_item = tipo_item                                  
-            item = form_item_stock.save()                        
-            qr_link = f"http://192.168.0.25:8000/logistica/editar-item-celular/{item.pk}"
+            form_item_stock.save()                        
+            qr_link = f"http://192.168.0.25:8000/logistica/informacion-articulo-stock/{form_item_stock.pk}"
             #qr_link = f"http://192.168.1.8/aplicaciones-incasur/logistica/editar-item-celular/{item.pk}"
-            nombre_archivo_qr = generar_qr(item.pk,qr_link)
-            item.imagen_qr.name = f"imagenes_qr/{nombre_archivo_qr}"
-            item.save()            
+            nombre_archivo_qr = generar_qr(form_item_stock.pk,qr_link)
+            form_item_stock.imagen_qr.name = f"imagenes_qr/{nombre_archivo_qr}"
+            form_item_stock.save()            
             return redirect ('logistica_items')
     else:
         form = ItemsFormStock()
         #form = ItemsFormStock(initial={'tipo_item':tipo_item})
     return render(request,'logistica/formulario_agregar_item_stock.html',{'form':form})
 
+@login_required(login_url="login_logistica")
+def agregar_item_serializable(request,pk):
+    proveedor_seleccionado = Proveedores.objects.get(pk=pk)
+    item_serialisable = TipoItems.objects.get(pk=2)
+    if request.method == 'POST':
+        form = ItemsFormSerializable(request.POST)
+        if form.is_valid():
+            form_item_serializable = form.save(commit=False)
+            form_item_serializable.cantidad_items = 1
+            form_item_serializable.tipo_item = item_serialisable
+            form_item_serializable.proveedor = proveedor_seleccionado
+            form_item_serializable.save()
+            qr_link = f"http://192.168.0.25:8000/logistica/informacion-articulo-serializable-celular/{form_item_serializable.pk}"
+            #qr_link = f"http://192.168.1.8/aplicaciones-incasur/logistica/editar-item-celular/{item.pk}"
+            nombre_archivo_qr = generar_qr(form_item_serializable.pk,qr_link)
+            form_item_serializable.imagen_qr.name = f"imagenes_qr/{nombre_archivo_qr}"
+            form_item_serializable.save()   
+            return redirect ('logistica_items')
+    else:
+        form = ItemsFormSerializable()   
+    return render(request,'logistica/formulario_agregar_item_serializable.html',{'form':form})
 
-def agregar_item_serializable(request):
-    return Http404
 
+@login_required(login_url="login_logistica")
 def seleccionar_proveedor(request):
     return render(request,'logistica/seleccionar_proveedor.html')            
 
+
+@login_required(login_url="login_logistica")
 def buscar_proveedor(request):
-    data_input = request.GET.get('ruc','')
+    data_input = request.GET.get('ruc','').strip()
     proveedores_encontrados = Proveedores.objects.filter(documento__icontains=data_input)    
     return render(request,'logistica/resultado_busqueda_proveedor.html',{'proveedores_encontrados':proveedores_encontrados})
-def agregar_proveedor(request):
-    return Http404
 
-def editar_item(request):
-    return Http404
-'''@login_required(login_url="login_logistica")
-def editar_item_celular(request,pk):            
-    item = get_object_or_404(Items,pk=pk)    
-    inventario = HistorialInventarios.objects.filter(id_item=pk)    
-    #inventario = get_object_or_404(HistorialInventarios,id_item=pk,fecha_modificacion__year=año)
+
+@login_required(login_url="login_logistica")
+def agregar_proveedor_serializable(request):    
     if request.method == 'POST':
-        form = ItemsForm(request.POST, instance=item)
+        form = ProveedoresForm(request.POST)
+        if form.is_valid():
+            proveedor_seleccionado = form.save()
+            return redirect('agregar_item_serializable',pk=proveedor_seleccionado.id_proveedor)
+    else:
+        form = ProveedoresForm()
+    return render(request,'logistica/formulario_agregar_proveedor.html',{'form':form})        
+
+
+@login_required(login_url="login_logistica")
+def editar_item_stock(request,pk):
+    item = get_object_or_404(Items,pk=pk)
+    #inventarios_historial = HistorialInventarios.objects.filter(id_item=pk)
+    if request.method == 'POST':
+        form = ItemsFormStock(request.POST,instance=item)
         if form.is_valid():
             form.save()
-        return redirect('logistica_items')
+            return redirect('logistica_items')
     else:
-        form = ItemsForm(instance=item)
-    return render(request,'logistica/formulario_editar_item_celular.html',{'form':form,'item':item,'inventario':inventario})'''
+        form = ItemsFormStock(instance=item)
+    return render(request,'logistica/formulario_editar_item_stock.html',{'form':form,'item':item})
+
+
+@login_required(login_url="login_logistica")
+def editar_item_serializable(request,pk):
+    item = get_object_or_404(Items,pk=pk)
+    #inventarios_historial = HistorialInventarios.objects.filter(id_item=pk)
+    if request.method == 'POST':
+        form = ItemsFormSerializable(request.POST,instance=item)
+        if form.is_valid():
+            form.save()
+            return redirect('logistica_items')
+    else:
+        form = ItemsFormSerializable(instance=item)
+    return render(request,'logistica/formulario_editar_item_serializable.html',{'form':form,'item':item})
+    
+
+
+@login_required(login_url="login_logistica")
+def informacion_articulo_stock(request,pk):            
+    item = get_object_or_404(Items,pk=pk)    
+    inventario = HistorialInventarios.objects.filter(id_item=pk)        
+    return render(request,'logistica/ver_info_item_stock.html',{'item':item,'inventario':inventario})
+
+
+@login_required(login_url="login_logistica")
+def informacion_articulo_serializable(request,pk):            
+    item = get_object_or_404(Items,pk=pk)    
+    inventario = HistorialInventarios.objects.filter(id_item=pk)        
+    return render(request,'logistica/ver_info_item_serializable.html',{'item':item,'inventario':inventario})
+
+
+@login_required(login_url="login_logistica")
+def informacion_articulo_serializable_celular(request,pk):            
+    item = get_object_or_404(Items,pk=pk)    
+    inventario = HistorialInventarios.objects.filter(id_item=pk)        
+    return render(request,'logistica/ver_info_item_serializable_celular.html',{'item':item,'inventario':inventario})
 
 
 @login_required(login_url="login_logistica")
@@ -266,7 +329,7 @@ def imprimir_pdf_movimientos_firmado(request,pk):
 
 @login_required(login_url="login_logistica")
 def imprimir_pdf_qrs(request):
-    articulo_tipo_no_baja = TipoEstadoItems.objects.exclude(id_estado=1)
+    articulo_tipo_no_baja = TipoEstadoItems.objects.exclude(id_estado=3)
     tipo_articulo_serial = TipoItems.objects.get(id_tipo=2)    
     articulos = Items.objects.filter(tipo_item=tipo_articulo_serial,id_estado__in=articulo_tipo_no_baja)
         

@@ -1,0 +1,67 @@
+{% extends "../layout_logistica.html" %}
+{% block titulo %}Informacion Articulo{% endblock %}
+{% block contenido %}
+<main>
+    <div class="formularios" >
+        <h1 class="no-margin">Informacion de Articulo ID: #{{ item.id_item }}</h1>             
+        <div>
+            <div class="campos_textosimple">
+                <label for="">Nombre: {{ item.nombre_item }}</label>                
+            </div>
+            <div class="campos_textosimple">
+                <label for="">Estado: {{ item.id_estado }}</label>                
+            </div>
+            <div class="campos_textosimple">
+                <label for="">Marca: {{ item.marca_item }}</label>                
+            </div>
+            <div class="campos_textosimple">
+                <label for="">Modelo: {{ item.modelo_item }}</label>                
+            </div>
+            <div class="campos_textosimple">
+                <label for="">N° Serie: {{ item.serie_item }}</label>                
+            </div>
+            <div class="campos_textosimple">
+                <label for="">Stock: {{ item.cantidad_items }}</label>                
+            </div>                                    
+            <div class="campos_textosimple">
+                <label for="">Moneda: {{ item.tipo_moneda }}</label>                
+            </div>
+            <div class="campos_textosimple">
+                <label for="">Precio Unitario: {{ item.precio_unitario }}</label>                
+            </div>
+            <div class="campos_textosimple">
+                <label for="">Proveedor: {{ item.proveedor }}</label>                                
+            </div>
+            <div class="campos_textosimple">
+                <label for="">Almacen: {{ item.id_almacen|default:"No asignado" }}</label>                
+            </div>
+            <div class="campos_textosimple">
+                <label for="">Colaborador: {{ item.id_usuario|default:"No asignado" }}</label>                
+            </div>
+            <div class="campos_textosimple">
+                <label for="">Area: {{ item.id_area|default:"No asignado" }}</label>                
+            </div>
+            <div class="campos_textoopciones">
+                <label for="">Historial de Inventarios:</label>
+                <div class="tabla_mini_container">                    
+                    <table class="tabla_mini">                        
+                        <tbody>
+                            {% for inven in inventario %}
+                            <tr>
+                                <td> {{ inven.fecha_modificacion|date:"d/m/Y" }} </td>
+                                <td>--</td>
+                                <td> Inventariado </td>
+                            </tr>                            
+                            {% endfor %}
+                        </tbody>                        
+                    </table>                
+                </div>                
+            </div>                                                                        
+            <div class="botones_formularios">                                
+                <a class="boton_enlace a1" href="{% url 'logistica_items' %}">← Ir a Articulos</a>
+                <a class="boton_enlace a1" href="{% url 'editar_item_serializable' pk=item.id_item %}" >Editar Articulo</a>                
+            </div>        
+        </div>                    
+    </div>    
+</main>
+{% endblock  %}

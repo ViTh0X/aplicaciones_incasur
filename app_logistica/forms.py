@@ -24,21 +24,24 @@ class ItemsFormStock(forms.ModelForm):
                 'min':'0.00'                
             })
         }
-        
 
-        
 class ItemsFormSerializable(forms.ModelForm):
     
     class Meta:
         model = Items
-        fields = ['nombre_item','tipo_item','cantidad_items','id_area','id_estado']
+        fields = ['nombre_item','marca_item','modelo_item','serie_item','tipo_moneda','precio_unitario','id_estado']
+        widgets = {
+            'precio_unitario': forms.NumberInput(attrs={
+                'step':'0.01',
+                'min':'0.00'                
+            })
+        }
         
-                
-class TipoItemForm(forms.ModelForm):
+class ProveedoresForm(forms.ModelForm)            :
     
     class Meta:
-        model = TipoItems
-        fields = ['nombre_tipo']
+        model = Proveedores
+        fields = ['documento','nombre']
 
 
     

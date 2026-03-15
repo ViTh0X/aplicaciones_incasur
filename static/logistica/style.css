@@ -749,6 +749,16 @@ ul{
 .boton_formulario:hover{
     cursor: pointer;
 }
+/*Buscadores*/
+.tabla_grande_buscador{
+    overflow-y: auto;
+    overflow-x: auto;
+    /* border: 0.2rem solid var(--colorFondo);
+    background-color: var(--colorFondoClaro);
+    border-radius: 0.5rem; */
+    height: auto;
+    max-height: 25rem;    
+}
 
 /*Colaboradores*/
 .tabla_grande_container{
@@ -799,6 +809,14 @@ ul{
     color: var(--colorPrincipal);
     text-transform:capitalize;
     font-weight: bold;
+}
+.columna_busca_proveedor a{
+    text-decoration: none;
+    color: var(--colorSecundario);
+    text-transform:capitalize;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.5rem;
 }
 @media (min-width:1024px){
     .columna1_fija_colaborador{

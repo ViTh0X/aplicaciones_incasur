@@ -31,7 +31,7 @@
                         <path d="M7 19v2" />
                         <path d="M17 19v2" />
                         </svg>
-                        ID:{{ item.id_item }} |Nom:{{ item.nombre_item }}
+                        ID:{{ item.id_item }} | {{ item.nombre_item }}
                     </p>
                     <p>
                         <svg
@@ -51,7 +51,7 @@
                         <path d="M10 17l-.5 4" />
                         <path d="M18 22l3.35 -3.284a2.143 2.143 0 0 0 .005 -3.071a2.242 2.242 0 0 0 -3.129 -.006l-.224 .22l-.223 -.22a2.242 2.242 0 0 0 -3.128 -.006a2.143 2.143 0 0 0 -.006 3.071l3.355 3.296z" />
                         </svg>
-                        {{ item.id_estado.nombre_estado }}</p>                    
+                        {{ item.id_estado.nombre_estado|default:"Sin Estado" }}</p>                    
                     <p>
                         <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -113,7 +113,50 @@
                 <div class="seccion2_item">
                     <img src="{{ item.imagen_qr.url }}" alt="QR de {{ item.nombre_item }}" width="85" height="85">
                     <nav class="opciones_item">
-                        <a class="enlaces" title="EDITAR ARTICULO" href="{% url 'editar_item' pk=item.id_item %}">
+                        {% if item.tipo_item.id_tipo == 1 %}
+                        <a class="enlaces" title="VER MAS INFO" href="{% url 'informacion_articulo_stock' pk=item.id_item %}">
+                            <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                            >
+                            <path d="M10.425 1.414a3.33 3.33 0 0 1 3.026 -.097l.19 .097l6.775 3.995l.096 .063l.092 .077l.107 .075a3.224 3.224 0 0 1 1.266 2.188l.018 .202l.005 .204v7.284c0 1.106 -.57 2.129 -1.454 2.693l-.17 .1l-6.803 4.302c-.918 .504 -2.019 .535 -3.004 .068l-.196 -.1l-6.695 -4.237a3.225 3.225 0 0 1 -1.671 -2.619l-.007 -.207v-7.285c0 -1.106 .57 -2.128 1.476 -2.705l6.95 -4.098zm1.575 9.586h-1l-.117 .007a1 1 0 0 0 0 1.986l.117 .007v3l.007 .117a1 1 0 0 0 .876 .876l.117 .007h1l.117 -.007a1 1 0 0 0 .876 -.876l.007 -.117l-.007 -.117a1 1 0 0 0 -.764 -.857l-.112 -.02l-.117 -.006v-3l-.007 -.117a1 1 0 0 0 -.876 -.876l-.117 -.007zm.01 -3l-.127 .007a1 1 0 0 0 0 1.986l.117 .007l.127 -.007a1 1 0 0 0 0 -1.986l-.117 -.007z" />
+                            </svg>
+                        </a>                                                                    
+                        {% else %}
+                        <a class="enlaces" title="VER MAS INFO" href="{% url 'informacion_articulo_serializable' pk=item.id_item %}">
+                            <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                            >
+                            <path d="M10.425 1.414a3.33 3.33 0 0 1 3.026 -.097l.19 .097l6.775 3.995l.096 .063l.092 .077l.107 .075a3.224 3.224 0 0 1 1.266 2.188l.018 .202l.005 .204v7.284c0 1.106 -.57 2.129 -1.454 2.693l-.17 .1l-6.803 4.302c-.918 .504 -2.019 .535 -3.004 .068l-.196 -.1l-6.695 -4.237a3.225 3.225 0 0 1 -1.671 -2.619l-.007 -.207v-7.285c0 -1.106 .57 -2.128 1.476 -2.705l6.95 -4.098zm1.575 9.586h-1l-.117 .007a1 1 0 0 0 0 1.986l.117 .007v3l.007 .117a1 1 0 0 0 .876 .876l.117 .007h1l.117 -.007a1 1 0 0 0 .876 -.876l.007 -.117l-.007 -.117a1 1 0 0 0 -.764 -.857l-.112 -.02l-.117 -.006v-3l-.007 -.117a1 1 0 0 0 -.876 -.876l-.117 -.007zm.01 -3l-.127 .007a1 1 0 0 0 0 1.986l.117 .007l.127 -.007a1 1 0 0 0 0 -1.986l-.117 -.007z" />
+                            </svg>
+                        </a>                                            
+                        {% endif %}   
+                        {% if item.tipo_item.id_tipo == 1 %}
+                        <a class="enlaces" title="EDITAR ARTICULO" href="{% url 'editar_item_stock' pk=item.id_item %}">
+                            <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="25"
+                            height="25"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="#000000"
+                            stroke-width="1.25"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            >
+                            <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+                            <path d="M13.5 6.5l4 4" />
+                            </svg>
+                        </a>                                                                    
+                        {% else %}
+                        <a class="enlaces" title="EDITAR ARTICULO" href="{% url 'editar_item_serializable' pk=item.id_item %}">
                             <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="25"
@@ -129,6 +172,8 @@
                             <path d="M13.5 6.5l4 4" />
                             </svg>
                         </a>                                            
+                        {% endif %}                        
+
                         <a class="enlaces" title="VER HISTORIAL DE INVENTARIO" href="{% url 'historial_inventario_articulo' pk=item.id_item %}">
                             <svg
                             xmlns="http://www.w3.org/2000/svg"

@@ -1,0 +1,27 @@
+{% extends "../layout_logistica.html" %}
+{% block titulo %}Informacion Articulo{% endblock %}
+{% block contenido %}
+<main>
+    <div class="formularios" >
+        <h1 class="no-margin">Info de Articulo ID: #{{ item.id_item }}</h1>             
+        <div>
+            <div class="campos_textosimple">
+                <label for="">Nombre: {{ item.nombre_item }}</label>                
+            </div>            
+            <div class="campos_textosimple">
+                <label for="">Stock: {{ item.cantidad_items }}</label>                
+            </div>                                    
+            <div class="campos_textosimple">
+                <label for="">Moneda: {{ item.tipo_moneda }}</label>                
+            </div>
+            <div class="campos_textosimple">
+                <label for="">Precio Unitario: {{ item.precio_unitario }}</label>                
+            </div>                                                                                              
+            <div class="botones_formularios">                                
+                <a class="boton_enlace a1" href="{% url 'logistica_items' %}">← Ir a Articulos</a>
+                <a class="boton_enlace a1" href="{% url 'editar_item_stock' pk=item.id_item %}" >Editar Articulo</a>                
+            </div>        
+        </div>                    
+    </div>    
+</main>
+{% endblock  %}

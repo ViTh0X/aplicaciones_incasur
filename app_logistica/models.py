@@ -100,7 +100,7 @@ class TipoItems(models.Model):
 
 class Proveedores(models.Model):
     id_proveedor = models.AutoField(primary_key=True)
-    documento = models.CharField(max_length=12)
+    documento = models.CharField(max_length=12,unique=True)
     nombre = models.CharField(max_length=120)
     fecha_modificacion = models.DateTimeField(auto_now=True)
     
@@ -137,7 +137,7 @@ class Items(models.Model):
     precio_unitario = models.DecimalField(max_digits=10,decimal_places=2,default=Decimal('0.00'),validators=[MinValueValidator(Decimal('0.00'))])
     proveedor = models.ForeignKey(Proveedores,on_delete=models.CASCADE,null=True,blank=True)
     id_area = models.ForeignKey(AreasEmpresa,on_delete=models.CASCADE,null=True,blank=True)
-    id_estado = models.ForeignKey(TipoEstadoItems,on_delete=models.CASCADE)
+    id_estado = models.ForeignKey(TipoEstadoItems,on_delete=models.CASCADE,null=True,blank=True)
     id_almacen = models.ForeignKey(Almacenes,on_delete=models.CASCADE,null=True,blank=True)
     id_usuario = models.ForeignKey(Colaboradores,on_delete=models.CASCADE,null=True,blank=True)
     fecha_modificacion = models.DateTimeField(auto_now=True)
