@@ -207,7 +207,7 @@ class ItemsMovimientos(models.Model):
     referencia = models.CharField(max_length=15,blank=True,null=True)
     fecha_contable = models.DateField(blank=True,null=True)
     factura = models.CharField(max_length=15,blank=True,null=True)
-    proveedor = models.ForeignKey(Proveedores,on_delete=models.CASCADE,blank=True,null=True)    
+    #proveedor = models.ForeignKey(Proveedores,on_delete=models.CASCADE,blank=True,null=True)    
     tipo_movimiento = models.ForeignKey(TiposMovimiento,on_delete=models.CASCADE)#desarrollo    
     nombre_origen = models.CharField(max_length=150,blank=True,null=True)
     nombre_destino = models.CharField(max_length=150)
