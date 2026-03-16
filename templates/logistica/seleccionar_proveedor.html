@@ -8,7 +8,7 @@
             {% csrf_token %}            
             <div class="campos_textosimple">
                 <input type="text" name="ruc" id="buscador" placeholder='RUC'>
-                <button hx-get={% url 'buscar_proveedor' %} hx-target='#resultados_busquedas' hx-include='#buscador'                
+                <button hx-get="{% url 'buscar_proveedor' %}" hx-target='#resultados_busquedas' hx-include='#buscador'                
                 class="boton_formulario"  >
                     Buscar
                 </button>

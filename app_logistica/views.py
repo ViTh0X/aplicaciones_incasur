@@ -234,13 +234,12 @@ def informacion_articulo_serializable_celular(request,pk):
 def inventariar_articulo(request,pk):
     articulo = get_object_or_404(Items,pk=pk)
     hoy = date.today()
-    area_nombre = (lambda valor: valor.nombre_area if valor is not None else "No Asignado")(articulo.id_area)
+    #area_nombre = (lambda valor: valor.nombre_area if valor is not None else "No Asignado")(articulo.id_area)
     almacen_nombre = (lambda valor: valor.nombre_almacen if valor is not None else "No Asignado")(articulo.id_almacen)
     usuario_nombre = (lambda valor: valor.nombre_colaborador if valor is not None else "No Asignado")(articulo.id_usuario)        
     if request.method == 'POST':        
         historial_inventario = HistorialInventarios()
-        historial_inventario.id_item = articulo
-        historial_inventario.nombre_area = area_nombre
+        historial_inventario.id_item = articulo        
         historial_inventario.nombre_almacen = almacen_nombre
         historial_inventario.nombre_usuario = usuario_nombre
         historial_inventario_duplicado = HistorialInventarios.objects.filter(id_item=pk,fecha_modificacion__date=hoy)
@@ -253,7 +252,7 @@ def inventariar_articulo(request,pk):
 @login_required(login_url="login_logistica")    
 def eliminar_articulo(request,pk):
     articulo = get_object_or_404(Items,pk=pk)                
-    if articulo.id_area == None and articulo.id_almacen == None and articulo.id_usuario == None:
+    if articulo.id_almacen == None and articulo.id_usuario == None:
         if request.method == 'POST':
             articulo.delete()
             return redirect('logistica_items')

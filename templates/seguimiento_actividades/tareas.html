@@ -30,12 +30,12 @@
         <tbody>
             {% for tarea in tareas %}
                 <tr>
-                    <td>{{ tarea.detalle_tarea }}</td>
+                    <td style="font-weight: bold; text-transform: uppercase;">{{ tarea.detalle_tarea }}</td>
                 </tr>                         
                 {% for subtarea in subtareas %}
                     {% if subtarea.id_tarea.id == tarea.id %}
                         <tr>
-                            <td>{{ subtarea.detalle_subtarea }}</td>
+                            <td style="text-transform: capfirst;">-{{ subtarea.detalle_subtarea }}</td>
                             <td>{{ subtarea.inicio_actividad|date:'d-m-Y' }}</td>
                             <td>{{ subtarea.fin_actividad|date:'d-m-Y' }}</td>
                             <td>{{ subtarea.responsable_asignados }}</td>

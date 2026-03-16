@@ -46,7 +46,7 @@ class EstadoColaboradores(models.Model):
         managed = False
         db_table = 'estado_colaboradores'      
         
-        
+'''        
 class AreasEmpresa(models.Model):
     id_area = models.AutoField(primary_key=True)
     nombre_area = models.CharField(max_length=40)
@@ -57,7 +57,7 @@ class AreasEmpresa(models.Model):
         db_table = 'areas_empresa'
         
     def __str__(self):
-        return self.nombre_area
+        return self.nombre_area'''
     
     
 class Almacenes(models.Model):
@@ -128,8 +128,7 @@ class Items(models.Model):
     comprobante_contable = models.CharField(max_length=20,blank=True,null=True)
     fecha_contable = models.DateField(blank=True,null=True)
     factura_boleta = models.CharField(max_length=20,blank=True,null=True)
-    tipo_item = models.ForeignKey(TipoItems,on_delete=models.CASCADE)#desarrollo
-    #tipo_item = models.ForeignKey(TipoItems,on_delete=models.CASCADE)#,null=True,blank=True)produccion
+    tipo_item = models.ForeignKey(TipoItems,on_delete=models.CASCADE)#desarrollo    
     nombre_item = models.CharField(max_length=100)
     marca_item = models.CharField(max_length=20, blank=True, null=True)    
     modelo_item = models.CharField(max_length=20, blank=True, null=True)
@@ -139,7 +138,7 @@ class Items(models.Model):
     tipo_moneda = models.ForeignKey(TipoMoneda,on_delete=models.CASCADE,default=1)    
     precio_unitario = models.DecimalField(max_digits=10,decimal_places=2,default=Decimal('0.00'),validators=[MinValueValidator(Decimal('0.00'))])
     proveedor = models.ForeignKey(Proveedores,on_delete=models.CASCADE,null=True,blank=True)
-    id_area = models.ForeignKey(AreasEmpresa,on_delete=models.CASCADE,null=True,blank=True)
+    #id_area = models.ForeignKey(AreasEmpresa,on_delete=models.CASCADE,null=True,blank=True)
     id_estado = models.ForeignKey(TipoEstadoItems,on_delete=models.CASCADE,null=True,blank=True)
     id_almacen = models.ForeignKey(Almacenes,on_delete=models.CASCADE,null=True,blank=True)
     id_usuario = models.ForeignKey(Colaboradores,on_delete=models.CASCADE,null=True,blank=True)
@@ -155,7 +154,7 @@ class Items(models.Model):
 class HistorialInventarios(models.Model):
     id_historial = models.AutoField(primary_key=True)
     id_item = models.ForeignKey(Items,on_delete=models.CASCADE)
-    nombre_area = models.CharField(max_length=40)
+    #nombre_area = models.CharField(max_length=40)
     nombre_almacen = models.CharField(max_length=60)
     nombre_usuario = models.CharField(max_length=150)
     fecha_modificacion = models.DateTimeField(auto_now=True)
@@ -208,8 +207,7 @@ class ItemsMovimientos(models.Model):
     referencia = models.CharField(max_length=15,blank=True,null=True)
     fecha_contable = models.DateField(blank=True,null=True)
     factura = models.CharField(max_length=15,blank=True,null=True)
-    proveedor = models.ForeignKey(Proveedores,on_delete=models.CASCADE,blank=True,null=True)
-    #tipo_movimiento = models.ForeignKey(TiposMovimiento,on_delete=models.CASCADE)#,null=True,blank=True)#produccion    
+    proveedor = models.ForeignKey(Proveedores,on_delete=models.CASCADE,blank=True,null=True)    
     tipo_movimiento = models.ForeignKey(TiposMovimiento,on_delete=models.CASCADE)#desarrollo    
     nombre_origen = models.CharField(max_length=150,blank=True,null=True)
     nombre_destino = models.CharField(max_length=150)

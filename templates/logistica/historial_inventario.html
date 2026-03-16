@@ -33,8 +33,7 @@
         <table class="tabla_informacion">
             <thead>
                 <tr>
-                    <th>Item</th>
-                    <th>Area</th>
+                    <th>Item</th>                    
                     <th>Almacen</th>
                     <th>Usuario</th>
                     <th>Año</th>
@@ -46,8 +45,7 @@
                 <tbody>
                     {% for inventario in inventarios %}
                     <tr>
-                        <td>{{ inventario.id_item.nombre_item }}</td>
-                        <td>{{ inventario.nombre_area|default:"Sin Asignar" }}</td>
+                        <td>{{ inventario.id_item.nombre_item }}</td>                        
                         <td>{{ inventario.nombre_almacen|default:"Sin Asignar" }}</td>
                         <td>{{ inventario.nombre_usuario|default:"Sin Asignar" }}</td>
                         <td class="texto_centrado">{{ inventario.fecha_modificacion|date:"d-m-Y" }}</td>
