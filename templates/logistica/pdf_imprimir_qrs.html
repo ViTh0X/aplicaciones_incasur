@@ -3,13 +3,13 @@
     table { width: 100%; border-collapse: collapse; }
     td { 
         width: 25%; 
-        padding: 10px; 
+        padding: 0.5rem; 
         text-align: center; 
         border: 0.5px solid #eeeeee; 
         vertical-align: top;
     }
     .qr-img { width: 30rem; height: 30rem; }
-    .nombre { font-family: Helvetica; font-size: 3rem; font-weight: bold; margin-top: 5px; }
+    .nombre { font-family: Helvetica; font-size: 2rem; font-weight: bold; margin-top: 0.5rem; }
 </style>
 
 <table>
@@ -20,8 +20,7 @@
                 <img src="{{ articulo.imagen_qr.path }}" class="qr-img">
             {% endif %}
             <div class="nombre">{{ articulo.id_item }}-{{ articulo.nombre_item }}</div>
-        </td>
-        
+        </td>        
         {# Crea una nueva fila cada 4 elementos #}
         {% if forloop.counter|divisibleby:4 and not forloop.last %}
             </tr><tr>

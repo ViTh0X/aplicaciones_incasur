@@ -1,0 +1,64 @@
+<table class="tabla_informacion">
+    <thead>
+        <tr>
+            <th>Cabezera</th>
+            <th>Id</th>
+            <th>NombreArticulo</th>
+            <th>Voucher</th>
+            <th>Referencia</th>
+            <th>Factura</th>
+            <th>CNT-Fecha</th>
+            <th>Movimiento</th>
+            <th>Origen</th>
+            <th>Destino</th>
+            <th>Cantidad</th>
+            <th>MovRef</th>
+            <th>Observaciones</th>
+            <th>PDF</th>
+            <th>Fecha</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for movimiento in movimientos%}
+        <tr>                    
+            <td>{{ movimiento.id_movimiento_cabezera.id_cabecera }}</td>                    
+            <td>{{ movimiento.id_movimiento }}</td>
+            <td>{{ movimiento.id_item.nombre_item }}</td>
+            <td>{{ movimiento.voucher }}</td>
+            <td>{{ movimiento.referencia }}</td>                    
+            <td>{{ movimiento.factura }}</td>   
+            <td>{{ movimiento.fecha_contable|date:"Y-m-d" }}</td>                 
+            <td>{{ movimiento.tipo_movimiento.nombre_movimiento }}</td>
+            <td>{{ movimiento.nombre_origen }}</td>
+            <td>{{ movimiento.nombre_destino }}</td>
+            <td>{{ movimiento.cantidad_movimiento }}</td>
+            <td>ID:{{ movimiento.id_movimiento_referencia.id_movimiento|default:"None" }}</td>
+            <td>{{ movimiento.observaciones }}</td>                    
+            <td>                        
+                <a href="{% url 'imprimir_pdf_movimientos_firmado' pk=movimiento.id_movimiento_cabezera.id_cabecera %}" title="IMPRIMIR PDF FIRMADO">
+                    <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#ff3b30"
+                    stroke-width="1.75"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    >
+                    <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+                    <path d="M5 12v-7a2 2 0 0 1 2 -2h7l5 5v4" />
+                    <path d="M5 18h1.5a1.5 1.5 0 0 0 0 -3h-1.5v6" />
+                    <path d="M17 18h2" />
+                    <path d="M20 15h-3v6" />
+                    <path d="M11 15v6h1a2 2 0 0 0 2 -2v-2a2 2 0 0 0 -2 -2h-1z" />
+                    </svg>
+                </a>
+                {{ cabecera.pdf_archivo }}
+            </td>
+            <td class="texto_centrado">{{ movimiento.fecha_modificacion|date:"d-m-Y H:i" }}</td>
+        </tr>                                
+        {% endfor %}
+    </tbody>
+</table>

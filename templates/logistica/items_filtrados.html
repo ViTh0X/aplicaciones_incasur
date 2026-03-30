@@ -1,0 +1,230 @@
+<div class="no-padding columnas_items">
+    {% for item in items %}            
+    <div class="item">
+        <div class="informacion_item">
+            <p>
+                <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="22"
+                height="22"
+                viewBox="0 0 22 22"
+                fill="none"
+                stroke="#004F6F"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                >
+                <path d="M5 10v-4a3 3 0 0 1 3 -3h8a3 3 0 0 1 3 3v4" />
+                <path d="M16 15v-2a3 3 0 1 1 3 3v3h-14v-3a3 3 0 1 1 3 -3v2" />
+                <path d="M8 12h8" />
+                <path d="M7 19v2" />
+                <path d="M17 19v2" />
+                </svg>
+                ID:{{ item.id_item }} | {{ item.nombre_item }}
+            </p>
+            <p>
+                <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="22"
+                height="22"
+                viewBox="0 0 22 22"
+                fill="none"
+                stroke="#004F6F"
+                stroke-width="1"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                >
+                <path d="M10 17h-6a1 1 0 0 1 -1 -1v-12a1 1 0 0 1 1 -1h16a1 1 0 0 1 1 1v7" />
+                <path d="M3 13h9" />
+                <path d="M8 21h3.5" />
+                <path d="M10 17l-.5 4" />
+                <path d="M18 22l3.35 -3.284a2.143 2.143 0 0 0 .005 -3.071a2.242 2.242 0 0 0 -3.129 -.006l-.224 .22l-.223 -.22a2.242 2.242 0 0 0 -3.128 -.006a2.143 2.143 0 0 0 -.006 3.071l3.355 3.296z" />
+                </svg>
+                {{ item.id_estado.nombre_estado|default:"Sin Estado" }}</p>                    
+            <p>
+                <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 22 22"
+                fill="none"
+                stroke="#004F6F"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                >
+                <path d="M12 8l0 4l2 2" />
+                <path d="M3.05 11a9 9 0 1 1 .5 4m-.5 5v-5h5" />
+                </svg>        
+                Stock {{ item.cantidad_items }}
+                </p>
+            <p>                        
+                <a href="">
+                <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="22"
+                height="22"
+                viewBox="0 0 22 22"
+                fill="none"
+                stroke="#004F6F"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                >
+                <path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
+                <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                <path d="M21 21v-2a4 4 0 0 0 -3 -3.85" />
+                </svg>
+                {{ item.id_usuario.nombre_colaborador|default:"Sin Colaborador Asignado" }}</a>
+            </p>
+            <p>
+                <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="22"
+                height="22"
+                viewBox="0 0 22 22"
+                fill="none"
+                stroke="#004F6F"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                >
+                <path d="M3 21l18 0" />
+                <path d="M3 7v1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1h-18l2 -4h14l2 4" />
+                <path d="M5 21l0 -10.15" />
+                <path d="M19 21l0 -10.15" />
+                <path d="M9 21v-4a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v4" />
+                </svg>                        
+                {{ item.id_almacen.nombre_almacen|default:"Articulo NO esta en ningun Almacen" }}
+            </p>
+        </div>
+        <div class="seccion2_item">
+            <img src="{{ item.imagen_qr.url }}" alt="QR de {{ item.nombre_item }}" width="85" height="85">
+            <nav class="opciones_item">
+                {% if item.tipo_item.id_tipo == 1 %}
+                <a class="enlaces" title="VER MAS INFO" href="{% url 'informacion_articulo_stock' pk=item.id_item %}">
+                    <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    >
+                    <path d="M10.425 1.414a3.33 3.33 0 0 1 3.026 -.097l.19 .097l6.775 3.995l.096 .063l.092 .077l.107 .075a3.224 3.224 0 0 1 1.266 2.188l.018 .202l.005 .204v7.284c0 1.106 -.57 2.129 -1.454 2.693l-.17 .1l-6.803 4.302c-.918 .504 -2.019 .535 -3.004 .068l-.196 -.1l-6.695 -4.237a3.225 3.225 0 0 1 -1.671 -2.619l-.007 -.207v-7.285c0 -1.106 .57 -2.128 1.476 -2.705l6.95 -4.098zm1.575 9.586h-1l-.117 .007a1 1 0 0 0 0 1.986l.117 .007v3l.007 .117a1 1 0 0 0 .876 .876l.117 .007h1l.117 -.007a1 1 0 0 0 .876 -.876l.007 -.117l-.007 -.117a1 1 0 0 0 -.764 -.857l-.112 -.02l-.117 -.006v-3l-.007 -.117a1 1 0 0 0 -.876 -.876l-.117 -.007zm.01 -3l-.127 .007a1 1 0 0 0 0 1.986l.117 .007l.127 -.007a1 1 0 0 0 0 -1.986l-.117 -.007z" />
+                    </svg>
+                </a>                                                                    
+                {% else %}
+                <a class="enlaces" title="VER MAS INFO" href="{% url 'informacion_articulo_serializable' pk=item.id_item %}">
+                    <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    >
+                    <path d="M10.425 1.414a3.33 3.33 0 0 1 3.026 -.097l.19 .097l6.775 3.995l.096 .063l.092 .077l.107 .075a3.224 3.224 0 0 1 1.266 2.188l.018 .202l.005 .204v7.284c0 1.106 -.57 2.129 -1.454 2.693l-.17 .1l-6.803 4.302c-.918 .504 -2.019 .535 -3.004 .068l-.196 -.1l-6.695 -4.237a3.225 3.225 0 0 1 -1.671 -2.619l-.007 -.207v-7.285c0 -1.106 .57 -2.128 1.476 -2.705l6.95 -4.098zm1.575 9.586h-1l-.117 .007a1 1 0 0 0 0 1.986l.117 .007v3l.007 .117a1 1 0 0 0 .876 .876l.117 .007h1l.117 -.007a1 1 0 0 0 .876 -.876l.007 -.117l-.007 -.117a1 1 0 0 0 -.764 -.857l-.112 -.02l-.117 -.006v-3l-.007 -.117a1 1 0 0 0 -.876 -.876l-.117 -.007zm.01 -3l-.127 .007a1 1 0 0 0 0 1.986l.117 .007l.127 -.007a1 1 0 0 0 0 -1.986l-.117 -.007z" />
+                    </svg>
+                </a>                                            
+                {% endif %}   
+                {% comment %} {% if item.tipo_item.id_tipo == 1 %}
+                <a class="enlaces" title="EDITAR ARTICULO" href="{% url 'editar_item_stock' pk=item.id_item %}">
+                    <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="25"
+                    height="25"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#000000"
+                    stroke-width="1.25"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    >
+                    <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+                    <path d="M13.5 6.5l4 4" />
+                    </svg>
+                </a>                                                                    
+                {% else %}
+                <a class="enlaces" title="EDITAR ARTICULO" href="{% url 'editar_item_serializable' pk=item.id_item %}">
+                    <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="25"
+                    height="25"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#000000"
+                    stroke-width="1.25"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    >
+                    <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+                    <path d="M13.5 6.5l4 4" />
+                    </svg>
+                </a>                                            
+                {% endif %}                         {% endcomment %}
+
+                <a class="enlaces" title="VER HISTORIAL DE INVENTARIO" href="{% url 'historial_inventario_articulo' pk=item.id_item %}">
+                    <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="25"
+                    height="25"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#000000"
+                    stroke-width="1"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    >
+                    <path d="M12 8l0 4l2 2" />
+                    <path d="M3.05 11a9 9 0 1 1 .5 4m-.5 5v-5h5" />
+                    </svg>
+                </a>
+                <a href="" title="VER TODOS SUS MOVIMIENTOS" href="{% url 'movimientos_articulo' pk=item.id_item %}">
+                    <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="25"
+                    height="25"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#004F6F"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    >
+                    <path d="M4 12v-6a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v6" />
+                    <path d="M10 18h-7" />
+                    <path d="M21 18h-7" />
+                    <path d="M6 15l-3 3l3 3" />
+                    <path d="M18 15l3 3l-3 3" />
+                    </svg>
+                </a>
+                <a class="enlaces" title="ELIMINAR ARTICULO" href="{% url 'eliminar_articulo' pk=item.id_item %}">
+                    <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="25"
+                    height="25"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    >
+                    <path d="M20 6a1 1 0 0 1 .117 1.993l-.117 .007h-.081l-.919 11a3 3 0 0 1 -2.824 2.995l-.176 .005h-8c-1.598 0 -2.904 -1.249 -2.992 -2.75l-.005 -.167l-.923 -11.083h-.08a1 1 0 0 1 -.117 -1.993l.117 -.007h16zm-9.489 5.14a1 1 0 0 0 -1.218 1.567l1.292 1.293l-1.292 1.293l-.083 .094a1 1 0 0 0 1.497 1.32l1.293 -1.292l1.293 1.292l.094 .083a1 1 0 0 0 1.32 -1.497l-1.292 -1.293l1.292 -1.293l.083 -.094a1 1 0 0 0 -1.497 -1.32l-1.293 1.292l-1.293 -1.292l-.094 -.083z" />
+                    <path d="M14 2a2 2 0 0 1 2 2a1 1 0 0 1 -1.993 .117l-.007 -.117h-4l-.007 .117a1 1 0 0 1 -1.993 -.117a2 2 0 0 1 1.85 -1.995l.15 -.005h4z" />
+                    </svg>
+                </a>                        
+            </nav>
+        </div>
+    </div>
+    {% empty %}
+    <p>
+        <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="52"
+        height="52"
+        viewBox="0 0 24 24"
+        fill="#FFCC00
+        "
+        >
+        <path d="M12 2c5.523 0 10 4.477 10 10a10 10 0 0 1 -19.995 .324l-.005 -.324l.004 -.28c.148 -5.393 4.566 -9.72 9.996 -9.72zm.01 13l-.127 .007a1 1 0 0 0 0 1.986l.117 .007l.127 -.007a1 1 0 0 0 0 -1.986l-.117 -.007zm-.01 -8a1 1 0 0 0 -.993 .883l-.007 .117v4l.007 .117a1 1 0 0 0 1.986 0l.007 -.117v-4l-.007 -.117a1 1 0 0 0 -.993 -.883z" />
+        </svg>
+        Atencion, Item no encontrado :(</p>                            
+    {% endfor %}               
+</div><!--Fin de listado items-->

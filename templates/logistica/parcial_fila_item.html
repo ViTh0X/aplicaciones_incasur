@@ -14,11 +14,11 @@
     <td>
         {{ factura }}
         <input type="hidden" name="items_factura[]" value="{{ factura }}">
-    </td>
+    </td>        
     <td>
         {{ fecha_contable|date:"Y-m-d" }}
         <input type="hidden" name="items_fechacontable[]" value="{{ fecha_contable|date:'Y-m-d' }}">
-    </td>
+    </td>    
     <td class="celda_recortada">
         {{ tipo_movimiento }}
         <input type="hidden" name="items_tipo_movimiento[]" value="{{ tipo_movimiento.id_tipo }}">
@@ -30,6 +30,10 @@
     <td>
         {{ destino }}
         <input type="hidden" name="items_destino[]" value="{{ destino }}">
+    </td>
+    <td>
+        {{ costo_unitario }}
+        <input type="hidden" name="items_costo_unitario[]" value="{{ costo_unitario }}">
     </td>
     <td class="texto_centrado">
         {{ cantidad }}

@@ -35,7 +35,8 @@
         .col-art { width: 15%; }
         .col-tipo { width: 10%; }
         .col-orig { width: 17%; }
-        .col-dest { width: 17%; }
+        .col-dest { width: 10%; }
+        .col-pu {width: 7%; }
         .col-cant { width: 7%; }
         .col-ref { width: 13%; }
         .col-obs { width: 20%; } /* Ahora sí cabrá en la hoja */
@@ -56,6 +57,7 @@
                 <th class="col-art">Articulo</th>
                 <th class="col-tipo">TipMovimiento</th>
                 <th class="col-orig">Origen</th>
+                <th class="col-pu">P.U.</th>
                 <th class="col-dest">Destino</th>
                 <th class="col-cant">Cantidad</th>
                 <th class="col-ref">MovReferencia</th>
@@ -69,6 +71,7 @@
                 <td>{{ movimiento.tipo_movimiento.nombre_movimiento }}</td>
                 <td>{{ movimiento.nombre_origen }}</td>
                 <td>{{ movimiento.nombre_destino }}</td>
+                <td>{{ movimiento.precio_unitario }}</td>
                 <td>{{ movimiento.cantidad_movimiento }}</td>
                 <td>{{ movimiento.id_movimiento_referencia|default:"Sin Referencia" }}</td>                
                 <td>{{ movimiento.observaciones|default:"Sin Observaciones" }}</td>

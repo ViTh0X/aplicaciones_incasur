@@ -5,8 +5,11 @@
     <div class="menu_opciones">
         <h1 class="no-margin">Historial Inventarios:</h1>
         <a href="{% url 'articulos_no_inventariados' %}" class="boton_enlace a1">Ver NO InventariadoS</a>        
-        <input type="text" placeholder="Buscar x Nombre">
-        <div class="filtra_fechas a2">
+        <div class="opcion_buscar">
+            <input type="text" placeholder="Buscar X Nombre" id="item_pista" name="item">
+            <button hx-get="{% url 'filtrar_inventario_por_item' %}" hx-target="#resultados_inventario_por_item" hx-include="#item_pista">Buscar</button>
+        </div>
+        <!--<div class="filtra_fechas a2">
             <label for="">Fecha Inicio:</label>
             <input class="input1" type="date">
             <label for="">Fecha Final:</label>
@@ -27,9 +30,9 @@
                 <path d="M21 21l-6 -6" />
                 </svg>
             </a>
-        </div>
+        </div>-->
     </div>
-    <div class="mostrar_informacion_movimientos">
+    <div class="mostrar_informacion_movimientos" id="resultados_inventario_por_item">
         <table class="tabla_informacion">
             <thead>
                 <tr>
@@ -55,5 +58,6 @@
             </table>
         </div>
     </div>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
 </main>
 {% endblock  %}

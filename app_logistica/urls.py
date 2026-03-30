@@ -4,6 +4,7 @@ from . import views
 
 urlpatterns = [
     path('',views.logistica_items,name='logistica_items'),
+    path('filtrar-items',views.filtrar_items,name='filtrar_items'),
     path('agregar-item-tipo-item',views.agregar_item_tipo_item,name='agregar_item_tipo_item'),
     path('agregar-stock/<int:pk>/',views.agregar_item_stock,name='agregar_item_stock'),
     path('agregar-serializable/<int:pk>/',views.agregar_item_serializable,name='agregar_item_serializable'),
@@ -24,7 +25,11 @@ urlpatterns = [
     path('inventariar-articulo/<int:pk>/',views.inventariar_articulo,name='inventariar_articulo'),
     path('eliminar-articulo/<int:pk>/',views.eliminar_articulo,name='eliminar_articulo'),
     path('historial-inventario-articulo/<int:pk>/',views.historial_inventario_articulo,name='historial_inventario_articulo'),
+    path('filtrar-inventario-por-item',views.filtrar_inventario_por_item,name='filtrar_inventario_por_item'),
     path('movimientos-articulo/<int:pk>/',views.movimientos_articulo,name='movimientos_articulo'),
+    path('resultados-movimientos',views.resultados_movimientos,name='resultados_movimientos'),
+    path('resultados-filtrados-fecha',views.resultados_filtrados_fecha,name='resultados_filtrados_fecha'),
+    path('filtrar-movimientos-por-item',views.filtrar_movimientos_por_item,name="filtrar_movimientos_por_item"),
     #path('',views.logistica_almacenes,name='logistica_items'),
     path('almacenes',views.logistica_almacenes,name='logistica_almacenes'),
     path('agregar-almacenes',views.agregar_almacenes,name='agregar_almacenes'),
@@ -39,6 +44,7 @@ urlpatterns = [
     path('agregar-fila-item',views.agregar_fila_item,name='agregar_fila_item'),
     path('historial-inventario',views.logistica_historial_inventario,name='logistica_historial_inventario'),
     path('articulos-no-inventariados',views.articulos_no_inventariados,name='articulos_no_inventariados'),
+    path('filtrar-no-inventario-por-item',views.filtrar_no_inventario_por_item,name='filtrar_no_inventario_por_item'),
     path('colaboradores',views.logistica_colaboradores,name='logistica_colaboradores'),    
     path('filtrar-colaboradores',views.filtrar_colaboradores,name='filtrar_colaboradores'),
     path('movimientos-por-item/<int:pk>/',views.movimientos_por_item,name='movimientos_por_item'),

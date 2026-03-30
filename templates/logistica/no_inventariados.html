@@ -4,9 +4,12 @@
 <main>
     <div class="menu_opciones">                
         <h1 class="no-margin">No inventariados del año : {{ año }}</h1>  
-        <input type="text" placeholder="Buscar x Nombre">        
+        <div class="opcion_buscar">
+            <input type="text" placeholder="Buscar X Nombre" id="item_pista" name="item">
+            <button hx-get="{% url 'filtrar_no_inventario_por_item' %}" hx-target="#resultados_no_inventario_por_item" hx-include="#item_pista">Buscar</button>
+        </div>        
     </div>
-    <div class="mostrar_informacion_movimientos">
+    <div class="mostrar_informacion_movimientos" id="resultados_no_inventario_por_item">
         <table class="tabla_informacion">
             <thead>
                 <tr>                    
@@ -30,7 +33,8 @@
                     {% endfor %}                
                 </tbody>            
             </table>
-        </div>
+        </div>        
     </div>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
 </main>
 {% endblock  %}

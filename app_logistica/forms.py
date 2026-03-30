@@ -17,7 +17,7 @@ class ItemsFormStock(forms.ModelForm):
     
     class Meta:
         model = Items
-        fields = ['nombre_item','tipo_moneda','precio_unitario']
+        fields = ['nombre_item','tipo_moneda','id_almacen','tipo_insumo']
         widgets = {
             'precio_unitario': forms.NumberInput(attrs={
                 'step':'0.01',

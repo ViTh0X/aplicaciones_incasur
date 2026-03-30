@@ -1,0 +1,32 @@
+<div class="tabla_movimientos_totales">
+    <h1 class="no-margin">Insumos Entregados del {{ fecha_inicio|date:"Y-m-d" }} hasta {{ fecha_fin|date:"Y-m-d" }}</h1>
+    <h1  class="no-margin">Total Mensual Soles: {{ total_segun_fechas }}</h1>
+    <table class="tabla_resultado" >
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>NombreArticulo</th>
+                <th>TotalS./</th>
+                <th>Total Cantidad</th>
+                <th>Stock Actual</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for movimiento in resumen_movimientos%}
+            <tr>
+                <td>{{ movimiento.id_item }}</td>
+                <td>{{ movimiento.id_item__nombre_item }}</td>
+                <td>{{ movimiento.total_dinero|floatformat:2 }}</td>
+                <td>{{ movimiento.total_cantidad }}</td>
+                <td>{{ movimiento.id_item__cantidad_items }}</td>
+                
+            </tr>
+            {% empty %}
+            <tr>
+                <td>No existen movimientos en la fecha seleccionada</td>
+            </tr>
+            {% endfor%}
+
+        </tbody>
+    </table>
+</div>

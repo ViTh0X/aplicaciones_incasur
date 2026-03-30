@@ -3,7 +3,7 @@
     <form method="POST">
         {% csrf_token %}            
         <div class="campos_textosimple">
-            <input type="text" name="nombre_item" id="buscador" placeholder='ID Articulo'>
+            <input type="text" name="nombre_item" id="buscador" placeholder='Nombre Articulo'>
             <button hx-get="{% url 'buscar_item_movimiento' %}" hx-target='#resultados_busquedas' hx-include='#buscador'                
             class="boton_formulario"  >
                 Buscar

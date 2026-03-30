@@ -122,6 +122,20 @@ class TipoMoneda(models.Model):
     def __str__(self):
         return self.nombre
     
+class TiposInsumo(models.Model):    
+    id_tipo_insumo = models.AutoField(primary_key=True)
+    denominacion = models.CharField(max_length=40)
+    cuenta_contable_haber = models.CharField(max_length=20)
+    cuenta_contable_debe = models.CharField(max_length=20)
+    fecha_modificacion =  models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        db_table = 'tipos_insumo'
+        
+    def __str__(self):
+        return self.denominacion
+    
+    
     
 class Items(models.Model):
     id_item = models.AutoField(primary_key=True)
@@ -136,12 +150,13 @@ class Items(models.Model):
     imagen_qr = models.ImageField(upload_to='imagenes_qr/',blank=True,null=True)    
     cantidad_items = models.IntegerField(default=0)
     tipo_moneda = models.ForeignKey(TipoMoneda,on_delete=models.CASCADE,default=1)    
-    precio_unitario = models.DecimalField(max_digits=10,decimal_places=2,default=Decimal('0.00'),validators=[MinValueValidator(Decimal('0.00'))])
+    precio_unitario = models.DecimalField(max_digits=10,decimal_places=2,default=Decimal('0.00'),validators=[MinValueValidator(Decimal('0.00'))],blank=True)
     proveedor = models.ForeignKey(Proveedores,on_delete=models.CASCADE,null=True,blank=True)
     #id_area = models.ForeignKey(AreasEmpresa,on_delete=models.CASCADE,null=True,blank=True)
-    id_estado = models.ForeignKey(TipoEstadoItems,on_delete=models.CASCADE,null=True,blank=True)
+    id_estado = models.ForeignKey(TipoEstadoItems,on_delete=models.CASCADE,default=1)
     id_almacen = models.ForeignKey(Almacenes,on_delete=models.CASCADE,null=True,blank=True)
     id_usuario = models.ForeignKey(Colaboradores,on_delete=models.CASCADE,null=True,blank=True)
+    tipo_insumo = models.ForeignKey(TiposInsumo,on_delete=models.CASCADE,null=True,blank=True)
     fecha_modificacion = models.DateTimeField(auto_now=True)
     
     class Meta:
@@ -212,6 +227,7 @@ class ItemsMovimientos(models.Model):
     nombre_origen = models.CharField(max_length=150,blank=True,null=True)
     nombre_destino = models.CharField(max_length=150)
     cantidad_movimiento = models.IntegerField(default=1)
+    precio_unitario = models.DecimalField(max_digits=10,decimal_places=2,blank=True,null=True)
     id_movimiento_referencia = models.ForeignKey('self',on_delete=models.CASCADE,null=True,blank=True)
     observaciones = models.CharField(max_length=200,default="Sin Observaciones")
     fecha_modificacion = models.DateTimeField(auto_now=True)

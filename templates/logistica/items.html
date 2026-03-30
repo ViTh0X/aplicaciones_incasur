@@ -5,10 +5,13 @@
     <div class="menu_opciones">
         <h1 class="no-margin">Articulos:</h1>
         <a href="{% url 'agregar_item_tipo_item' %}" class="boton_enlace a1">+ Agregar Articulo</a>
-        <input type="text" placeholder="Buscar X Nombre">
+        <div class="opcion_buscar">
+            <input type="text" placeholder="Buscar X Nombre" id="item_pista" name="item">
+            <button hx-get="{% url 'filtrar_items' %}" hx-target="#resultados_items" hx-include="#item_pista">Buscar</button>
+        </div>        
         <a href="{% url 'imprimir_pdf_qrs' %}" class="boton_enlace a2">Todos los QR</a>        
     </div>
-    <div class="mostrar_informacion tabla_grande_container">
+    <div class="mostrar_informacion tabla_grande_container" id="resultados_items">
         <div class="no-padding columnas_items">
             {% for item in items %}            
             <div class="item">
@@ -238,8 +241,8 @@
                 </svg>
                 Atencion, No hay Ningun Articulo aqui :(</p>                            
             {% endfor %}               
-        </div>
-                     
+        </div><!--Fin de listado items-->                     
     </div>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>    
 </main>    
 {% endblock %}

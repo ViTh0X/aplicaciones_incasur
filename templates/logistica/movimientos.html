@@ -5,8 +5,12 @@
     <div class="menu_opciones">
         <h1 class="no-margin">Movimientos:</h1>
         <a href="{% url 'agregar_movimientos' %}" class="boton_enlace a1">+ Realizar Movimiento</a>
-        <input type="text" placeholder="Buscar x Nombre">
-        <div class="filtra_fechas a2">
+        <div class="opcion_buscar">
+            <input type="text" placeholder="Buscar X Nombre" id="item_pista" name="item">
+            <button hx-get="{% url 'filtrar_movimientos_por_item' %}" hx-target="#resultados_movimientos_por_item" hx-include="#item_pista">Buscar</button>
+        </div>
+        <a href="{% url 'resultados_movimientos' %}" class="boton_enlace a2">Ver Totales</a>        
+        <!--<div class="filtra_fechas a2">
             <label for="">Fecha Inicio:</label>
             <input class="input1" type="date">
             <label for="">Fecha Final:</label>
@@ -27,9 +31,9 @@
                 <path d="M21 21l-6 -6" />
                 </svg>
             </a>
-        </div>
+        </div>-->
     </div>
-    <div class="mostrar_informacion_movimientos tabla_grande_container_movimientos_vista">
+    <div class="mostrar_informacion_movimientos tabla_grande_container_movimientos_vista" id="resultados_movimientos_por_item">
         <table class="tabla_informacion">
             <thead>
                 <tr>
@@ -43,6 +47,7 @@
                     <th>Movimiento</th>
                     <th>Origen</th>
                     <th>Destino</th>
+                    <th>P.U.</th>
                     <th>Cantidad</th>
                     <th>MovRef</th>
                     <th>Observaciones</th>
@@ -52,19 +57,20 @@
             </thead>
             <tbody>
                 {% for movimiento in movimientos%}
-                <tr>                    
+                <tr class="{% if movimiento.id_item.tipo_insumo.denominacion == 'UTILES DE ESCRITORIO' %}fila-utiles{% elif movimiento.id_item.tipo_insumo.denominacion == 'UTILES DE LIMPIEZA' %}fila-limpieza{% elif movimiento.id_item.tipo_insumo.denominacion == 'TONER/TINTAS' %}fila-tintas{% elif movimiento.id_item.tipo_insumo.denominacion == 'PAPEL A4/PAPEL IMPRESORAS' %}fila-papelimp{% elif movimiento.id_item.tipo_insumo.denominacion == 'FORMATOS PARA CLIENTES' %}fila-formatos{% elif movimiento.id_item.tipo_insumo.denominacion == 'SUMINISTROS DIVERSOS' %}fila-otros{% endif %}">
                     <td>{{ movimiento.id_movimiento_cabezera.id_cabecera }}</td>                    
                     <td>{{ movimiento.id_movimiento }}</td>
+                    <td>{{ movimiento.id_item.nombre_item }}</td>                    
                     <td>{{ movimiento.voucher }}</td>
                     <td>{{ movimiento.referencia }}</td>
-                    <td>{{ movimiento.fecha_contable }}</td>
-                    <td>{{ movimiento.factura }}</td>
-                    <td>{{ movimiento.id_item.nombre_item }}</td>
+                    <td>{{ movimiento.factura }}</td>                                       
+                    <td>{{ movimiento.fecha_contable|date:"Y-m-d" }}</td>                 
                     <td>{{ movimiento.tipo_movimiento.nombre_movimiento }}</td>
                     <td>{{ movimiento.nombre_origen }}</td>
                     <td>{{ movimiento.nombre_destino }}</td>
+                    <td>{{ movimiento.precio_unitario }}</td>
                     <td>{{ movimiento.cantidad_movimiento }}</td>
-                    <td>ID:{{ movimiento.id_movimiento_referencia.id_movimiento }}</td>
+                    <td>ID:{{ movimiento.id_movimiento_referencia.id_movimiento|default:"None" }}</td>
                     <td>{{ movimiento.observaciones }}</td>                    
                     <td>                        
                         <a href="{% url 'imprimir_pdf_movimientos_firmado' pk=movimiento.id_movimiento_cabezera.id_cabecera %}" title="IMPRIMIR PDF FIRMADO">
@@ -95,5 +101,6 @@
             </tbody>
         </table>
     </div>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>   
 </main>
 {% endblock  %}
