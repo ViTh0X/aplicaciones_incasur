@@ -4,37 +4,48 @@
 <main>
     <div class="menu_opciones">
         <h1 class="no-margin">Movimientos:</h1>
-        <a href="{% url 'logistica_movimientos' %}" class="boton_enlace a1">Volver</a>                
-        <div class="filtra_fechas a2">
-            <label for="">Fecha Inicio:</label>
-            <input class="input1" type="date" id="fecha_inicio" name="fecha_inicio">
-            <label for="">Fecha Final:</label>
-            <input class="input2" type="date" id="fecha_final" name="fecha_final">
-            <button href="" class="boton_enlace"
-                hx-get="{% url 'resultados_filtrados_fecha'%}"
-                hx-include="#fecha_inicio,#fecha_final"
-                hx-target="#resultados_filtrados_fecha"
-                >                
-                <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#ffffff"
-                stroke-width="1"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                >
-                <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
-                <path d="M21 21l-6 -6" />
-                </svg>
-            </button>
-        </div>
+        <a href="{% url 'logistica_movimientos' %}" class="boton_enlace a1">Volver</a>
+         <div class="opcion_buscar">
+            <div class="select_insumos">
+                <select name="tipo_insumo" id="tipo_insumo">
+                    <option value="" disabled selected>--Seleccione un Tipo Insumo--</option>
+                    {% for tipo_insumo in tipo_insumos %}
+                    <option value="{{ tipo_insumo.id_tipo_insumo }}">{{ tipo_insumo.denominacion }}</option>
+                    {% endfor %}
+                </select>
+            </div>            
+            <div class="filtra_fechas">                    
+                <label for="">Fecha Inicio:</label>
+                <input class="input1" type="date" id="fecha_inicio" name="fecha_inicio">
+                <label for="">Fecha Final:</label>
+                <input class="input2" type="date" id="fecha_final" name="fecha_final">
+                <button href="" class="boton"
+                    hx-get="{% url 'resultados_filtrados_fecha'%}"
+                    hx-include="#fecha_inicio,#fecha_final,#tipo_insumo"
+                    hx-target="#resultados_filtrados_fecha"
+                    >                
+                    <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#ffffff"
+                    stroke-width="1"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    >
+                    <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
+                    <path d="M21 21l-6 -6" />
+                    </svg>
+                </button>
+            </div>
+        </div>                       
+        
     </div>
     <div class="mostrar_informacion_movimientos tabla_grande_container_movimientos_vista" id="resultados_filtrados_fecha">        
 
-    </div>
-    <script src="https://unpkg.com/htmx.org@1.9.10"></script>   
+    </div>    
 </main>
+<script src="https://unpkg.com/htmx.org@1.9.10"></script>       
 {% endblock  %}

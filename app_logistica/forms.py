@@ -42,6 +42,14 @@ class ItemsFormSerializable(forms.ModelForm):
                 }
             )
         }
+    
+    def __init__(self, *args, **kwargs):
+        super(ItemsFormSerializable, self).__init__(*args, **kwargs)
+        
+        # Accedemos al campo id_estado y filtramos sus opciones
+        if 'id_estado' in self.fields:
+            # Opción A: Si conoces el nombre exacto
+            self.fields['id_estado'].queryset = self.fields['id_estado'].queryset.exclude(pk=2)
         
 class ProveedoresForm(forms.ModelForm)            :
     

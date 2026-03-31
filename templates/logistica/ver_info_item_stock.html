@@ -3,22 +3,19 @@
 {% block contenido %}
 <main>
     <div class="formularios" >
-        <h1 class="no-margin">Info de Articulo ID: #{{ item.id_item }}</h1>             
+        <h1 class="no-margin">Info de Articulo ID: <span class="texto_normal">#{{ item.id_item }}</span></h1>             
         <div>
             <div class="campos_textosimple">
-                <label for="">Nombre: {{ item.nombre_item }}</label>                
+                <label for="">Nombre: <span class="texto_normal"> {{ item.nombre_item }}</span></label>                
             </div>            
             <div class="campos_textosimple">
-                <label for="">Stock: {{ item.cantidad_items }}</label>                
-            </div>                                    
+                <label for="">Stock: <span class="texto_normal">{{ item.cantidad_items }}</span></label>                
+            </div>                                                
             <div class="campos_textosimple">
-                <label for="">Moneda: {{ item.tipo_moneda }}</label>                
+                <label for="">Almacen: <span class="texto_normal">{{ item.id_almacen|default:"No asignado" }}</span></label>                
             </div>
             <div class="campos_textosimple">
-                <label for="">Precio Unitario: {{ item.precio_unitario }}</label>                
-            </div>
-            <div class="campos_textosimple">
-                <label for="">Categoria Insumo: {{ item.tipo_insumo }}</label>                
+                <label for="">Categoria Insumo: <span class="texto_normal">{{ item.tipo_insumo }}</span></label>                
             </div>                                                                                              
             <div class="botones_formularios">                                
                 <a class="boton_enlace a1" href="{% url 'logistica_items' %}">← Ir a Articulos</a>

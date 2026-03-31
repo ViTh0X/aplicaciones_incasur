@@ -2,6 +2,7 @@
 {% block titulo %}Informacion Articulo{% endblock %}
 {% block contenido %}
 <main>
+    {% load l10n %}
     <div class="formularios" >
         <h1 class="no-margin">Informacion de Articulo ID: #{{ item.id_item }}</h1>             
         <div>
@@ -29,14 +30,14 @@
             <div class="campos_textosimple">
                 <label for="">N° Serie: <span class="texto_normal">{{ item.serie_item }}</span></label>                
             </div>
-            <div class="campos_textosimple">
+            <div class="campos_textosimple">                
                 <label for="">Stock: <span class="texto_normal">{{ item.cantidad_items }}</span></label>                
             </div>                                    
             <div class="campos_textosimple">
                 <label for="">Moneda: <span class="texto_normal">{{ item.tipo_moneda }}</span></label>                
             </div>
             <div class="campos_textosimple">
-                <label for="">Precio Unitario: <span class="texto_normal">{{ item.precio_unitario }}</span></label>                
+                <label for="">Precio Unitario: <span class="texto_normal">{{ item.precio_unitario|unlocalize }}</span></label>                
             </div>
             <div class="campos_textosimple">
                 <label for="">Proveedor: <span class="texto_normal">{{ item.proveedor }}</span></label>                                

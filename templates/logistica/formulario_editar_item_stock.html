@@ -16,13 +16,13 @@
                 {{ form.nombre_item }}
             </div>           
             <div class="campos_textoopciones">
-                <label for="">Moneda:</label>
-                {{ form.tipo_moneda }}
-            </div>            
+                <label for="">Almacen:</label>
+                {{ form.id_almacen }}
+            </div>
             <div class="campos_textoopciones">
-                <label for="">Precio Unitario:</label>
+                <label for="">Tipo Insumo:</label>
                 {{ form.tipo_insumo }}
-            </div>          
+            </div>                                  
             <div class="botones_formularios">
                 <a class="boton_enlace a1" href="{% url 'logistica_items' %}">← Volver a Articulos</a>
                 <button class="boton_formulario" type="submit">Editar Articulo</button>

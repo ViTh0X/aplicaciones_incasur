@@ -163,7 +163,9 @@
             </nav>
         </div>
         <div class="plantilla__contenido">             
-                {% block contenido%}{% endblock%}            
+                {% block contenido%}
+                {% load l10n %}
+                {% endblock%}            
         </div>
     </div><!--Aqui termina plantilla menu-->
     </div><!--Aqui termina la plantilla-->    

@@ -1,7 +1,8 @@
 <div class="tabla_movimientos_totales">
-    <h1 class="no-margin">Insumos Entregados del {{ fecha_inicio|date:"Y-m-d" }} hasta {{ fecha_fin|date:"Y-m-d" }}</h1>
-    <h1  class="no-margin">Total Mensual Soles: {{ total_segun_fechas }}</h1>
-    <table class="tabla_resultado" >
+    {% load l10n %}
+    <h2 class="no-margin">Insumos Entregados del {{ fecha_inicio|date:"Y-m-d" }} hasta {{ fecha_fin|date:"Y-m-d" }}</h2>
+    <h2  class="no-margin">Total Mensual Soles: {{ total_segun_fechas|unlocalize }}</h2>
+    <table class="tabla_resultado" >        
         <thead>
             <tr>
                 <th>ID</th>
@@ -16,7 +17,7 @@
             <tr>
                 <td>{{ movimiento.id_item }}</td>
                 <td>{{ movimiento.id_item__nombre_item }}</td>
-                <td>{{ movimiento.total_dinero|floatformat:2 }}</td>
+                <td>{{ movimiento.total_dinero|unlocalize }}</td>
                 <td>{{ movimiento.total_cantidad }}</td>
                 <td>{{ movimiento.id_item__cantidad_items }}</td>
                 

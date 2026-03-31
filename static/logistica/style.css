@@ -546,9 +546,8 @@ ul{
     grid-row: 2/3;
     width: 95%;
 }
-.filtra_fechas a{
-    grid-column: 3/4;
-    grid-row: 1/3;
+.filtra_fechas button{
+    width: 100%;    
 }
 .mostrar_informacion_movimientos{
     padding: 0.2rem 0.2rem 0.2rem 0.2rem;
@@ -951,8 +950,17 @@ ul{
     width: 25rem;    
     padding: 0.1rem;       
 }
-
-
+.select_insumos{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;    
+    margin-right: 0.2rem;
+}
+.select_insumos select{
+    height: 3rem;
+    font-size: 2rem;    
+}
 .fila-utiles{background-color: #CCC0DA;}
 .fila-limpieza{background-color: #D8E4BC;}
 .fila-tintas{background-color: #FFC000;}

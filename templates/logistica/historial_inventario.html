@@ -34,29 +34,48 @@
     </div>
     <div class="mostrar_informacion_movimientos" id="resultados_inventario_por_item">
         <table class="tabla_informacion">
+            {% load l10n %}
             <thead>
                 <tr>
-                    <th>Item</th>                    
+                    <th>ID</th>
+                    <th>Articulo</th>                    
+                    <th>Estado</th>
+                    <th>Comprobante CNT</th>
+                    <th>Fecha CNT</th>
+                    <th>Factura Boleta</th>
+                    <th>Marca</th>
+                    <th>Modelo</th>
+                    <th>N°Serie</th>
+                    <th>TipoMoneda</th>
+                    <th>Costo</th>
+                    <th>Proovedor</th>
                     <th>Almacen</th>
                     <th>Usuario</th>
-                    <th>Año</th>
+                    <th>FechaIngreso</th>
                 </tr>
             </thead>
-        </table>
-        <div class="tabla_grande_container">
-            <table class="tabla_informacion">                
-                <tbody>
+            <tbody>
                     {% for inventario in inventarios %}
                     <tr>
-                        <td>{{ inventario.id_item.nombre_item }}</td>                        
-                        <td>{{ inventario.nombre_almacen|default:"Sin Asignar" }}</td>
-                        <td>{{ inventario.nombre_usuario|default:"Sin Asignar" }}</td>
+                        <td>{{ inventario.id_item.id_item }}</td>
+                        <td>{{ inventario.id_item.nombre_item }}</td>
+                        <td>{{ inventario.id_item.id_estado }}</td> 
+                        <td>{{ inventario.id_item.comprobante_contable }}</td>                        
+                        <td>{{ inventario.id_item.fecha_contable|date:"Y-m-d" }}</td>               
+                        <td>{{ inventario.id_item.factura_boleta }}</td>
+                        <td>{{ inventario.id_item.marca_item }}</td>        
+                        <td>{{ inventario.id_item.modelo_item }}</td>
+                        <td>{{ inventario.id_item.serie_item }}</td>
+                        <td>{{ inventario.id_item.tipo_moneda }}</td>
+                        <td>{{ inventario.id_item.precio_unitario|unlocalize }}</td>
+                        <td>{{ inventario.id_item.proveedor }}</td>                        
+                        <td>{{ inventario.nombre_almacen|default:"" }}</td>
+                        <td>{{ inventario.nombre_usuario|default:"" }}</td>
                         <td class="texto_centrado">{{ inventario.fecha_modificacion|date:"d-m-Y" }}</td>
                     </tr>
                     {% endfor %}                                                 
                 </tbody>
-            </table>
-        </div>
+        </table>                                            
     </div>
     <script src="https://unpkg.com/htmx.org@1.9.10"></script>
 </main>

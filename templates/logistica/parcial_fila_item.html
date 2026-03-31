@@ -1,4 +1,4 @@
-<tr>
+{% load l10n %}<tr>
     <td class="celda_recortada"> 
         {{ articulo.nombre_item }}
         <input type="hidden" name="items_ids[]" value="{{ articulo.id_item }}">
@@ -32,8 +32,8 @@
         <input type="hidden" name="items_destino[]" value="{{ destino }}">
     </td>
     <td>
-        {{ costo_unitario }}
-        <input type="hidden" name="items_costo_unitario[]" value="{{ costo_unitario }}">
+        {{ costo_unitario|unlocalize }}
+        <input type="hidden" name="items_costo_unitario[]" value="{{ costo_unitario|unlocalize }}">
     </td>
     <td class="texto_centrado">
         {{ cantidad }}

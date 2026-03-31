@@ -20,7 +20,7 @@
     </thead>
     <tbody>
         {% for movimiento in movimientos%}
-        <tr>                    
+        <tr class="{% if movimiento.id_item.tipo_insumo.denominacion == 'UTILES DE ESCRITORIO' %}fila-utiles{% elif movimiento.id_item.tipo_insumo.denominacion == 'UTILES DE LIMPIEZA' %}fila-limpieza{% elif movimiento.id_item.tipo_insumo.denominacion == 'TONER/TINTAS' %}fila-tintas{% elif movimiento.id_item.tipo_insumo.denominacion == 'PAPEL A4/PAPEL IMPRESORAS' %}fila-papelimp{% elif movimiento.id_item.tipo_insumo.denominacion == 'FORMATOS PARA CLIENTES' %}fila-formatos{% elif movimiento.id_item.tipo_insumo.denominacion == 'SUMINISTROS DIVERSOS' %}fila-otros{% endif %}">                    
             <td>{{ movimiento.id_movimiento_cabezera.id_cabecera }}</td>                    
             <td>{{ movimiento.id_movimiento }}</td>
             <td>{{ movimiento.id_item.nombre_item }}</td>

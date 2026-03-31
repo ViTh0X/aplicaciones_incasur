@@ -138,8 +138,7 @@ def seleccionar_item_mov(request,pk):
 @login_required(login_url="login_logistica")
 def seleccionar_proveedor_mov(request,pk):
     tipo_articulo_stock = TipoItems.objects.get(pk=1)
-    proveedor = Proveedores.objects.get(pk=pk)
-    articulos = Items.objects.all()
+    proveedor = Proveedores.objects.get(pk=pk)    
     articulos = Items.objects.filter(tipo_item=tipo_articulo_stock)    
     origen = proveedor
     destinos = Almacenes.objects.values_list('nombre_almacen', flat=True)    
@@ -162,11 +161,13 @@ def buscar_proveedor_movimiento(request):
 @login_required(login_url="login_logistica")
 def buscar_item_movimiento(request):
     data_input = request.GET.get('nombre_item','').strip()
+    print(data_input)
     tipo_item = TipoItems.objects.get(pk=2)
     tipo_estado_items = TipoEstadoItems.objects.exclude(id_estado=2)
     #,id_almacen__isnull=False
     #tipo_estado_items__in=tipo_estado_items
-    items_filtrados = Items.objects.filter(id_almacen__isnull=True,nombre_item__icontains=data_input,tipo_item=tipo_item)
+    items_filtrados = Items.objects.filter(id_almacen__isnull=True,id_usuario__isnull=True,nombre_item__icontains=data_input,tipo_item=tipo_item)
+    print(items_filtrados)
     items_filtrados.filter(id_estado__in=tipo_estado_items)    
     return render(request,'logistica/resultado_busqueda_item_mov.html',{'items_filtrados':items_filtrados})
 
@@ -279,7 +280,7 @@ def eliminar_articulo(request,pk):
 def movimientos_articulo(request,pk):
     articulo = get_object_or_404(Items,pk=pk)
     movimientos = ItemsMovimientos.objects.filter(id_item=articulo)
-    return render(request,'logistica/historial_inventario.html',{'movimientos':movimientos})
+    return render(request,'logistica/movimientos.html',{'movimientos':movimientos})
     
 @login_required(login_url="login_logistica")
 def filtrar_movimientos_por_item(request):
@@ -424,7 +425,7 @@ def imprimir_pdf_qrs(request):
 def agregar_movimientos(request):
     estado_colaborador_activo = EstadoColaboradores.objects.get(pk=1)
     colaboradores = Colaboradores.objects.filter(estado_colaboradores=estado_colaborador_activo)        
-    tipos_movimiento = TiposMovimiento.objects.all()
+    tipos_movimiento = TiposMovimiento.objects.all().exclude(id_tipo=6)
     movimientos = ItemsMovimientos.objects.all()
     cabecera_id = ""
     if request.method == 'POST':
@@ -496,6 +497,10 @@ def agregar_movimientos(request):
                 articulo.save()                                    
             elif i_tip_mov == "2":
                 colaborador = get_object_or_404(Colaboradores,nombre_colaborador=i_des)
+                if not p_uni:
+                    p_uni_limpio = None
+                else:
+                    p_uni_limpio = Decimal(p_uni)
                 if articulo.cantidad_items >= cant:
                     ItemsMovimientos.objects.create(
                         id_movimiento_cabezera=cabecera,
@@ -508,7 +513,7 @@ def agregar_movimientos(request):
                         nombre_origen=i_ori, # O el que definas
                         nombre_destino=i_des,
                         cantidad_movimiento=cant,
-                        precio_unitario=p_uni,
+                        precio_unitario=p_uni_limpio,
                         id_movimiento_referencia=i_mov_ref,                    
                         observaciones=obs
                     )
@@ -520,6 +525,10 @@ def agregar_movimientos(request):
                     raise Exception(f"Stock Modificado en ultimo Momento, No se Guardo el Movimiento {articulo.nombre_item}")            
             elif i_tip_mov == "3":
                 almacen = Almacenes.objects.get(nombre_almacen=i_des)                
+                if not p_uni:
+                    p_uni_limpio = None
+                else:                    
+                    p_uni_limpio = Decimal(p_uni)                
                 ItemsMovimientos.objects.create(
                     id_movimiento_cabezera=cabecera,
                     id_item=articulo,
@@ -531,7 +540,7 @@ def agregar_movimientos(request):
                     nombre_origen=i_ori, # O el que definas
                     nombre_destino=i_des,
                     cantidad_movimiento=cant,
-                    precio_unitario=p_uni,
+                    precio_unitario=p_uni_limpio,
                     id_movimiento_referencia=i_mov_ref,                    
                     observaciones=obs
                 )
@@ -560,6 +569,10 @@ def agregar_movimientos(request):
                 articulo.save()
                                 
             elif i_tip_mov == "5":
+                if not p_uni:
+                    p_uni_limpio = None
+                else:                    
+                    p_uni_limpio = Decimal(p_uni)  
                 estado_debaja = TipoEstadoItems.objects.get(pk=2)                
                 ItemsMovimientos.objects.create(
                     id_movimiento_cabezera=cabecera,
@@ -572,7 +585,7 @@ def agregar_movimientos(request):
                     nombre_origen=i_ori, # O el que definas
                     nombre_destino=i_des,
                     cantidad_movimiento=cant,
-                    precio_unitario=p_uni,
+                    precio_unitario=p_uni_limpio,
                     id_movimiento_referencia=i_mov_ref,                    
                     observaciones=obs
                 )
@@ -623,7 +636,7 @@ def agregar_movimientos(request):
                         
             elif i_tip_mov == "8":           
                 stock_a_ese_momento = articulo.cantidad_items    
-                movimientos_a_iterar = ItemsMovimientos.objects.filter(id_item=articulo.id_item,tipo_movimiento=1).order_by('-fecha_contable')
+                movimientos_a_iterar = ItemsMovimientos.objects.filter(id_item=articulo.id_item,tipo_movimiento=1).order_by('-fecha_modificacion')
                 if articulo.cantidad_items >= cant:
                     lista_precios_unitarios = []
                     lista_cantidad_disponibles = []
@@ -722,13 +735,15 @@ def agregar_fila_item(request):
     if movimiento == "2":
         voucher = articulo.comprobante_contable
         fecha_contable = articulo.fecha_contable
-        factura = articulo.factura_boleta                
+        factura = articulo.factura_boleta
+        costo_unitario = articulo.precio_unitario                        
         if articulo.cantidad_items < cantidad:
             return HttpResponse(f'<script>alert("Stock insuficiente para {articulo.nombre_item}");</script>', status=200)
     if movimiento == "3":
         voucher = articulo.comprobante_contable
         fecha_contable = articulo.fecha_contable
         factura = articulo.factura_boleta
+        costo_unitario = articulo.precio_unitario                        
         if mov_ref == "":
             return HttpResponse(f'<script>alert("Debe Elegir un Movimiento Referencia");</script>', status=200)
     if movimiento == "4":
@@ -738,6 +753,7 @@ def agregar_fila_item(request):
         voucher = articulo.comprobante_contable
         fecha_contable = articulo.fecha_contable
         factura = articulo.factura_boleta
+        costo_unitario = articulo.precio_unitario
         if observaciones == "":
             return HttpResponse(f'<script>alert("Debe Colocar el Motivo de Baja");</script>', status=200)
     if movimiento == "6":
@@ -746,7 +762,8 @@ def agregar_fila_item(request):
     if movimiento == "7":
         voucher = articulo.comprobante_contable
         fecha_contable = articulo.fecha_contable
-        factura = articulo.factura_boleta        
+        factura = articulo.factura_boleta
+        costo_unitario = articulo.precio_unitario         
         if articulo.cantidad_items < cantidad:
             return HttpResponse(f'<script>alert("Stock insuficiente para {articulo.nombre_item}");</script>', status=200)
     # Validación de stock en el servidor
@@ -781,12 +798,12 @@ def filtrar_campos_movimientos(request):
     if movimientos == "1":       
         return render(request,'logistica/seleccionar_proveedor_movimientos.html')
     elif movimientos == "2":
-        articulos = Items.objects.filter(tipo_item=tipo_articulo_serial,id_estado__in=articulo_tipo_no_baja,id_usuario__isnull=True)
+        articulos = Items.objects.filter(tipo_item=tipo_articulo_serial,id_estado__in=articulo_tipo_no_baja,id_usuario__isnull=True,id_almacen__isnull=False)
         almacenes = Almacenes.objects.values_list('nombre_almacen', flat=True)
         colaboradores_activos =  Colaboradores.objects.values_list('nombre_colaborador',flat=True).filter(estado_colaboradores=colaboradores_activos)
         origenes = almacenes
-        destinos = list(almacenes) + list(colaboradores_activos)
-        mov_refs = ItemsMovimientos.objects.all()
+        destinos = list(colaboradores_activos)
+        mov_refs = ItemsMovimientos.objects.filter(tipo_movimiento=3)
         context={
             'articulos':articulos,
             'origenes':origenes,
@@ -794,10 +811,10 @@ def filtrar_campos_movimientos(request):
             'mov_refs':mov_refs,
         }
     elif movimientos == "3":
-        articulos = Items.objects.filter(tipo_item=tipo_articulo_serial,id_estado__in=articulo_tipo_no_baja,id_almacen__isnull=True)
+        articulos = Items.objects.filter(tipo_item=tipo_articulo_serial,id_estado__in=articulo_tipo_no_baja,id_usuario__isnull=False,id_almacen__isnull=True)
         almacenes = Almacenes.objects.values_list('nombre_almacen', flat=True)
         colaboradores_activos =  Colaboradores.objects.values_list('nombre_colaborador',flat=True).filter(estado_colaboradores=colaboradores_activos)
-        origenes = list(almacenes) + list(colaboradores_activos)
+        origenes = list(colaboradores_activos)
         destinos = almacenes
         mov_refs = ItemsMovimientos.objects.filter(tipo_movimiento=2)
         context={
@@ -812,21 +829,21 @@ def filtrar_campos_movimientos(request):
         #colaboradores_activos =  Colaboradores.objects.values_list('nombre_colaborador',flat=True).filter(estado_colaboradores=colaboradores_activos)
         origenes = almacenes
         destinos = almacenes
-        mov_refs = ItemsMovimientos.objects.filter(tipo_movimiento=1)
+        mov_refs = ItemsMovimientos.objects.filter(tipo_movimiento__in=[1,8])
         context={
             'articulos':articulos,
             'origenes':origenes,
             'destinos':destinos,
             'mov_refs':mov_refs,
         }
-    elif movimientos == "5":
+    elif movimientos == "5":        
         #DEBE HACER UNA DEVOLUCION(TIPO_MOVIMIENTO=1) Y LUEGO DAR DE BAJA 
-        articulos = Items.objects.filter(tipo_item=tipo_articulo_serial,id_estado__in=articulo_tipo_no_baja,id_almacen__isnull=False)
+        articulos = Items.objects.filter(tipo_item=tipo_articulo_serial,id_estado__in=articulo_tipo_no_baja,id_almacen__isnull=False,id_usuario__isnull=True)
         almacenes = Almacenes.objects.values_list('nombre_almacen', flat=True)
         #colaboradores_activos =  Colaboradores.objects.values_list('nombre_colaborador',flat=True).filter(estado_colaboradores=colaboradores_activos)
-        origenes = almacenes
+        origenes = list(almacenes)
         destinos = ['Fin de Vida Util']
-        mov_refs = ItemsMovimientos.objects.filter(tipo_movimiento=1)
+        mov_refs = ItemsMovimientos.objects.filter(tipo_movimiento=3)        
         context={
             'articulos':articulos,
             'origenes':origenes,
@@ -852,7 +869,7 @@ def filtrar_campos_movimientos(request):
         articulos = Items.objects.filter(tipo_item=tipo_articulo_stock,id_estado__in=articulo_tipo_no_baja)
         almacenes = Almacenes.objects.values_list('nombre_almacen', flat=True)
         colaboradores_activos =  Colaboradores.objects.values_list('nombre_colaborador',flat=True).filter(estado_colaboradores=colaboradores_activos)
-        mov_refs = ItemsMovimientos.objects.filter(tipo_movimiento=2)
+        mov_refs = []
         origenes = almacenes
         destinos = colaboradores_activos
         context={
@@ -873,7 +890,7 @@ def articulos_no_inventariados(request):
     articulo_tipo_no_baja = TipoEstadoItems.objects.exclude(id_estado=2)        
     año = datetime.now().year
     inventarios_id = HistorialInventarios.objects.filter(fecha_modificacion__year=año).values_list('id_item',flat=True)    
-    articulos = Items.objects.filter(id_estado__in=articulo_tipo_no_baja).exclude(id_item__in=inventarios_id)
+    articulos = Items.objects.filter(id_estado__in=articulo_tipo_no_baja,tipo_item=2).exclude(id_item__in=inventarios_id)
     return render(request,'logistica/no_inventariados.html',{'articulos':articulos,'año':año})
 
 
@@ -904,20 +921,24 @@ def filtrar_colaboradores(request):
 
 @login_required(login_url="login_logistica")
 def resultados_movimientos(request):
-    return render(request,'logistica/resultados_movimientos.html')
+    tipo_insumos = TiposInsumo.objects.all()
+    return render(request,'logistica/resultados_movimientos.html',{'tipo_insumos':tipo_insumos})
 
 
 @login_required(login_url="login_logistica")
 def resultados_filtrados_fecha(request):
     f_inicio = request.GET.get('fecha_inicio')
     f_final = request.GET.get('fecha_final')
+    tipo_insumo = request.GET.get('tipo_insumo')    
+    insumo = TiposInsumo.objects.get(id_tipo_insumo=int(tipo_insumo))    
     tipo_entraga_insumos = TiposMovimiento.objects.get(pk=8)
     fecha_inicio = datetime.strptime(f_inicio, '%Y-%m-%d').date()
     fecha_fin = datetime.strptime(f_final, '%Y-%m-%d').date()
     try:
         resumen_movimientos = ItemsMovimientos.objects.filter(
             fecha_modificacion__date__range=[fecha_inicio,fecha_fin],
-            tipo_movimiento=tipo_entraga_insumos
+            tipo_movimiento=tipo_entraga_insumos,
+            id_item__tipo_insumo=insumo#.id_tipo_insumo                
         ).values(
             'id_item',
             'id_item__nombre_item',        

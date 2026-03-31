@@ -24,7 +24,8 @@ class Colaboradores(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'colaboradores'            
+        db_table = 'colaboradores'
+        ordering = ['nombre_colaborador']
         
     def __str__(self):
         return self.nombre_colaborador
@@ -149,7 +150,7 @@ class Items(models.Model):
     serie_item = models.CharField(max_length=20, blank=True,null=True)
     imagen_qr = models.ImageField(upload_to='imagenes_qr/',blank=True,null=True)    
     cantidad_items = models.IntegerField(default=0)
-    tipo_moneda = models.ForeignKey(TipoMoneda,on_delete=models.CASCADE,default=1)    
+    tipo_moneda = models.ForeignKey(TipoMoneda,on_delete=models.CASCADE,blank=True,null=True)    
     precio_unitario = models.DecimalField(max_digits=10,decimal_places=2,default=Decimal('0.00'),validators=[MinValueValidator(Decimal('0.00'))],blank=True)
     proveedor = models.ForeignKey(Proveedores,on_delete=models.CASCADE,null=True,blank=True)
     #id_area = models.ForeignKey(AreasEmpresa,on_delete=models.CASCADE,null=True,blank=True)
@@ -161,6 +162,7 @@ class Items(models.Model):
     
     class Meta:
         db_table = 'items'
+        ordering = ['id_item']
     
     def __str__(self):
         return self.nombre_item
@@ -189,6 +191,7 @@ class TiposMovimiento(models.Model):
     
     class Meta:
         db_table = 'tipos_movimiento'
+        ordering = ['nombre_movimiento']
         
     def __str__(self):
         return self.nombre_movimiento
