@@ -69,7 +69,7 @@ class Almacenes(models.Model):
     fecha_modificacion = models.DateTimeField(auto_now=True)
     
     class Meta:
-        db_table = 'almacences'
+        db_table = 'almacenes'
     
     def __str__(self):
         return self.nombre_almacen
