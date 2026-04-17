@@ -193,7 +193,7 @@ class TiposMovimiento(models.Model):
         ordering = ['nombre_movimiento']
         
     def __str__(self):
-        return self.nombre_movimiento
+        return f"{self.nombre_movimiento}-{self.decripcion_tipo}"
     
         
 class ItemMovimientosCabecera(models.Model):
