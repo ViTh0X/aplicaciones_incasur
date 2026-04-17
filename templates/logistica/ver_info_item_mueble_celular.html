@@ -7,7 +7,7 @@
         <h1 class="no-margin">Informacion de Articulo ID: #{{ item.id_item }}</h1>             
         <div>
             <div class="campos_textosimple">
-                <label for="">Nombre: <span class="texto_normal">{{ item.nombre_item }}</span></label>                              
+                <label for="">Nombre: <span class="texto_normal">{{ item.nombre_item }}</span></label>                
             </div>
             <div class="campos_textosimple">
                 <label for="">Estado: <span class="texto_normal">{{ item.id_estado }}</span></label>                
@@ -23,13 +23,7 @@
             </div>
             <div class="campos_textosimple">
                 <label for="">Marca: <span class="texto_normal">{{ item.marca_item }}</span></label>                
-            </div>
-            <div class="campos_textosimple">
-                <label for="">Modelo: <span class="texto_normal">{{ item.modelo_item }}</span></label>                
-            </div>
-            <div class="campos_textosimple">
-                <label for="">N° Serie: <span class="texto_normal">{{ item.serie_item }}</span></label>                
-            </div>                                           
+            </div>            
             <div class="campos_textosimple">
                 <label for="">Moneda: <span class="texto_normal">{{ item.tipo_moneda }}</span></label>                
             </div>
@@ -44,6 +38,9 @@
             </div>
             <div class="campos_textosimple">
                 <label for="">Colaborador: <span class="texto_normal">{{ item.id_usuario|default:"No asignado" }}</span></label>                
+            </div>
+            <div class="campos_textosimple">
+                <label for="">Ubicacion: <span class="texto_normal">{{ item.id_ubicacion|default:"No asignado" }}</span></label>                
             </div>            
             <div class="campos_textoopciones">
                 <label for="">Historial de Inventarios:</label>
@@ -61,7 +58,8 @@
                     </table>                
                 </div>                
             </div>                                                                        
-            <div class="botones_formularios">                                
+            <div class="botones_formularios">                
+                <a class="boton_enlace a1" href="{% url 'inventariar_articulo' pk=item.id_item %}">Inventariar Articulo</a>                
                 <a class="boton_enlace a1" href="{% url 'logistica_items' %}">← Ir a Articulos</a>
                 <a class="boton_enlace a1" href="{% url 'editar_item_serializable' pk=item.id_item %}" >Editar Articulo</a>                
             </div>        

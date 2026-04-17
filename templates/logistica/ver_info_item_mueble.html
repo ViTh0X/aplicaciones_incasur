@@ -23,13 +23,7 @@
             </div>
             <div class="campos_textosimple">
                 <label for="">Marca: <span class="texto_normal">{{ item.marca_item }}</span></label>                
-            </div>
-            <div class="campos_textosimple">
-                <label for="">Modelo: <span class="texto_normal">{{ item.modelo_item }}</span></label>                
-            </div>
-            <div class="campos_textosimple">
-                <label for="">N° Serie: <span class="texto_normal">{{ item.serie_item }}</span></label>                
-            </div>                                           
+            </div>                                               
             <div class="campos_textosimple">
                 <label for="">Moneda: <span class="texto_normal">{{ item.tipo_moneda }}</span></label>                
             </div>
@@ -44,6 +38,9 @@
             </div>
             <div class="campos_textosimple">
                 <label for="">Colaborador: <span class="texto_normal">{{ item.id_usuario|default:"No asignado" }}</span></label>                
+            </div>
+            <div class="campos_textosimple">
+                <label for="">Ubicacion: <span class="texto_normal">{{ item.id_ubicacion|default:"No asignado" }}</span></label>                
             </div>            
             <div class="campos_textoopciones">
                 <label for="">Historial de Inventarios:</label>

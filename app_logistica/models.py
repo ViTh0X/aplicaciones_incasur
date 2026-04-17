@@ -47,18 +47,17 @@ class EstadoColaboradores(models.Model):
         managed = False
         db_table = 'estado_colaboradores'      
         
-'''        
-class AreasEmpresa(models.Model):
-    id_area = models.AutoField(primary_key=True)
-    nombre_area = models.CharField(max_length=40)
-    descripcion_area = models.CharField(max_length=150)
+
+class UbicacionesEmpresa(models.Model):
+    id_ubicacion = models.AutoField(primary_key=True)
+    nombre_ubicacion = models.CharField(max_length=40)    
     fecha_modificacion = models.DateTimeField(auto_now=True)
         
     class Meta:
-        db_table = 'areas_empresa'
+        db_table = 'ubicaciones_empresa'
         
     def __str__(self):
-        return self.nombre_area'''
+        return self.nombre_area
     
     
 class Almacenes(models.Model):
@@ -153,7 +152,7 @@ class Items(models.Model):
     tipo_moneda = models.ForeignKey(TipoMoneda,on_delete=models.CASCADE,blank=True,null=True)    
     precio_unitario = models.DecimalField(max_digits=10,decimal_places=2,default=Decimal('0.00'),validators=[MinValueValidator(Decimal('0.00'))],blank=True)
     proveedor = models.ForeignKey(Proveedores,on_delete=models.CASCADE,null=True,blank=True)
-    #id_area = models.ForeignKey(AreasEmpresa,on_delete=models.CASCADE,null=True,blank=True)
+    id_ubicacion = models.ForeignKey(UbicacionesEmpresa,on_delete=models.CASCADE,null=True,blank=True)
     id_estado = models.ForeignKey(TipoEstadoItems,on_delete=models.CASCADE,default=1)
     id_almacen = models.ForeignKey(Almacenes,on_delete=models.CASCADE,null=True,blank=True)
     id_usuario = models.ForeignKey(Colaboradores,on_delete=models.CASCADE,null=True,blank=True)

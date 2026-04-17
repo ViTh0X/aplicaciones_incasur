@@ -69,6 +69,8 @@ def agregar_item_tipo_item(request):
         print("Hasta aqui esta bien")
         if tipo_item.id_tipo == 1:                
             return redirect('agregar_item_stock',pk=tipo_item.id_tipo)
+        elif tipo_item.id_tipo == 3:
+            return redirect('seleccionar_proveedor_muebles')
         else:
             return redirect('seleccionar_proveedor')    
     return render(request,'logistica/seleccionar_tipo_item.html',{'tipos_item':tipos_item})
@@ -85,7 +87,7 @@ def agregar_item_stock(request,pk):
             form_item_stock.tipo_item = tipo_item                                  
             form_item_stock.save()                        
             #qr_link = f"http://192.168.1.31:8000/logistica/informacion-articulo-stock/{form_item_stock.pk}"
-            qr_link = f"http://192.168.1.8/aplicaciones-incasur/logistica/editar-item-celular/{form_item_stock.pk}"
+            qr_link = f"http://192.168.1.8/aplicaciones-incasur/logistica/informacion-articulo-stock/{form_item_stock.pk}"
             nombre_archivo_qr = generar_qr(form_item_stock.pk,qr_link)
             form_item_stock.imagen_qr.name = f"imagenes_qr/{nombre_archivo_qr}"
             form_item_stock.save()            
@@ -109,7 +111,7 @@ def agregar_item_serializable(request,pk):
             form_item_serializable.proveedor = proveedor_seleccionado
             form_item_serializable.save()
             #qr_link = f"http://192.168.1.31:8000/logistica/informacion-articulo-serializable-celular/{form_item_serializable.pk}"
-            qr_link = f"http://192.168.1.8/aplicaciones-incasur/logistica/editar-item-celular/{form_item_serializable.pk}"
+            qr_link = f"http://192.168.1.8/aplicaciones-incasur/logistica/informacion-articulo-serializable-celular/{form_item_serializable.pk}"
             nombre_archivo_qr = generar_qr(form_item_serializable.pk,qr_link)
             form_item_serializable.imagen_qr.name = f"imagenes_qr/{nombre_archivo_qr}"
             form_item_serializable.save()   
@@ -120,8 +122,36 @@ def agregar_item_serializable(request,pk):
 
 
 @login_required(login_url="login_logistica")
+def agregar_item_mueble(request,pk):
+    proveedor_seleccionado = Proveedores.objects.get(pk=pk)
+    item_mueble = TipoItems.objects.get(pk=3)        
+    if request.method == 'POST':
+        form = ItemsFormMueble(request.POST)
+        if form.is_valid():
+            form_item_mueble = form.save(commit=False)
+            form_item_mueble.cantidad_items = 1
+            form_item_mueble.tipo_item = item_mueble
+            form_item_mueble.proveedor = proveedor_seleccionado                                  
+            form_item_mueble.save()                        
+            #qr_link = f"http://192.168.1.31:8000/logistica/informacion-articulo-stock/{form_item_stock.pk}"
+            qr_link = f"http://192.168.1.8/aplicaciones-incasur/logistica/informacion-articulo-mueble-celular/{form_item_mueble.pk}"
+            nombre_archivo_qr = generar_qr(form_item_mueble.pk,qr_link)
+            form_item_mueble.imagen_qr.name = f"imagenes_qr/{nombre_archivo_qr}"
+            form_item_mueble.save()            
+            return redirect ('logistica_items')
+    else:
+        form = ItemsFormMueble()
+        #form = ItemsFormStock(initial={'tipo_item':tipo_item})
+    return render(request,'logistica/formulario_agregar_item_mueble.html',{'form':form})
+
+
+@login_required(login_url="login_logistica")
 def seleccionar_proveedor(request):
-    return render(request,'logistica/seleccionar_proveedor.html')            
+    return render(request,'logistica/seleccionar_proveedor.html')
+
+@login_required(login_url="login_logistica")
+def seleccionar_proveedor_muebles(request):
+    return render(request,'logistica/seleccionar_proveedor_muebles.html')            
 
 
 @login_required(login_url="login_logistica")
@@ -151,6 +181,12 @@ def buscar_proveedor(request):
     data_input = request.GET.get('ruc','').strip()
     proveedores_encontrados = Proveedores.objects.filter(documento__icontains=data_input)    
     return render(request,'logistica/resultado_busqueda_proveedor.html',{'proveedores_encontrados':proveedores_encontrados})
+
+@login_required(login_url="login_logistica")
+def buscar_proveedor_mueble(request):
+    data_input = request.GET.get('ruc','').strip()
+    proveedores_encontrados = Proveedores.objects.filter(documento__icontains=data_input)    
+    return render(request,'logistica/resultado_busqueda_proveedor_mueble.html',{'proveedores_encontrados':proveedores_encontrados})
 
 @login_required(login_url="login_logistica")
 def buscar_proveedor_movimiento(request):
@@ -190,6 +226,17 @@ def agregar_proveedor_serializable(request):
         if form.is_valid():
             proveedor_seleccionado = form.save()
             return redirect('agregar_item_serializable',pk=proveedor_seleccionado.id_proveedor)
+    else:
+        form = ProveedoresForm()
+    return render(request,'logistica/formulario_agregar_proveedor.html',{'form':form})
+
+@login_required(login_url="login_logistica")
+def agregar_proveedor_muebles(request):    
+    if request.method == 'POST':
+        form = ProveedoresForm(request.POST)
+        if form.is_valid():
+            proveedor_seleccionado = form.save()
+            return redirect('agregar_item_mueble',pk=proveedor_seleccionado.id_proveedor)
     else:
         form = ProveedoresForm()
     return render(request,'logistica/formulario_agregar_proveedor.html',{'form':form})        
@@ -243,6 +290,19 @@ def informacion_articulo_serializable_celular(request,pk):
     item = get_object_or_404(Items,pk=pk)    
     inventario = HistorialInventarios.objects.filter(id_item=pk)        
     return render(request,'logistica/ver_info_item_serializable_celular.html',{'item':item,'inventario':inventario})
+
+@login_required(login_url="login_logistica")
+def informacion_articulo_mueble(request,pk):            
+    item = get_object_or_404(Items,pk=pk)    
+    inventario = HistorialInventarios.objects.filter(id_item=pk)        
+    return render(request,'logistica/ver_info_item_mueble.html',{'item':item,'inventario':inventario})
+
+
+@login_required(login_url="login_logistica")
+def informacion_articulo_mueble_celular(request,pk):            
+    item = get_object_or_404(Items,pk=pk)    
+    inventario = HistorialInventarios.objects.filter(id_item=pk)        
+    return render(request,'logistica/ver_info_item_mueble_celular.html',{'item':item,'inventario':inventario})
 
     
 @login_required(login_url='login_logistica')    
