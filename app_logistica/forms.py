@@ -50,6 +50,32 @@ class ItemsFormSerializable(forms.ModelForm):
         if 'id_estado' in self.fields:
             # Opción A: Si conoces el nombre exacto
             self.fields['id_estado'].queryset = self.fields['id_estado'].queryset.exclude(pk=2)
+            
+class ItemsFormMueble(forms.ModelForm):
+    
+    class Meta:
+        model = Items
+        fields = ['comprobante_contable','factura_boleta','fecha_contable','nombre_item','marca_item','tipo_moneda','precio_unitario','id_ubicacion','id_estado']
+        widgets = {
+            'precio_unitario': forms.NumberInput(attrs={
+                'step':'0.01',
+                'min':'0.00'}
+            ),
+            'fecha_contable': forms.DateInput(
+                format='%d-%m-%Y',
+                attrs={
+                    'type':'date'
+                }
+            )
+        }
+    
+    def __init__(self, *args, **kwargs):
+        super(ItemsFormSerializable, self).__init__(*args, **kwargs)
+        
+        # Accedemos al campo id_estado y filtramos sus opciones
+        if 'id_estado' in self.fields:
+            # Opción A: Si conoces el nombre exacto
+            self.fields['id_estado'].queryset = self.fields['id_estado'].queryset.exclude(pk=2)
         
 class ProveedoresForm(forms.ModelForm)            :
     
