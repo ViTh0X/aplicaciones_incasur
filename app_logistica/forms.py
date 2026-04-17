@@ -70,7 +70,7 @@ class ItemsFormMueble(forms.ModelForm):
         }
     
     def __init__(self, *args, **kwargs):
-        super(ItemsFormSerializable, self).__init__(*args, **kwargs)
+        super(ItemsFormMueble, self).__init__(*args, **kwargs)
         
         # Accedemos al campo id_estado y filtramos sus opciones
         if 'id_estado' in self.fields:
