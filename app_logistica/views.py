@@ -308,8 +308,7 @@ def informacion_articulo_mueble_celular(request,pk):
 @login_required(login_url='login_logistica')    
 def inventariar_articulo(request,pk):
     articulo = get_object_or_404(Items,pk=pk)
-    hoy = date.today()
-    #area_nombre = (lambda valor: valor.nombre_area if valor is not None else "No Asignado")(articulo.id_area)
+    hoy = date.today()    
     almacen_nombre = (lambda valor: valor.nombre_almacen if valor is not None else "No Asignado")(articulo.id_almacen)
     usuario_nombre = (lambda valor: valor.nombre_colaborador if valor is not None else "No Asignado")(articulo.id_usuario)        
     if request.method == 'POST':        

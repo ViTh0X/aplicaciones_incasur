@@ -57,7 +57,7 @@ class UbicacionesEmpresa(models.Model):
         db_table = 'ubicaciones_empresa'
         
     def __str__(self):
-        return self.nombre_area
+        return self.nombre_ubicacion
     
     
 class Almacenes(models.Model):
