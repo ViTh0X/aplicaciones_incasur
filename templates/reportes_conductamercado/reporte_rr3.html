@@ -1,0 +1,30 @@
+{% extends "../layout.html" %}
+{% block titulo %}Secreto Bancario Ahorros{% endblock  %}
+{% block contenido %}
+<body>
+    <header class="header">
+        <div class="contenedor">
+            <h1 class="no-margin">Reporte Comisiones Gastos:</h1>
+        </div>        
+    </header>
+    <main class="contenedor formulario">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div>
+                <label>Fecha Inicio:</label>
+                {{ form.fecha_inicio }}
+                {{ form.fecha_inicio.errors }}
+            </div>
+            <div>
+                <label>Fecha Fin:</label>
+                {{ form.fecha_fin }}
+                {{ form.fecha_fin.errors }}
+            </div>
+            <button class="boton" type="submit">Generar Excel</button>
+        </form>
+    </main>      
+    <footer class="footer">
+        <p>Creado por Leonard Samir Quispe Cardenas &copy;</p>
+    </footer>    
+</body>
+{% endblock  %}
