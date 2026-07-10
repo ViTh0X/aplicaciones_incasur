@@ -34,4 +34,4 @@ def comisiones_gastos(request):
             return response 
     else:
         form = FechasComisionesGastosForm()
-    return render(request, 'app_reportes_conductamercado/comisiones_gastos.html', {'form': form})
+    return render(request, 'reportes_conductamercado/comisiones_gastos.html', {'form': form})
