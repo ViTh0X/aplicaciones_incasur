@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'app_logistica',
     'app_seguimiento_actividades',
+    'app_reportes_conductamercado',
 ]
 
 MIDDLEWARE = [
@@ -84,6 +85,14 @@ DATABASES = {
         'USER': os.getenv('DATABASE_USER'),
         'PASSWORD': os.getenv('DATABASE_PASSWORD'),
         'PORT': os.getenv('DATABASE_PORT'),
+    },
+    'dat-cierre': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'HOST': os.getenv('CIERRE_SERVER'),                                
+        'NAME': os.getenv('CIERRE_DB'),
+        'USER': os.getenv('CIERRE_USER'),
+        'PASSWORD': os.getenv('CIERRE_PASSWORD'),
+        'PORT': os.getenv('CIERRE_PORT'),
     }
 }
 

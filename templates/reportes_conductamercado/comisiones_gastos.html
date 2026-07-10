@@ -4,23 +4,14 @@
 <body>
     <header class="header">
         <div class="contenedor">
-            <h1 class="no-margin">Secreto Bancario Ahorros:</h1>
+            <h1 class="no-margin">Reporte Comisiones Gastos:</h1>
         </div>        
     </header>
     <main class="contenedor formulario">
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            <div>
-                <label>Fecha Inicio:</label>
-                {{ formulario.fecha_inicio }}
-                {{ formulario.fecha_inicio.errors }}
-            </div>
-            <div>
-                <label>Fecha Fin:</label>
-                {{ formulario.fecha_fin }}
-                {{ formulario.fecha_fin.errors }}
-            </div>
-            <button class="boton" type="submit">Generar Word</button>
+            {{ formulario.as_p }}
+            <button class="boton" type="submit">Generar Excel</button>
         </form>
     </main>      
     <footer class="footer">
