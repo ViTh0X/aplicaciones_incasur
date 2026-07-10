@@ -10,7 +10,16 @@
     <main class="contenedor formulario">
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            {{ formulario.as_p }}
+            <div>
+                <label>Fecha Inicio:</label>
+                {{ formulario.fecha_inicio }}
+                {{ formulario.fecha_inicio.errors }}
+            </div>
+            <div>
+                <label>Fecha Fin:</label>
+                {{ formulario.fecha_fin }}
+                {{ formulario.fecha_fin.errors }}
+            </div>
             <button class="boton" type="submit">Generar Excel</button>
         </form>
     </main>      
