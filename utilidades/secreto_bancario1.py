@@ -251,6 +251,7 @@ class Secretobancario1(CreadorWord):
                             ultimoCodigoUsado = ndocLimpio
                             self.agregar_texto_normal()
                             self.agregar_texto_derecha(dia_texto,mes_texto,año)
+                            self.agregar_firma_izquierda()
                             self.salto_pagina()
                             numero_correlativo += 1                       
                             posicion +=1
