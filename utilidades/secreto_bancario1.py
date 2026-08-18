@@ -215,6 +215,7 @@ class Secretobancario1(CreadorWord):
                                 self.dataCuadros = {}
                                 self.agregar_texto_normal()
                                 self.agregar_texto_derecha(dia_texto,mes_texto,año)
+                                self.agregar_firma_izquierda()
                                 self.salto_pagina()
                                 numero_correlativo += 1
                                 # aqui debe colocar sin otro en particular y la fecha y luego
@@ -225,7 +226,8 @@ class Secretobancario1(CreadorWord):
                             self.dataCuadros = {}                        
                             #self.guardarDocumento(nombreDocumento)                
                             self.agregar_texto_normal()
-                            self.agregar_texto_derecha(dia_texto,mes_texto,año)        
+                            self.agregar_texto_derecha(dia_texto,mes_texto,año)
+                            self.agregar_firma_izquierda()        
                             self.documento.save(self.buffer)
                             self.buffer.seek(0)
                     except Exception as e:
@@ -257,7 +259,8 @@ class Secretobancario1(CreadorWord):
                         self.dataCuadros = {}                        
                         #self.guardarDocumento(nombreDocumento)
                         self.agregar_texto_normal()
-                        self.agregar_texto_derecha(dia_texto,mes_texto,año)                                                       
+                        self.agregar_texto_derecha(dia_texto,mes_texto,año)
+                        self.agregar_firma_izquierda()                                                       
                         self.documento.save(self.buffer)
                         self.buffer.seek(0)                                            
                     

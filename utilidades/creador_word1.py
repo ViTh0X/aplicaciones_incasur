@@ -331,6 +331,17 @@ class CreadorWord():
         run.font.size = Pt(11)  
         texto.alignment = WD_ALIGN_PARAGRAPH.RIGHT
         
+    def agregar_firma_izquierda(self):
+        parrafo_firma =  self.documento.add_paragraph()
+        imagen_ruta = os.path.join(settings.MEDIA_ROOT,'firma_paulo_paredes.png')
+        if os.path.exists(imagen_ruta):
+            run = parrafo_firma.add_run()
+            # 2. Insertar la imagen (puedes ajustar el ancho según tus necesidades)
+            run.add_picture(imagen_ruta)
+        else:
+            # Opcional: manejar el caso si el archivo no existe
+            parrafo_firma.add_run('[Firma no disponible]')
+        
         
     def salto_pagina(self):
         paragraph = self.documento.add_paragraph() # Crea un nuevo párrafo
